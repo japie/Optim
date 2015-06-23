@@ -1,0 +1,149 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package org.ftafrica.co.optime.model;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author Training 8
+ */
+@Entity
+@Table(name = "training_plan")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "TrainingPlan.findAll", query = "SELECT t FROM TrainingPlan t"),
+    @NamedQuery(name = "TrainingPlan.findByTrainingId", query = "SELECT t FROM TrainingPlan t WHERE t.trainingId = :trainingId"),
+    @NamedQuery(name = "TrainingPlan.findByCourseName", query = "SELECT t FROM TrainingPlan t WHERE t.courseName = :courseName"),
+    @NamedQuery(name = "TrainingPlan.findByTrainingType", query = "SELECT t FROM TrainingPlan t WHERE t.trainingType = :trainingType")})
+public class TrainingPlan implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "training_id")
+    private String trainingId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "course_name")
+    private String courseName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "training_type")
+    private String trainingType;
+    @JoinColumn(name = "course_id", referencedColumnName = "courses_id")
+    @OneToOne(optional = false)
+    private Course courseId;
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
+    @OneToOne(optional = false)
+    private Employees employeeId;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "trainingId")
+    private TrainingComments trainingComments;
+
+    public TrainingPlan() {
+    }
+
+    public TrainingPlan(String trainingId) {
+        this.trainingId = trainingId;
+    }
+
+    public TrainingPlan(String trainingId, String courseName, String trainingType) {
+        this.trainingId = trainingId;
+        this.courseName = courseName;
+        this.trainingType = trainingType;
+    }
+
+    public String getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(String trainingId) {
+        this.trainingId = trainingId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getTrainingType() {
+        return trainingType;
+    }
+
+    public void setTrainingType(String trainingType) {
+        this.trainingType = trainingType;
+    }
+
+    public Course getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Course courseId) {
+        this.courseId = courseId;
+    }
+
+    public Employees getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Employees employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public TrainingComments getTrainingComments() {
+        return trainingComments;
+    }
+
+    public void setTrainingComments(TrainingComments trainingComments) {
+        this.trainingComments = trainingComments;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (trainingId != null ? trainingId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TrainingPlan)) {
+            return false;
+        }
+        TrainingPlan other = (TrainingPlan) object;
+        if ((this.trainingId == null && other.trainingId != null) || (this.trainingId != null && !this.trainingId.equals(other.trainingId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "org.ftafrica.co.optime.model.TrainingPlan[ trainingId=" + trainingId + " ]";
+    }
+    
+}
