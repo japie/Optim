@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.ftafrica.co.optime.model.Course;
+import org.ftafrica.co.optime.model.Employees;
 
 /**
  *
@@ -28,5 +29,7 @@ public class CourseFacade extends AbstractFacade<Course> implements CourseFacade
     public CourseFacade() {
         super(Course.class);
     }
+    
+    
     
 }
