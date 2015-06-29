@@ -40,6 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employees.findByPhysicalAddress", query = "SELECT e FROM Employees e WHERE e.physicalAddress = :physicalAddress"),
     @NamedQuery(name = "Employees.findByPostalAddress", query = "SELECT e FROM Employees e WHERE e.postalAddress = :postalAddress")})
 public class Employees implements Serializable {
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    private LoginDetails loginDetails;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -238,6 +240,14 @@ public class Employees implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Employees[ employeeId=" + employeeId + " ]";
+    }
+
+    public LoginDetails getLoginDetails() {
+        return loginDetails;
+    }
+
+    public void setLoginDetails(LoginDetails loginDetails) {
+        this.loginDetails = loginDetails;
     }
     
 }

@@ -1,16 +1,92 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<!DOCTYPE HTML>
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>wwww</title>
+<link href="css/login.css" rel='stylesheet' type='text/css' />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="js/login.js">
+
+</script>
+<link rel="canonical" href="http://www.alessioatzeni.com/wp-content/tutorials/jquery/login-box-modal-dialog-window/index.html" />
+</head>
+<body>
+<h1>Login Modal<a href="http://www.alessioatzeni.com/blog/login-box-modal-dialog-window-with-css-and-jquery/"> optime</a></small></h1>
+<div class="container">
+	<div id="content">
+    
+		<div class="post">
+    	<h2> Login </h2>
+        	<div class="btn-sign">
+				<a href="#login-box" class="login-window">Login </a>
+        	</div>
+		</div>
+        
+        <div id="login-box" class="login-popup">
+        <a href="#" class="close"><img src="images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>
+          <form  class="signin" >
+                <fieldset class="textbox">
+            	<label class="username">
+                <span>Username or email</span>
+                <input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">
+                </label>
+                
+                <label class="password">
+                <span>Password</span>
+                <input id="password" name="password" value="" type="password" placeholder="Password">
+                </label>
+                
+                <button class="submit button" type="button" id="submit" >Sign in</button>
+                 <div id="welcometext"> 
+</div>
+                <p>
+                <a class="forgot" href="#">Forgot your password?</a>
+                </p>
+               
+                </fieldset>
+          </form>
+		</div>
+    
+    </div>
+</div>
+<div class="container">
+	<div id="content">
+    
+		<div class="post">
+    	<h2> Sign Up </h2>
+        	<div class="btn-sign">
+				<a href="#login-box2" class="login-window">SignUp </a>
+        	</div>
+		</div>
+        
+        <div id="login-box2" class="login-popup">
+        <a href="#" class="close"><img src="images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>
+          <form method="post" class="signin" action="#">
+                <fieldset class="textbox">
+            	<label class="username">
+                <span>Username </span>
+              <input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">
+                </label>
+                    <label class="username">
+                <span>Username or email</span>
+                <input id="username" name="email" value="" type="email" autocomplete="on" placeholder="email">
+                </label>
+                   
+                
+                <label class="password">
+                <span>Password</span>
+                <input id="password" name="password" value="" type="password" placeholder="Password">
+                </label>
+                
+                <button class="submit button" type="button">Sign up</button>
+                
+                
+                
+                </fieldset>
+          </form>
+		</div>
+    
+    </div>
+</div>
+</body>
 </html>
