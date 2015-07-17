@@ -1,92 +1,160 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>wwww</title>
-<link href="css/login.css" rel='stylesheet' type='text/css' />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script src="js/login.js">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/homestyle.css">
 
-</script>
-<link rel="canonical" href="http://www.alessioatzeni.com/wp-content/tutorials/jquery/login-box-modal-dialog-window/index.html" />
 </head>
-<body>
-<h1>Login Modal<a href="http://www.alessioatzeni.com/blog/login-box-modal-dialog-window-with-css-and-jquery/"> optime</a></small></h1>
-<div class="container">
-	<div id="content">
-    
-		<div class="post">
-    	<h2> Login </h2>
-        	<div class="btn-sign">
-				<a href="#login-box" class="login-window">Login </a>
-        	</div>
-		</div>
-        
-        <div id="login-box" class="login-popup">
-        <a href="#" class="close"><img src="images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>
-          <form  class="signin" >
-                <fieldset class="textbox">
-            	<label class="username">
-                <span>Username or email</span>
-                <input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">
-                </label>
-                
-                <label class="password">
-                <span>Password</span>
-                <input id="password" name="password" value="" type="password" placeholder="Password">
-                </label>
-                
-                <button class="submit button" type="button" id="submit" >Sign in</button>
-                 <div id="welcometext"> 
+
+<body style="background-color:white";>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+
+function cancel(){
+
+document.getElementById('loginform').style.visibility = 'hidden';
+document.getElementById('signup').style.visibility = 'hidden';
+}
+
+function showlogdiv(){
+
+document.getElementById('loginform').style.visibility = 'visible';
+document.getElementById('signup').style.visibility = 'hidden';
+}
+
+function showsigndiv(){
+
+document.getElementById('signup').style.visibility = 'visible';
+document.getElementById('loginform').style.visibility = 'hidden';
+}
+
+			            function checksignup()
+						
+            {
+			  if ((!formlsignupdetails.surname.value)||(!formlsignupdetails.fullnames.value)||(!formlsignupdetails.employeeid.value))
+                {
+                    alert ("No blanks,please fill in all infrmation !");
+					return false;
+                }
+	else if((!formlsignupdetails.password.value)||(!formlsignupdetails.cpassword.value)||(!formlsignupdetails.email.value))
+	      {
+                    alert ("No blanks,please fill in all infrmation !");
+					return false;
+                }
+				else if(!formlsignupdetails.notarobot.value)
+					      {
+                    alert ("No blanks,please fill in all infrmation !");
+					return false;
+                }
+				else
+				{
+                return (true);
+				}
+            }
+
+			// validate login textbox for empty spaces
+			            function checklogin()
+						
+            {
+			  if ((!formlogdetails.username.value)||(!formlogdetails.password.value))
+                {
+                    alert ("No blanks,please fill in all infrmation !");
+					return false;
+                }
+	
+				else
+				{
+                return (true);
+				}
+            }
+</script>
+<title>Optim </title>
+
+<div id="container">
+<img src="img\optime2.png" alt="Smiley face" style="width:100%;
+height:100%;"><br><br><br><br>
+<button type="submit" id="submit" onclick="showlogdiv()">Login<button type="submit" id="submit" onclick="showsigndiv()">Register</button>
+
+<br><br><br><br><br>
+<div id="plandiv">
+	<img id="pic" src="img\succession.jpg" alt="Succession plan">
+	<p class="headings">Succession Plan</p>
+	<p class="plandescription">
+	Succession planning is a process for identifying and developing
+	 internal people with the potential to fill key business leadership positions in the company.
+	 Succession planning increases the availability of experienced and capable employees that
+	are prepared to assume these roles as they become available.</p>
 </div>
-                <p>
-                <a class="forgot" href="#">Forgot your password?</a>
-                </p>
-               
-                </fieldset>
-          </form>
-		</div>
-    
-    </div>
+
+<div id="plandiv">
+	<img id="pic" src="img\capacity.jpg" alt="Capacity plan">
+	<p class="headings">Capacity Planning</p>
+	<p class="plandescription">Capacity planning is the process of determining the production capacity needed by an organization
+	 to meet changing demands for its products. In the context of capacity planning, design
+	 capacity is the maximum amount of work that an organization is capable of completing in a given period.</p>
 </div>
-<div class="container">
-	<div id="content">
-    
-		<div class="post">
-    	<h2> Sign Up </h2>
-        	<div class="btn-sign">
-				<a href="#login-box2" class="login-window">SignUp </a>
-        	</div>
-		</div>
-        
-        <div id="login-box2" class="login-popup">
-        <a href="#" class="close"><img src="images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>
-          <form method="post" class="signin" action="#">
-                <fieldset class="textbox">
-            	<label class="username">
-                <span>Username </span>
-              <input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">
-                </label>
-                    <label class="username">
-                <span>Username or email</span>
-                <input id="username" name="email" value="" type="email" autocomplete="on" placeholder="email">
-                </label>
-                   
-                
-                <label class="password">
-                <span>Password</span>
-                <input id="password" name="password" value="" type="password" placeholder="Password">
-                </label>
-                
-                <button class="submit button" type="button">Sign up</button>
-                
-                
-                
-                </fieldset>
-          </form>
-		</div>
-    
-    </div>
+
+<div id="plandiv">
+	<img id="pic" src="img\training.jpg" alt="Training Plan">
+	<p class="headings">Training Plan</p>
+	<p class="plandescription">The training plan will outline who will deliver the training, and when and where your apprentice or 
+	trainee needs to go to receive the structured component of the training.
+	Trainer outline of the training process he or she will use in a training program.
+	Treat the training plan as a working document. It should be flexible to meet all your needs.</p>
 </div>
+
+<div id="plandiv">
+	<img id="pic" src="img\hiring.jpg" alt="Hiring Plan">
+	<p class="headings">Hiring Plan</p>
+	<p class="plandescription">The single most important thing you can do to ensure the success of your organization is to hire
+	 the best people you can find to do its work.
+	 The best people don't always have the most impressive credentials or education.
+	 They're not necessarily the ones you like the most, or have the most in common.</p>
+</div>
+<br><br><h1 class="header">Partners</h1>
+	<img id="pic1" src="img\standardbank.png" alt="Smiley face"> 
+	<img id="pic1" src="img\futuretalent.jpg" alt="Smiley face">
+	<img id="pic1" src="img\absa.jpg" alt="Smiley face">
+	<img id="pic1" src="img\rmb.jpg" alt="Smiley face">
+	
+<div id="loginform"
+     <form action="LoginServlet" method="POST">
+         Username <br>
+<input style="height:25px;width:200px;border-radius:6px;" type="text" name="username"   ><br><br>
+Password<br>
+<input style="height:25px;width:200px;border-radius:6px;" type="password" name="password"  ><br>
+Forgot password?<br><br>
+        <input type="submit" value="login" name="sub" />
+<button type="button" onclick="cancel()" style="height:30px;margin-left:75px;width:60px;border-radius:6px";>Cancel</button>
+
+         
+         
+    </form>
+</div>
+
+<div id="signup"
+<form name="formlsignupdetails" onsubmit="return checksignup()">
+Surname <input align="right" style="height:25px;width:200px;border-radius:6px;margin-left:57px"; type="text" name="surname"><br><br>
+Full Names <input style="height:25px;width:200px;border-radius:6px;margin-left:40px"; type="text" name="fullnames"><br><br>
+Email address <input style="height:25px;width:200px;border-radius:6px;margin-left:25px"; type="text" name="email" ><br><br>
+Employee id<input style="height:25px;width:200px;border-radius:6px;margin-left:40px"; type="text" name="employeeid"><br><br>
+Position<select style="height:25px;width:200px;border-radius:6px;margin-left:65px";>
+  <option value="Mr">Executive Director</option>
+  <option value="Ms">Line Manager</option>
+  <option value="Dr">Regional Manager</option>
+  <option value="Mrs">HR Manager</option>
+</select><br><br>
+Password<input style="height:25px;width:200px;border-radius:6px;margin-left:57px"; type="text" name="password"><br><br>
+Confirm <input style="height:25px;width:200px;border-radius:6px;margin-left:57px"; type="text" name="cpassword"><br><br>
+Not a robot ? <input style="height:50px;width:150px;border-radius:6px;margin-left:31px;background-color:grey"; type="text" name="password"><br><br>
+<input style="height:25px;width:100px;border-radius:6px;margin-left:118px;margin-right:5px"; type="text" name="notrobot" >generate new<br><br>
+<input type="submit" style="width:65px;height:30px;border-radius:6px;margin-left:118px" value="Register";>
+ <button type="button" onclick="cancel()" style="height:30px;margin-left:75px;width:65px;border-radius:6px";>Cancel</button>
+ </form>
+</div>
+
+</div>
+
 </body>
 </html>

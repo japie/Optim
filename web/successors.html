@@ -1,0 +1,314 @@
+<!DOCTYPE>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+
+function hide(){
+document.getElementById("content_area").style.visibility = "hidden";
+}
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+
+
+
+</head>
+
+<body >
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span>Jack Daniel</Span>		    
+			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;"  id="opt_container">
+      
+	     <div class="content_area"  >
+		       <div class="successors_head">
+			       <img src="img/settings.png" style="width:35px;height:35px; margin-left:10px;">
+			       <Span class="success_txt">Succesion Plan</span>
+				   <div class="tobe_occupied_role"><a class="current_role">Bussiness Analyst: Criteria <br/></a>
+	  <a>Experience: 3years, Qual: IT related.....required: 5</a></div>
+	  
+	  
+	  <div class="predecessor-box" >
+	      <div class="predecessor">
+					<div class="p_pic">
+					 <img src="img/red_proflie.png" style="width:40px;height:40px;">
+					</div>
+					<div class="predecessor_names">
+					   <a>Predecessor <br/></a>
+					    <a id="prede_name" href="#">Employee Name<br/></a>
+						<a id="note_placed">Notice placed: dd-mm-yyyy</a>
+					</div>
+					
+			</div>
+	   </div>
+				 </div>
+	  	      
+	
+	  
+	   	
+	
+	
+	   <div class="succesionbar"><div class="candidate_count"><span class="profile_num">Successors(3)</span> </div>
+	 <div class="manual_plan"><a href="#">Try manual search</a></div>
+	     
+	   </div>
+	<div class="wrap_succ_box">	
+	    <div class="successors-box">
+	   <div class="match_rate">
+	     
+		  
+		  <a id="match"> Match</a>
+		   <a> 100%</a>
+		 
+	</div>
+	  <div class="succesor">
+	      <img src="img/green_proflie.png" id="successor_img" class="success_pic" style="width:60px;height:60px;">
+		  <div class="succuss_def">
+		  <a id="success_description" class="suc_description"> Jupie Gate| BSc in Computer Sciences and Statistics</a>
+		   			  <a class="suc_description" > - KPI = 3.8 </a>  <br/>
+					<a class="success_status">2 years Experience as Business Analyst, currently a Developer</a>
+					
+		   </div>
+		
+	</div>
+	<div class="succesor_btns">
+	      
+		 <div class="view_profile">
+		    <a>  View Profile</a>
+		 </div>
+		 <div class="hire_train">
+		      <a>Hire</a>
+		 </div>
+		  
+	</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	 <div class="successors-box">
+	   <div class="match_rate" style="background-color:#D76B00">
+	     
+		  
+		  <a id="match"> Match</a>
+		   <a> 70%</a>
+		 
+	</div>
+	  <div class="succesor">
+	      <img src="img/ember_proflie.png" id="successor_img" class="success_pic" style="width:60px;height:60px;">
+		  <div class="succuss_def">
+		  <a id="success_description" class="suc_description"> Tony KG| BSc in Computer Sciences and Statistics</a>
+		   			  <a class="suc_description" > - KPI = 3.8 </a>  <br/>
+					<a class="success_status">2 years Experience as Business Analyst, currently a Developer</a>
+					
+		   </div>
+	</div>
+	<div class="succesor_btns">
+	      
+		 <div class="view_profile">
+		    <a>  View Profile</a>
+		 </div>
+		 <div class="hire_train">
+		      <a>Hire</a>
+		 </div>
+		  
+	</div>
+	</div>
+</div>
+	 </div>   <!--this div wraps the positions list dont touch-->
+		 
+		 
+		 
+		   
+				</div>  <!---end of content area--->
+				 
+				 
+				 
+	
+	</div>
+	<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
+		     
+
+		</li>
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap2.html">Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organo.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 			
+	  </ul>
+	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+	
+	
+
+</div>
+
+</body>
+</html>

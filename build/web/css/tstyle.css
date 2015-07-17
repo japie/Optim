@@ -1,0 +1,210 @@
+/* CSS Document */
+
+p.headings{
+ padding-top:5px;
+ padding-left:40px;
+ color:blue;
+ font-weight: bold;
+ font-size: 20px;
+}
+
+hr{
+color:#999999;
+margin-right:18px;
+float:right;
+padding-left:10px;
+margin-top:5px;
+}
+
+
+#tablecontent{
+border: 1px solid grey;
+width:950px;
+border-radius:10px;
+margin-left:20px;
+margin-top:20px;
+height:580px;
+float:left;
+visibility:visible;
+}
+.tablecontent,input{
+border-radius:5px;
+margin-top:5px;
+border: 0px solid grey;
+}
+
+#trainingtable, th, td {
+border: 1px solid grey;
+border-radius:5px;
+width:910px;
+height:30px;
+background-color:#CCCCCC;
+color:black;
+text-align:center;
+margin-left:auto;
+margin-right:auto;
+}
+#selectrole{
+width:120px;
+background-color:white;
+float:right;
+border:1px solid grey;
+border-radius:10px;
+height:560px;
+margin-top:20px;
+padding-top:20px;
+color:#0066FF;
+font-family:"Segoe UI";
+font-weight:bold;
+font-size:14px;
+}
+#tablecontentexec{
+border: 1px solid grey;
+border-radius:10px;
+width:950px;
+height:580px;
+position:absolute;
+top:73px;
+left:241px;
+visibility:hidden;
+}
+#tablecontentjun{
+border: 1px solid grey;
+border-radius:10px;
+width:950px;
+height:580px;
+position:absolute;
+top:73px;
+left:241px;
+visibility:hidden;
+}
+#tablecontentinter{
+border: 1px solid grey;
+border-radius:10px;
+width:950px;
+height:580px;
+position:absolute;
+top:73px;
+left:241px;
+visibility:hidden;
+}
+#tablecontentman{
+border: 1px solid grey;
+border-radius:10px;
+width:950px;
+height:580px;
+position:absolute;
+top:73px;
+left:241px;;
+visibility:hidden;
+}
+#tablecontentsen{
+border: 1px solid grey;
+border-radius:10px;
+width:950px;
+height:580px;
+position:absolute;
+top:73px;
+left:241px;
+visibility:hidden;
+}
+.header1{
+color:#0033FF;
+font-family:"Segoe UI";
+font-size:18px;
+font-weight:bold;
+}
+#tablecontentprofile{
+height:auto;
+background-color:red;
+border:1px solid grey;
+}
+#links{
+background-color:#00291F;
+border-radius:5px;
+margin-left:15px;
+width:90px;
+height:40px;
+color:#FFFFFF;
+font-family:"Segoe UI";
+float:right;
+margin-top:-15px;
+}
+#notes{
+font-family:"Segoe UI";
+font-style:normal;
+margin-top:20px;
+text-align:justify;
+color:grey;
+}
+#content_area{
+height:auto;
+width:1000px;
+background-color:white;
+margin-left:auto;
+margin-right:auto;
+border:1px solid grey;
+text-shadow: 0 0 1px grey;
+box-shadow: 0 0 0px 0px grey;
+visibility:hidden;
+}
+#content_areaexec{
+height:auto;
+width:1000px;
+background-color:white;
+margin-left:auto;
+margin-right:auto;
+border:1px solid grey;
+text-shadow: 0 0 1px grey;
+box-shadow: 0 0 0px 0px grey;
+margin-top:-621px;
+visibility:visible;
+}
+#content_areaman{
+height:auto;
+width:1000px;
+background-color:white;
+margin-left:auto;
+margin-right:auto;
+border:1px solid grey;
+text-shadow: 0 0 1px grey;
+box-shadow: 0 0 0px 0px grey;
+margin-top:-655px;
+visibility:hidden;
+}
+#content_areasen{
+height:auto;
+width:1000px;
+background-color:white;
+margin-left:auto;
+margin-right:auto;
+border:1px solid grey;
+text-shadow: 0 0 1px grey;
+box-shadow: 0 0 0px 0px grey;
+margin-top:-717px;
+visibility:hidden;
+}
+#content_areainter{
+height:auto;
+width:1000px;
+background-color:white;
+margin-left:auto;
+margin-right:auto;
+border:1px solid grey;
+text-shadow: 0 0 1px grey;
+box-shadow: 0 0 0px 0px grey;
+margin-top:-717px;
+visibility:hidden;
+}
+#content_areajun{
+height:auto;
+width:1000px;
+background-color:white;
+margin-left:auto;
+margin-right:auto;
+border:1px solid grey;
+text-shadow: 0 0 1px grey;
+box-shadow: 0 0 0px 0px grey;
+margin-top:-717px;
+visibility:hidden;
+}

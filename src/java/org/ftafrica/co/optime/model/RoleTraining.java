@@ -46,7 +46,7 @@ public class RoleTraining implements Serializable {
     @Column(name = "course_requirements")
     private String courseRequirements;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Roles roleId;
     @JoinColumn(name = "course_id", referencedColumnName = "courses_id")
     @OneToOne(optional = false)
@@ -61,6 +61,7 @@ public class RoleTraining implements Serializable {
     public RoleTraining(String roleTrainingId) {
         this.roleTrainingId = roleTrainingId;
     }
+    
 
     public RoleTraining(String roleTrainingId, String courseRequirements) {
         this.roleTrainingId = roleTrainingId;

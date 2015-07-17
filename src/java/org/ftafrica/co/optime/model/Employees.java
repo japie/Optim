@@ -17,7 +17,6 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,8 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employees.findByPhysicalAddress", query = "SELECT e FROM Employees e WHERE e.physicalAddress = :physicalAddress"),
     @NamedQuery(name = "Employees.findByPostalAddress", query = "SELECT e FROM Employees e WHERE e.postalAddress = :postalAddress")})
 public class Employees implements Serializable {
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employeeId")
-    private LoginDetails loginDetails;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -85,15 +83,23 @@ public class Employees implements Serializable {
     @Column(name = "postal_address")
     private String postalAddress;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    private Collection<Work> workCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "successor")
+    private Collection<Succession> successionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "predecessor")
+    private Collection<Succession> successionCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    private Collection<LoginDetails> loginDetailsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    private Collection<Education> educationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
     private Collection<RoleTraining> roleTrainingCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "successor")
-    private Succession succession;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "predecessor")
-    private Succession succession1;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employeeId")
-    private TrainingPlan trainingPlan;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employeeId")
-    private Education education;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "supervisorid")
+    private Collection<Teams> teamsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeid")
+    private Collection<Teams> teamsCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeId")
+    private Collection<TrainingPlan> trainingPlanCollection;
 
     public Employees() {
     }
@@ -177,6 +183,51 @@ public class Employees implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Work> getWorkCollection() {
+        return workCollection;
+    }
+
+    public void setWorkCollection(Collection<Work> workCollection) {
+        this.workCollection = workCollection;
+    }
+
+    @XmlTransient
+    public Collection<Succession> getSuccessionCollection() {
+        return successionCollection;
+    }
+
+    public void setSuccessionCollection(Collection<Succession> successionCollection) {
+        this.successionCollection = successionCollection;
+    }
+
+    @XmlTransient
+    public Collection<Succession> getSuccessionCollection1() {
+        return successionCollection1;
+    }
+
+    public void setSuccessionCollection1(Collection<Succession> successionCollection1) {
+        this.successionCollection1 = successionCollection1;
+    }
+
+    @XmlTransient
+    public Collection<LoginDetails> getLoginDetailsCollection() {
+        return loginDetailsCollection;
+    }
+
+    public void setLoginDetailsCollection(Collection<LoginDetails> loginDetailsCollection) {
+        this.loginDetailsCollection = loginDetailsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Education> getEducationCollection() {
+        return educationCollection;
+    }
+
+    public void setEducationCollection(Collection<Education> educationCollection) {
+        this.educationCollection = educationCollection;
+    }
+
+    @XmlTransient
     public Collection<RoleTraining> getRoleTrainingCollection() {
         return roleTrainingCollection;
     }
@@ -185,36 +236,31 @@ public class Employees implements Serializable {
         this.roleTrainingCollection = roleTrainingCollection;
     }
 
-    public Succession getSuccession() {
-        return succession;
+    @XmlTransient
+    public Collection<Teams> getTeamsCollection() {
+        return teamsCollection;
     }
 
-    public void setSuccession(Succession succession) {
-        this.succession = succession;
+    public void setTeamsCollection(Collection<Teams> teamsCollection) {
+        this.teamsCollection = teamsCollection;
     }
 
-    public Succession getSuccession1() {
-        return succession1;
+    @XmlTransient
+    public Collection<Teams> getTeamsCollection1() {
+        return teamsCollection1;
     }
 
-    public void setSuccession1(Succession succession1) {
-        this.succession1 = succession1;
+    public void setTeamsCollection1(Collection<Teams> teamsCollection1) {
+        this.teamsCollection1 = teamsCollection1;
     }
 
-    public TrainingPlan getTrainingPlan() {
-        return trainingPlan;
+    @XmlTransient
+    public Collection<TrainingPlan> getTrainingPlanCollection() {
+        return trainingPlanCollection;
     }
 
-    public void setTrainingPlan(TrainingPlan trainingPlan) {
-        this.trainingPlan = trainingPlan;
-    }
-
-    public Education getEducation() {
-        return education;
-    }
-
-    public void setEducation(Education education) {
-        this.education = education;
+    public void setTrainingPlanCollection(Collection<TrainingPlan> trainingPlanCollection) {
+        this.trainingPlanCollection = trainingPlanCollection;
     }
 
     @Override
@@ -242,12 +288,6 @@ public class Employees implements Serializable {
         return "org.ftafrica.co.optime.model.Employees[ employeeId=" + employeeId + " ]";
     }
 
-    public LoginDetails getLoginDetails() {
-        return loginDetails;
-    }
-
-    public void setLoginDetails(LoginDetails loginDetails) {
-        this.loginDetails = loginDetails;
-    }
+    
     
 }

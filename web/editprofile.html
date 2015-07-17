@@ -1,0 +1,591 @@
+<!DOCTYPE>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/pstyle.css">
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    } 
+
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+<style>
+/*-----------------------profile menu ------------------ */
+
+.onclick-menu {
+    position: relative;
+    display: inline-block;
+	
+
+}
+
+.onclick-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-menu:focus .menu:after{
+ border-bottom:10px solid  #2393E4;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:14em;
+}
+
+.onclick-menu:focus .onclick-menu-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-menu-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+
+
+/*----------------------end of profile menu ----*/
+
+.onclick-msg-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.onclick-msg-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-msg-menu:focus .noti-menu:after{
+ border-bottom:10px solid  #333;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:15em;
+}
+
+.onclick-msg-menu:focus .onclick-noti-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-noti-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+
+/* --------end of notification menu ------ */
+
+.onclick-inbox-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.onclick-inbox-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-inbox-menu:focus .inbox-menu:after{
+ border-bottom:10px solid  #333;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:16em;
+}
+
+.onclick-inbox-menu:focus .onclick-inbox-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-inbox-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+</style>
+
+
+
+</head>
+
+<body >
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span>Jack Daniel</Span>		    
+					  </div>					    
+					  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>
+		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>
+		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" align="center">
+      
+	     <div class="content_area" >
+		     <div id="personalheader">
+	<p class="paragraph">Employee Profile</p>
+	</div>
+	<div id="tablecontentprofile">
+	<p class="headings">Personal Details</p>
+<table style="width:120%;padding-left:40px;padding-bottom:10px;border-spacing:15px;">
+  <tr>
+    <td width="21%">Title</td>
+    <td><select>
+  <option selected disabled>select</option>
+  <option value="Mr">Mr</option>
+  <option value="Ms">Ms</option>
+  <option value="Dr">Dr</option>
+  <option value="Mrs">Mrs</option>
+</select></td> 
+<td width="21%" style="color:blue">Profile Picture</td>
+  </tr>
+  <tr>
+    <td>First Names</td>
+    <td><input type="text" name="first_name"></td>
+	<td rowspan="3"><img id="blah" src="#" alt="your image" style="border:2px solid blue;width:150px;height:150px;border-radius:7px;"></img></td>
+  </tr>
+  <tr>
+    <td>Surname</td>
+    <td><input type="text" name="surname"></td> 
+  </tr>
+  <tr>
+    <td>Gender</td>
+    <td><select>
+  <option selected disabled>select</option>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+  <option value="Other">Other</option>
+</select></td> 
+  </tr>
+  <tr>
+  	<td>Date Of birth</td>
+	<td><input type="text" id="datepicker"></td>
+	<td><input type='file' onChange="readURL(this);" value="xxx"></td>
+  </tr>
+    <tr>
+  	<td>Id Number</td>
+	<td><input type="text" id="idnumber"></td>
+  </tr>
+    <tr>
+  	<td>Race\Ethnic </td>
+	<td><select>
+  <option selected disabled>select</option>
+  <option value="black">African</option>
+  <option value="white">White</option>
+  <option value="indian">Indian</option>
+  <option value="coloured">Coloured</option>
+</select></td>
+  </tr>
+    <tr>
+  	<td>Marital Status</td>
+	<td><select>
+  <option selected disabled>select</option>
+  <option value="Single">Single</option>
+  <option value="Married">Married</option>
+  <option value="Married">Divorced</option>
+</select></td>
+  </tr>
+</table>
+<hr align="center" width="95%"  size=1> 
+
+	<p class="headings">Contact Details</p>
+
+<table width="100%" style="width:100%;padding-left:40px;padding-bottom:10px;border-spacing:15px;">
+  <tr>
+    <td width="49%">Cellphone Number</td>
+    <td width="17%"><input type="text" name="cellnumber"></td>
+    <td width="17%" align="right">Tel Home</td>
+    <td width="17%" align="center"><input type="text" name="telhome" ></td>
+  </tr>
+  <tr>
+    <td>Physical Address</td>
+    <td><textarea name="physicaladdress" style="border-radius:5px;height:50px";></textarea></td> 
+    <td>Postal Address</td>
+    <td><textarea name="postaladdress" style="border-radius:5px;height:50px";></textarea></td> 
+  </tr>
+  <tr>
+    <td>Area Code</td>
+    <td><input type="text" name="postal_code"></td> 
+	    <td>Province</td>
+    <td><select>
+  <option selected disabled>select</option>
+  <option value="gauteng">Gauteng</option>
+  <option value="mpumalanga">Mpumalanga</option>
+  <option value="limpopo">Limpopo</option>
+  <option value="kwazulunatal">Kwazulu-Natal</option>
+  <option value="freestate">Free-State</option>
+  <option value="westerncape">Western Cape</option>
+  <option value="easterncape">Eastern Cape</option>
+  <option value="northwest">North West</option>
+  <option value="northerncape">Northern Cape</option>
+  </select></td> 
+    <tr>
+    <td width="49%">Email</td>
+    <td width="17%" align="right"><input type="text" name="email"></td> 
+	<td width="17%">Other Number</td>
+    <td width="17%"><input type="text" name="othercellnumber"></td>
+  </tr>
+  </tr>
+</table>
+<hr align="right" width="95%"  size=1> 
+	<p class="headings">Education</p>
+
+<table  align="left" style="width:75%;padding-left:40px;padding-bottom:20px;border-spacing:15px;">
+  <tr>
+    <td>Qualification</td>
+    <td><input type="text" name="qualification"></td> 
+  </tr>
+  <tr>
+    <td>Institution</td>
+    <td><input type="text" name="institution"></td> 
+  </tr>
+  <tr>
+    <td>Year Obtained</td>
+    <td><input type="text" name="year"></td> 
+  </tr>
+  <tr>
+    <td>Attachement</td>
+    <td><input type="file" name="attachement"></td> 
+  </tr>
+    <tr>
+    <td style="color:blue;" hover="color:black" colspan="2"><a href="#">+ add another qualifications</td>
+  </tr>
+</table>
+
+<hr align="right" width="95%"  size=1> 
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">Previous Work & Experience</p>
+	<table align="left" style="width:50%;padding-left:40px;padding-bottom:20px;border-spacing:15px;">
+  <tr>
+    <td>Company Name</td>
+    <td width="60%"><input type="text" name="company_name"></td> 
+ </tr>
+ <tr>
+    <td>Role</td>
+    <td width="60%"><input type="text" name="role"></td>
+  </tr>
+  <tr>
+    <td>Period Worked</td>
+    <td><input type="text" name="period"></td> 
+	</tr>
+	<tr>
+    <td>Role Level</td>
+    <td><select>
+  <option selected disabled>select</option>
+  <option value="graduate">Graduate</option>
+  <option value="junior">Junior</option>
+  <option value="midlevel">Mid-Level</option>
+  <option value="senior">Senior</option>
+  <option value="management">Manager</option>
+  <option value="executive">Executive</option>
+  </select></td>
+  </tr>
+  <tr>
+    <td>Contactable Reference</td>
+    <td><input type="text" name="reference"></td> 
+  </tr>
+  <tr>
+    <tr>
+    <td style="color:blue;" hover="color:black" colspan="2"><a href="#">+ add another qualifications</td>
+  </tr>
+</table>
+
+<hr align="right" width="95%"  size=1> 
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p>
+	<p class="headings">&nbsp;</p><br>
+	<p class="headings">Current Position</p>
+<table style="width:60%;padding-left:40px;padding-bottom:20px;border-spacing:15px;margin-right:380px">
+<tr>
+<td align="left">Company Name</td>
+<td align="right"><input type="text" name="company_name2" id="name"></td>
+</tr>
+<tr>
+<td align="left">Role</td>
+<td align="right"><input type="text" name="role2"></td>
+      </tr>
+      <tr>
+        <td align="left">Date Started</td>
+        <td align="right"><input type="text" name="datestarted"></td>
+      </tr>
+      <tr>
+        <td align="left">Role Level</td>
+        <td align="right"><select name="select">
+            <option selected disabled>select</option>
+            <option value="graduate">Graduate</option>
+            <option value="junior">Junior</option>
+            <option value="midlevel">Mid-Level</option>
+            <option value="senior">Senior</option>
+            <option value="management">Manager</option>
+            <option value="executive">Executive</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td align="left">Salary Range</td>
+        <td align="left"><select name="select">
+            <option selected disabled>select</option>
+            <option value="levelone">R150K-R250K</option>
+            <option value="junior">R250K-R350K</option>
+            <option value="midlevel">R350K-R450K</option>
+            <option value="senior">R450K-R550K</option>
+            <option value="management">>R550k</option>
+        </select></td>
+      </tr>
+      <tr>
+        <td align="left">Current Project</td>
+        <td align="right"><input type="text" name="currentproject"></td>
+      </tr>
+      <tr>
+        <td align="left">Next Project</td>
+        <td align="right"><input type="text" name="nextproject"></td>
+      </tr>
+    </table>
+	</div>
+	<div id="personalfooter">
+	<button type="submit" style="margin-left:240px;float:left";>Save</button><button  type="submit" style="margin-left:250px;float:left";>Cancel</button>
+	</div>
+		 </div>	
+	
+	</div>
+	<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
+		     
+
+		</li>
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap2.html">Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organo.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 			
+	  </ul>
+	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+	
+	<div class="Footer">
+	    g
+	</div>
+
+</div>
+
+</body>
+</html>

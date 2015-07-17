@@ -62,10 +62,7 @@ public class EmployeesFacade extends AbstractFacade<Employees> implements Employ
     }
     
     /*get employee data from db*/
-    public Employees GetExistingUser(String employeeId){
-    
-    return em.find(Employees.class, employeeId);
-    }
+   
     
     
     

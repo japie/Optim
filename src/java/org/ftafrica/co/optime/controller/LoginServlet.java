@@ -6,16 +6,22 @@
 
 package org.ftafrica.co.optime.controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.ftafrica.co.optime.bussinesslogic.LoginSessionTracker;
-import com.google.gson.Gson;
+import org.ftafrica.co.optime.Helper.CurrentUser;
+import org.ftafrica.co.optime.bussinesslogic.EmployeesFacade;
+import org.ftafrica.co.optime.bussinesslogic.feeders.LoginSessionTracker;
+import org.ftafrica.co.optime.bussinesslogic.feeders.LoginSessionTrackerInterface;
+import org.ftafrica.co.optime.model.Employees;
 
 
 
@@ -23,67 +29,89 @@ import com.google.gson.Gson;
  *
  * @author Training 8
  */
-
+@EJB(name="tracker", beanInterface=LoginSessionTrackerInterface.class)
 public class LoginServlet extends HttpServlet {
-    @EJB
-    LoginSessionTracker lsTracker;
+    
+    EmployeesFacade emFacade;
+   
+    private static final String SESSION_TRACKER_BEAN_SESION_KEY  = "s_session tracker_t";
+    
     
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try{
-          String username = request.getParameter("user");
+          String username = request.getParameter("username");
           String password = request.getParameter("password");
-          Gson loginGson = new Gson();
-          LoginServletHelper helper = new  LoginServletHelper();
-          
-          
-          
-        boolean loginValidated =  lsTracker.CreateSessionId(username, password);
-        
-        if(loginValidated){
+           
+           
+            LoginSessionTrackerInterface loginSeesionTrackerBean = (LoginSessionTrackerInterface) request.getSession().getAttribute(SESSION_TRACKER_BEAN_SESION_KEY);
             
-            helper.setSessionTrackerID(lsTracker.getSessionID());
-            helper.setUrl("dashb.html");
-            helper.setStatus("success");
+            if(loginSeesionTrackerBean == null){
+      // EJB is not present in the HTTP session
+      // so let's fetch a new one from the container
+      try {
+        InitialContext ic = new InitialContext();
+        loginSeesionTrackerBean = (LoginSessionTrackerInterface)
+         ic.lookup("java:comp/env/tracker");
+        
+        // java:global/Optim/LoginSessionTracker
+        request.getSession().setAttribute(
+          SESSION_TRACKER_BEAN_SESION_KEY, 
+          loginSeesionTrackerBean);
+        
+      } catch (NamingException e) {
+        throw new ServletException(e);
+      }
+    }
+            
+           boolean loginValidated =  loginSeesionTrackerBean.CreateSessionId(username, password); 
            
-           
-           response.setContentType("application/json");
-    response.setCharacterEncoding("UTF-8");
-  // response.getWriter().write(loginGson.toJson(helper));
-            System.out.println(loginGson.toJson(helper));
+           if(loginValidated){
+               
+               Gson dashBoard = new Gson();
+               
+               
+                       
+         
+              Employees emp = loginSeesionTrackerBean.GetExistingUser(loginSeesionTrackerBean.getSessionID());
+              CurrentUser cur= new CurrentUser();
+              cur.setName(emp.getName());
+              cur.setSurname(emp.getSurname());
+              //request.getSession().setAttribute("current_user", cur);
+              
+             
+     
+     request.getRequestDispatcher("Dashboard.jsp"); 
+     String site = new String("Dashboard.jsp");
+
+      
+    //  response.sendRedirect(site);
+             
+            
       
         }
          
         else if(!loginValidated){
               
-           response.setContentType("text/plain"); 
-  response.setCharacterEncoding("UTF-8"); 
-  response.getWriter().write("invalid login details");   
-              
-              } 
-            
-        
-        }catch(Exception e){
-        
-            // Set response content type
-      response.setContentType("text/html");
+          response.setContentType("text/html");
 
       // New location to be redirected
       String site = new String("err.html");
 
       response.setStatus(response.SC_MOVED_TEMPORARILY);
-      response.setHeader("Location", site); 
+      response.setHeader("Location", site);  
+            
+              
+              } 
+            
+            
+        
+        }catch(Exception e){
+        e.printStackTrace();
         }
        
     }

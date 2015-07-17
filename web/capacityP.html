@@ -1,0 +1,457 @@
+<!DOCTYPE>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+
+
+window.onload = function(){
+	//canvas initialization
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	//dimensions
+	var W = canvas.width;
+	var H = canvas.height;
+	//Variables
+	var degrees = 0;
+	var new_degrees = 0;
+	var difference = 0;
+	var color = "lightgreen"; //green looks better to me
+	var bgcolor = "#222";
+	var text;
+	var animation_loop, redraw_loop;
+	
+	function init()
+	{
+		//Clear the canvas everytime a chart is drawn
+		ctx.clearRect(0, 0, W, H);
+		
+		//Background 360 degree arc
+		ctx.beginPath();
+		ctx.strokeStyle = bgcolor;
+		ctx.lineWidth = 30;
+		ctx.arc(W/2, H/2, 100, 0, Math.PI*2, false); //you can see the arc now
+		ctx.stroke();
+		
+		//gauge will be a simple arc
+		//Angle in radians = angle in degrees * PI / 180
+		var radians = degrees * Math.PI / 180;
+		ctx.beginPath();
+		ctx.strokeStyle = color;
+		ctx.lineWidth = 30;
+		//The arc starts from the rightmost end. If we deduct 90 degrees from the angles
+		//the arc will start from the topmost end
+		ctx.arc(W/2, H/2, 100, 0 - 90*Math.PI/180, radians - 90*Math.PI/180, false); 
+		//you can see the arc now
+		ctx.stroke();
+		
+		//Lets add the text
+		ctx.fillStyle = color;
+		ctx.font = "50px bebas";
+		text = Math.floor(degrees/360*100) + "%";
+		//Lets center the text
+		//deducting half of text width from position x
+		text_width = ctx.measureText(text).width;
+		//adding manual value to position y since the height of the text cannot
+		//be measured easily. There are hacks but we will keep it manual for now.
+		ctx.fillText(text, W/2 - text_width/2, H/2 + 15);
+	}
+	
+	function draw()
+	{
+		//Cancel any movement animation if a new chart is requested
+		if(typeof animation_loop != undefined) clearInterval(animation_loop);
+		
+		//random degree from 0 to 360
+		new_degrees = Math.round(Math.random()*360);
+		difference = new_degrees - degrees;
+		//This will animate the gauge to new positions
+		//The animation will take 1 second
+		//time for each frame is 1sec / difference in degrees
+		animation_loop = setInterval(animate_to, 1000/difference);
+	}
+	
+	//function to make the chart move to new degrees
+	function animate_to()
+	{
+		//clear animation loop if degrees reaches to new_degrees
+		if(degrees == new_degrees) 
+			clearInterval(animation_loop);
+		
+		if(degrees < new_degrees)
+			degrees++;
+		else
+			degrees--;
+			
+		init();
+	}
+	
+	//Lets add some animation for fun
+	draw();
+	redraw_loop = setInterval(draw, 120000); //Draw a new chart every 2 seconds
+	
+	
+	
+	
+}
+
+
+
+
+function hide(){
+document.getElementById("content_area").style.visibility = "hidden";
+}
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+
+
+function passName(){
+
+document.getElementById("display_note").innerHTML = "sdf";
+}
+  
+		
+</script>
+<title>Optim </title>
+
+
+
+
+
+</head>
+
+<body >
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span>Jack Daniel</Span>		    
+			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;"  id="opt_container">
+      
+	     <div class="content_area"  >
+		
+	
+		  <div class="capacityPlan_bar">
+		 
+		  <Span class="cap_header">Capacity Plan</Span>
+		  </div>
+		<div class="wrap_cap">
+		  <div class="cap_board">
+		   
+		   
+		   
+		      <ul class="tabs">
+    <li>
+        <input type="radio" checked name="tabs" id="tab1">
+        <label for="tab1">Optim</label>
+        <div id="tab-content1" class="tab-content">
+	 <table class="table-style-three"  width="650">
+	    <colgroup>
+	      <col class="vzebra-odd"> 
+	      <col class="vzebra-even">
+	      <col class="vzebra-odd">
+	      <col class="vzebra-even">
+	   </colgroup>
+  <tr >
+    <th scope="col" style="border:none;" class="auto-style5"></th>
+    <th  scope="col" colspan="3" class="cap_theader" >Days Required</th>
+    <th  colspan="2" class="cap_theader_staff">Staff</th>		
+    
+  </tr>
+  <tr>  		
+    <td class="auto-style6">Processes</td>
+	<td class="auto-style2">Start Date</td>
+	<td  class="auto-style3">End Date</td>
+	<td  class="auto-style1">Days</td>
+	<td  class="cap_theader_staff">&nbsp;Effort</td>
+	<td  class="tot_emp" >Number of Employees</td>
+	
+  </tr>
+  <tr>
+    <td>Spec Gathering</td>
+	<td ></td>
+	<td ></td>
+	<td ></td>
+	<td></td>
+	<td > </td>
+  </tr>
+  <tr>
+    <td >Design</td>
+	<td ></td>
+	<td ></td>
+	<td></td>
+	<td></td>
+	<td > </td>
+  </tr>
+   <tr>
+    <td >Development</td>
+	<td></td>
+	<td ></td>
+	<td ></td>
+	<td ></td>
+	<td > </td>
+	
+  </tr>
+   <tr>
+    <td>Maintenance</td>
+	<td ></td>
+	<td></td>
+	<td ></td>
+	<td ></td>
+	<td > </td>
+	
+  </tr>
+   <tr>
+    <td>Go live</td>
+	<td></td>
+	<td ></td>
+	<td></td>
+	<td ></td>
+	<td> </td>
+	
+  </tr>
+</table>
+            <!-- Your content goes here -->
+        </div>
+    </li>
+    <li>
+        <input type="radio" name="tabs" id="tab2">
+        <label for="tab2">tab 2</label>
+        <div id="tab-content2" class="tab-content">
+            <h3>Tab 2</h3>
+            <!-- Your content goes here -->
+        </div>
+    </li>
+    <li>
+        <input type="radio" name="tabs" id="tab3">
+        <label for="tab3">tab 3</label>
+        <div id="tab-content3" class="tab-content">
+            <h3>Tab 3</h3>
+            <!-- Your content goes here -->
+        </div>
+    </li>
+</ul>
+   
+   
+		  </div>
+		    
+		   
+		  
+		  <div class="proj_list">
+		  <div class="list_header"><a>Projects(4)</a></div>
+		  <div class="list_proj">
+		      <div class="proj_wrap">
+<input type="radio" name="radio" id="radio1" onClick="passName()" class="radio" checked/>
+<label  class="proj_value" for="radio1">Optim</label>
+</div>
+
+<div class="proj_wrap">
+<input type="radio" name="radio" id="radio2" class="radio"/>
+<label  class="proj_value" for="radio2">Project XY</label>
+</div>
+
+<div class="proj_wrap">	
+<input type="radio" name="radio" id="radio3" class="radio"/>
+<label   class="proj_value" for="radio3">Calypso</label>
+</div>
+
+<div class="proj_wrap">	
+<input type="radio" name="radio" id="radio4" class="radio"/>
+<label class="proj_value" for="radio4">Project X</label>
+
+ <div class="perf_graph"><a>Optim: Team performance</a><canvas id="canvas" width="300" height="300"> </div>
+</div>
+		</div>
+		  </div>
+		 
+		 </div>
+		
+		</div>
+				 </div>   <!--this div wraps the positions list dont touch-->
+		 
+		 
+		 
+		   
+				</div>  <!---end of content area--->
+				 
+				 
+				 
+	
+	</div>
+	<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
+		     
+
+		</li>
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap2.html">Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organo.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 			
+	  </ul>
+	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+	
+
+</div>
+
+</body>
+</html>

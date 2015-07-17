@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -47,7 +48,7 @@ public class SuccessionDetails implements Serializable {
     @OneToOne(optional = false)
     private Course courseId;
     @JoinColumn(name = "plan_id", referencedColumnName = "plan_id")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Succession planId;
 
     public SuccessionDetails() {

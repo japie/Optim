@@ -14,9 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,6 +38,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Education.findByInstitution", query = "SELECT e FROM Education e WHERE e.institution = :institution"),
     @NamedQuery(name = "Education.findByYearCompleted", query = "SELECT e FROM Education e WHERE e.yearCompleted = :yearCompleted")})
 public class Education implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "qualification")
+    private String qualification;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "file")
+    private byte[] file;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -60,13 +70,8 @@ public class Education implements Serializable {
     @Column(name = "year_completed")
     @Temporal(TemporalType.DATE)
     private Date yearCompleted;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "file")
-    private byte[] file;
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Employees employeeId;
 
     public Education() {
@@ -116,13 +121,6 @@ public class Education implements Serializable {
         this.yearCompleted = yearCompleted;
     }
 
-    public byte[] getFile() {
-        return file;
-    }
-
-    public void setFile(byte[] file) {
-        this.file = file;
-    }
 
     public Employees getEmployeeId() {
         return employeeId;
@@ -155,6 +153,22 @@ public class Education implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Education[ educationId=" + educationId + " ]";
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
     }
     
 }

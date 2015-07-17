@@ -7,6 +7,7 @@
 package org.ftafrica.co.optime.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -14,15 +15,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Succession.findAll", query = "SELECT s FROM Succession s"),
     @NamedQuery(name = "Succession.findByPlanId", query = "SELECT s FROM Succession s WHERE s.planId = :planId"),
+    @NamedQuery(name = "Succession.findByList", query = "SELECT s FROM Succession s WHERE s.level = :lev"),
     @NamedQuery(name = "Succession.findByPredEndDate", query = "SELECT s FROM Succession s WHERE s.predEndDate = :predEndDate"),
     @NamedQuery(name = "Succession.findBySuccessorStartDate", query = "SELECT s FROM Succession s WHERE s.successorStartDate = :successorStartDate"),
     @NamedQuery(name = "Succession.findByPlanStartDate", query = "SELECT s FROM Succession s WHERE s.planStartDate = :planStartDate"),
@@ -41,6 +45,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Succession.findByLastEditedBy", query = "SELECT s FROM Succession s WHERE s.lastEditedBy = :lastEditedBy"),
     @NamedQuery(name = "Succession.findByPlanDescription", query = "SELECT s FROM Succession s WHERE s.planDescription = :planDescription")})
 public class Succession implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "Role_id")
+    private String roleid;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "Level")
+    private String level;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -79,15 +93,15 @@ public class Succession implements Serializable {
     @Column(name = "plan_description")
     private String planDescription;
     @JoinColumn(name = "successor", referencedColumnName = "employee_id")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Employees successor;
     @JoinColumn(name = "predecessor", referencedColumnName = "employee_id")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Employees predecessor;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "successionPlanId")
-    private SuccessionComments successionComments;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "planId")
-    private SuccessionDetails successionDetails;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "successionPlanId")
+    private Collection<SuccessionComments> successionCommentsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "planId")
+    private Collection<SuccessionDetails> successionDetailsCollection;
 
     public Succession() {
     }
@@ -178,20 +192,22 @@ public class Succession implements Serializable {
         this.predecessor = predecessor;
     }
 
-    public SuccessionComments getSuccessionComments() {
-        return successionComments;
+    @XmlTransient
+    public Collection<SuccessionComments> getSuccessionCommentsCollection() {
+        return successionCommentsCollection;
     }
 
-    public void setSuccessionComments(SuccessionComments successionComments) {
-        this.successionComments = successionComments;
+    public void setSuccessionCommentsCollection(Collection<SuccessionComments> successionCommentsCollection) {
+        this.successionCommentsCollection = successionCommentsCollection;
     }
 
-    public SuccessionDetails getSuccessionDetails() {
-        return successionDetails;
+    @XmlTransient
+    public Collection<SuccessionDetails> getSuccessionDetailsCollection() {
+        return successionDetailsCollection;
     }
 
-    public void setSuccessionDetails(SuccessionDetails successionDetails) {
-        this.successionDetails = successionDetails;
+    public void setSuccessionDetailsCollection(Collection<SuccessionDetails> successionDetailsCollection) {
+        this.successionDetailsCollection = successionDetailsCollection;
     }
 
     @Override
@@ -217,6 +233,22 @@ public class Succession implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Succession[ planId=" + planId + " ]";
+    }
+
+    public String getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(String roleid) {
+        this.roleid = roleid;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
     
 }

@@ -7,18 +7,21 @@
 package org.ftafrica.co.optime.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,6 +36,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Roles.findByRole", query = "SELECT r FROM Roles r WHERE r.role = :role"),
     @NamedQuery(name = "Roles.findByRequired", query = "SELECT r FROM Roles r WHERE r.required = :required")})
 public class Roles implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "experience_required")
+    private String experienceRequired;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "employment_type")
+    private String employmentType;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,8 +64,10 @@ public class Roles implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "required")
     private String required;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "roleId")
-    private RoleTraining roleTraining;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
+    private Collection<RoleTraining> roleTrainingCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleid")
+    private Collection<Teams> teamsCollection;
 
     public Roles() {
     }
@@ -90,12 +106,22 @@ public class Roles implements Serializable {
         this.required = required;
     }
 
-    public RoleTraining getRoleTraining() {
-        return roleTraining;
+    @XmlTransient
+    public Collection<RoleTraining> getRoleTrainingCollection() {
+        return roleTrainingCollection;
     }
 
-    public void setRoleTraining(RoleTraining roleTraining) {
-        this.roleTraining = roleTraining;
+    public void setRoleTrainingCollection(Collection<RoleTraining> roleTrainingCollection) {
+        this.roleTrainingCollection = roleTrainingCollection;
+    }
+
+    @XmlTransient
+    public Collection<Teams> getTeamsCollection() {
+        return teamsCollection;
+    }
+
+    public void setTeamsCollection(Collection<Teams> teamsCollection) {
+        this.teamsCollection = teamsCollection;
     }
 
     @Override
@@ -121,6 +147,22 @@ public class Roles implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Roles[ roleId=" + roleId + " ]";
+    }
+
+    public String getExperienceRequired() {
+        return experienceRequired;
+    }
+
+    public void setExperienceRequired(String experienceRequired) {
+        this.experienceRequired = experienceRequired;
+    }
+
+    public String getEmploymentType() {
+        return employmentType;
+    }
+
+    public void setEmploymentType(String employmentType) {
+        this.employmentType = employmentType;
     }
     
 }

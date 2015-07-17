@@ -8,6 +8,18 @@
         <servlet-name>sss</servlet-name>
         <servlet-class>org.ftafrica.co.optime.bussinesslogic.sss</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>org.ftafrica.co.optime.controller.test</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>org.ftafrica.co.optime.controller.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HeatmapServlet</servlet-name>
+        <servlet-class>org.ftafrica.co.optime.controller.HeatmapServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -15,6 +27,18 @@
     <servlet-mapping>
         <servlet-name>sss</servlet-name>
         <url-pattern>/sss</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HeatmapServlet</servlet-name>
+        <url-pattern>/HeatmapServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,0 +1,91 @@
+
+#container{
+    background-color:white;
+    width: 900px;
+    height:auto;
+    margin-left:auto;
+    margin-right:auto;
+}
+.container,button{
+	background-color:#00CCFF;
+	border-radius:7px;
+	height:50px;
+	width:80px;
+	display:inline;
+	margin-left:250px;
+}
+#plandiv{
+	background-color:white;
+	width:225px;
+	float:right;
+	height:auto;
+}
+#pic{
+width:200px;
+height:120px;
+border-radius: 10px;
+margin-left:10px;
+margin-top:5px;
+}
+p.headings{
+ 
+	 padding-left:50px;
+	 color:red;
+	 font-weight: bold;
+	 text-decoration: none;
+	 font-size: 20px;
+	 font-family:Segoe U
+}
+p.plandescription{
+	padding-left:15px;
+	padding-right:15px;
+	text-align:justify;
+	color:#343B3B;
+	font-weight: normal;
+	font-family:Segoe UI;
+	font-size:15px;
+}
+.header{
+color:#666666;
+text-align:center;
+font-weight: bold;
+font-family:Segoe UI;
+}
+
+#pic1{
+width:110px;
+height:90px;
+border-radius: 10px;
+margin-left:100px;
+margin-top:5px;
+}
+
+#signup{
+	background: rgba(230, 230, 250, 0.9);
+	width: 350px;
+	height:500px;
+	margin-left:auto;
+	margin-right:auto;
+	position: absolute;
+	padding-left:20px;
+	top: 275px;
+	left: 670px;
+	padding-top:20px;
+	border-radius:10px;
+	visibility:hidden;
+}
+#loginform{
+	background: rgba(230, 230, 250, 0.9);
+	width: 250px;
+	height:200px;
+	margin-left:auto;
+	margin-right:auto;
+	position: absolute;
+	top: 275px;
+	left: 350px;
+	padding-left:70px;
+	padding-top:20px;
+	border-radius:10px;
+	visibility:hidden;
+}
+
