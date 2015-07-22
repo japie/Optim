@@ -35,6 +35,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Manager implements Serializable {
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "Manager_id")
+    private String managerid;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "department_id")
     private String departmentId;
@@ -136,6 +141,14 @@ public class Manager implements Serializable {
 
     public void setProjects(String projects) {
         this.projects = projects;
+    }
+
+    public String getManagerid() {
+        return managerid;
+    }
+
+    public void setManagerid(String managerid) {
+        this.managerid = managerid;
     }
     
 }

@@ -38,6 +38,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Hiring implements Serializable {
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "Experience")
+    private String experience;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "Position")
+    private String position;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "Status")
     private String status;
@@ -142,6 +152,22 @@ public class Hiring implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
     
 }

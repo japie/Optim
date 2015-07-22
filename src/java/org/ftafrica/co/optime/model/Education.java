@@ -40,14 +40,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Education implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "qualification")
-    private String qualification;
-    @Basic(optional = false)
-    @NotNull
     @Lob
     @Column(name = "file")
     private byte[] file;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "qualification")
+    private String qualification;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)

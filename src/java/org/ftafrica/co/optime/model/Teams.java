@@ -19,6 +19,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.ftafrica.co.optime.model.Employees;
+import org.ftafrica.co.optime.model.Projects;
+import org.ftafrica.co.optime.model.Roles;
 
 /**
  *
@@ -29,19 +32,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Teams.findAll", query = "SELECT t FROM Teams t"),
-    @NamedQuery(name = "Teams.findByTeamrecordid", query = "SELECT t FROM Teams t WHERE t.teamrecordid = :teamrecordid"),
     @NamedQuery(name = "Teams.findByProjID", query = "SELECT DISTINCT t.levels FROM Teams t WHERE t.projectid.projectid = :proj"),
-    @NamedQuery(name = "Teams.findAllByProjID", query = "SELECT DISTINCT t FROM Teams t WHERE t.projectid.projectid = :proj"),
-    @NamedQuery(name = "Teams.findByTeamsEmpId", query = "SELECT t FROM Teams t WHERE t.employeeid.employeeId = :id"),
-    @NamedQuery(name = "Teams.findByDepartmentid", query = "SELECT t FROM Teams t WHERE t.departmentid = :departmentid")})
+    @NamedQuery(name = "Teams.findDistinctFunctions", query = "SELECT DISTINCT t.phases FROM Teams t WHERE t.levels =:level AND t.projectid.projectid = :proj"),
+     @NamedQuery(name = "Teams.findProjectTeamByLevelsAndPhases", query = "SELECT t FROM Teams t WHERE t.levels= :levels AND t.phases =:phases"),
+    @NamedQuery(name = "Teams.findByTeamsid", query = "SELECT t FROM Teams t WHERE t.teamsid = :teamsid"),
+    @NamedQuery(name = "Teams.findByTeamrecordid", query = "SELECT t FROM Teams t WHERE t.teamrecordid = :teamrecordid"),
+    @NamedQuery(name = "Teams.findByDepartmentid", query = "SELECT t FROM Teams t WHERE t.departmentid = :departmentid"),
+    @NamedQuery(name = "Teams.findByLevels", query = "SELECT t FROM Teams t WHERE t.levels = :levels"),
+    @NamedQuery(name = "Teams.findByPhases", query = "SELECT t FROM Teams t WHERE t.phases = :phases")})
 public class Teams implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "Levels")
-    private String levels;
     private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "Teams_id")
+    private String teamsid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -52,11 +58,19 @@ public class Teams implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "Department_id")
     private String departmentid;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "Levels")
+    private String levels;
+    @Size(max = 30)
+    @Column(name = "Phases")
+    private String phases;
     @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
     @ManyToOne(optional = false)
     private Roles roleid;
     @JoinColumn(name = "Supervisor_id", referencedColumnName = "employee_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Employees supervisorid;
     @JoinColumn(name = "Employee_id", referencedColumnName = "employee_id")
     @ManyToOne(optional = false)
@@ -68,13 +82,23 @@ public class Teams implements Serializable {
     public Teams() {
     }
 
-    public Teams(String teamrecordid) {
-        this.teamrecordid = teamrecordid;
+    public Teams(String teamsid) {
+        this.teamsid = teamsid;
     }
 
-    public Teams(String teamrecordid, String departmentid) {
+    public Teams(String teamsid, String teamrecordid, String departmentid, String levels) {
+        this.teamsid = teamsid;
         this.teamrecordid = teamrecordid;
         this.departmentid = departmentid;
+        this.levels = levels;
+    }
+
+    public String getTeamsid() {
+        return teamsid;
+    }
+
+    public void setTeamsid(String teamsid) {
+        this.teamsid = teamsid;
     }
 
     public String getTeamrecordid() {
@@ -91,6 +115,22 @@ public class Teams implements Serializable {
 
     public void setDepartmentid(String departmentid) {
         this.departmentid = departmentid;
+    }
+
+    public String getLevels() {
+        return levels;
+    }
+
+    public void setLevels(String levels) {
+        this.levels = levels;
+    }
+
+    public String getPhases() {
+        return phases;
+    }
+
+    public void setPhases(String phases) {
+        this.phases = phases;
     }
 
     public Roles getRoleid() {
@@ -128,7 +168,7 @@ public class Teams implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (teamrecordid != null ? teamrecordid.hashCode() : 0);
+        hash += (teamsid != null ? teamsid.hashCode() : 0);
         return hash;
     }
 
@@ -139,7 +179,7 @@ public class Teams implements Serializable {
             return false;
         }
         Teams other = (Teams) object;
-        if ((this.teamrecordid == null && other.teamrecordid != null) || (this.teamrecordid != null && !this.teamrecordid.equals(other.teamrecordid))) {
+        if ((this.teamsid == null && other.teamsid != null) || (this.teamsid != null && !this.teamsid.equals(other.teamsid))) {
             return false;
         }
         return true;
@@ -147,15 +187,7 @@ public class Teams implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ftafrica.co.optime.model.Teams[ teamrecordid=" + teamrecordid + " ]";
-    }
-
-    public String getLevels() {
-        return levels;
-    }
-
-    public void setLevels(String levels) {
-        this.levels = levels;
+        return "org.ftafrica.co.optime.model.Teams[ teamsid=" + teamsid + " ]";
     }
     
 }

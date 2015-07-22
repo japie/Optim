@@ -16,21 +16,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.ftafrica.co.optime.Helper.HeatMap.HeatMapMainHelper;
+import org.ftafrica.co.optime.Helper.HeatMap.MainHeatMap;
 import org.ftafrica.co.optime.Helper.Succesion.SuccessionHelper;
 import org.ftafrica.co.optime.bussinesslogic.feeders.HeatMapBean;
 import org.ftafrica.co.optime.bussinesslogic.feeders.SuccessionBean;
 
 /**
- *
+ * 
  * @author Training 8
  */
 @WebServlet(name = "TestingServlet", urlPatterns = {"/TestingServlet"})
 public class TestingServlet extends HttpServlet {
     @EJB
     HeatMapBean hmb;
-    @EJB
-    SuccessionBean sb;
+   
             
     
     Gson gson = new Gson();
@@ -47,17 +46,16 @@ public class TestingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        PrintWriter out = response.getWriter(); 
           
-           List< HeatMapMainHelper> hmh = hmb.GenerateHeatForProjectsMapData("Prj05","11" );
-           List<SuccessionHelper> sp = sb.GenenarteSuccessionHelperByProject("Prj05");
-            
+           List<MainHeatMap> hmh = hmb.AutoGenarateHeatMapForProjects("Proj06");
+          
             /* TODO output your page here. You may use following sample code. */
             
             out.print(gson.toJson(hmh));
             out.flush();
             
-        }
+      
         
     }
 

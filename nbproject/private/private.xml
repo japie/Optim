@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/bussinesslogic/feeders/LoginSessionTrackerInterface.java</file>
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/Helper/LoginServletHelper.java</file>
+            <file>file:/C:/Users/Training%208/Documents/optim/web/css/style.css</file>
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/controller/LoginServlet.java</file>
             <file>file:/C:/Users/Training%208/Documents/optim/src/conf/persistence.xml</file>
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/Helper/HeatMap/HeatMapHiringHelper.java</file>
@@ -16,6 +17,7 @@
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/bussinesslogic/feeders/DashboardBean.java</file>
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/bussinesslogic/AbstractFacade.java</file>
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/Helper/DashBoard/DashboardFlags.java</file>
+            <file>file:/C:/Users/Training%208/Documents/optim/setup/glassfish-resources.xml</file>
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/bussinesslogic/CourseFacadeLocal.java</file>
             <file>file:/C:/Users/Training%208/Documents/optim/src/java/org/ftafrica/co/optime/bussinesslogic/feeders/HeatMapBean.java</file>
         </group>

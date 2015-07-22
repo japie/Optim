@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Succession.findAll", query = "SELECT s FROM Succession s"),
+    @NamedQuery(name = "Succession.findByPre", query = "SELECT s FROM Succession s WHERE s.predecessor.employeeId =:pre"),
     @NamedQuery(name = "Succession.findByPlanId", query = "SELECT s FROM Succession s WHERE s.planId = :planId"),
     @NamedQuery(name = "Succession.findByList", query = "SELECT s FROM Succession s WHERE s.level = :lev"),
     @NamedQuery(name = "Succession.findByPredEndDate", query = "SELECT s FROM Succession s WHERE s.predEndDate = :predEndDate"),

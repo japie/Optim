@@ -2088,8 +2088,8 @@ input[type=radio]:not(old):checked + label{
   background-position : 0 -48px;
 }
 
-input type=checkbox]:not(old),
-input type=radio   ]:not(old){
+input [type=checkbox]:not(old),
+input [type=radio]:not(old){
   width   : 28px;
   margin  : 0;
   padding : 0;
