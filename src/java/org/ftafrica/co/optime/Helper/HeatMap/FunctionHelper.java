@@ -13,18 +13,18 @@ import java.util.List;
  * @author Training 8
  */
 public class FunctionHelper {
-    String Function;
+    String Phase;
    List<HeatMapPersonHelper> Employees;
 
     public FunctionHelper() {
     }
 
-    public String getFunction() {
-        return Function;
+    public String getPhase() {
+        return Phase;
     }
 
-    public void setFunction(String Function) {
-        this.Function = Function;
+    public void setPhase(String Phase) {
+        this.Phase = Phase;
     }
 
     public List<HeatMapPersonHelper> getEmployees() {

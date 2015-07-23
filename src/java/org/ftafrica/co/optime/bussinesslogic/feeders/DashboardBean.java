@@ -29,7 +29,7 @@ public class DashboardBean {
     @PersistenceContext
     EntityManager em;
     
-   public DashboardMain  dashBoardMain(String ProjectId){
+   public DashboardMain  GenerateDashBoardMain(String ProjectId){
    
    List<Teams> ProjTeam = em.createNamedQuery("").setParameter("", ProjectId).getResultList();
    CapacityGraph capGraph = new CapacityGraph();
@@ -94,6 +94,6 @@ public class DashboardBean {
    trainGraph.setTrained(Trained);
    
    return null;
-           }
+           } 
    
 }

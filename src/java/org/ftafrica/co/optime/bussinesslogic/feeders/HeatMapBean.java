@@ -18,6 +18,7 @@ import org.ftafrica.co.optime.Helper.HeatMap.FunctionHelper;
         import org.ftafrica.co.optime.Helper.HeatMap.HeatMapEmployeeHiringHelper;
         import org.ftafrica.co.optime.Helper.HeatMap.HeatMapEmployeeTrainingHelper;
         import org.ftafrica.co.optime.Helper.HeatMap.HeatMapHiringHelper;
+import org.ftafrica.co.optime.Helper.HeatMap.HeatMapJsonObject;
         import org.ftafrica.co.optime.Helper.HeatMap.HeatMapMainHelper;
 import org.ftafrica.co.optime.Helper.HeatMap.HeatMapPersonHelper;
         import org.ftafrica.co.optime.Helper.HeatMap.HeatMapPredecessor;
@@ -27,6 +28,7 @@ import org.ftafrica.co.optime.Helper.HeatMap.HeatMapPersonHelper;
         import org.ftafrica.co.optime.Helper.HeatMap.MainHeatMap;
         import org.ftafrica.co.optime.model.Employees;
         import org.ftafrica.co.optime.model.Hiring;
+import org.ftafrica.co.optime.model.Projects;
         import org.ftafrica.co.optime.model.Roles;
         import org.ftafrica.co.optime.model.Succession;
         import org.ftafrica.co.optime.model.Teams;
@@ -562,12 +564,16 @@ import org.ftafrica.co.optime.Helper.HeatMap.HeatMapPersonHelper;
 
 
             }
-           public List<MainHeatMap> AutoGenarateHeatMapForProjects(String Project){
-          List<String> Levels = GetLevelsForProjects(Project);
+           public List<HeatMapJsonObject> AutoGenarateHeatMapForProjects(List<String> projects){
+               List<HeatMapJsonObject> heatMapJsonObject = new ArrayList();
+               
+               for(String p:projects){
+              HeatMapJsonObject HeatMapJson = new HeatMapJsonObject();
+          List<String> Levels = GetLevelsForProjects(p);
           List<MainHeatMap> heatMap = new ArrayList();
            for(String l : Levels){
                
-               List<String> FunctionsDB = GetPhasesForProjects(l,Project);
+               List<String> FunctionsDB = GetPhasesForProjects(l,p);
                List<FunctionHelper> HeatMapFunctionList = new ArrayList();
                MainHeatMap mainHeatMap = new MainHeatMap();
                
@@ -613,21 +619,27 @@ import org.ftafrica.co.optime.Helper.HeatMap.HeatMapPersonHelper;
                            }
                           
                                 functionHelper.setEmployees(heatMapPersonList);
-                                functionHelper.setFunction(f);
+                                functionHelper.setPhase(f);
                                 HeatMapFunctionList.add(functionHelper);
                                 
                         }
                        mainHeatMap.setLevel(l);
-                       mainHeatMap.setFunnction(HeatMapFunctionList);
+                       mainHeatMap.setRolesCol(HeatMapFunctionList);
                        heatMap.add(mainHeatMap);
 
            }
 
 
-           return heatMap;
+                   Projects ManagerProj = em.find(Projects.class,p);
+                   HeatMapJson.setProjectName(ManagerProj.getProjectName());
+                   HeatMapJson.setMainHeatMap(heatMap);
+                   
+                   heatMapJsonObject.add(HeatMapJson);
+                   
            }
-
-
+           return heatMapJsonObject;
+        }
+           
         }
 
 

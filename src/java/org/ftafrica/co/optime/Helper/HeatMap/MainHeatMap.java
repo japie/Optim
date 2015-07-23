@@ -15,14 +15,14 @@ import java.util.List;
 public class MainHeatMap {
     
     private String Level;
-     private List<FunctionHelper> Funnction;
+     private List<FunctionHelper> RolesCol;
 
-    public List<FunctionHelper> getFunnction() {
-        return Funnction;
+    public List<FunctionHelper> getRolesCol() {
+        return RolesCol;
     }
 
-    public void setFunnction(List<FunctionHelper> Funnction) {
-        this.Funnction = Funnction;
+    public void setRolesCol(List<FunctionHelper> RolesCol) {
+        this.RolesCol = RolesCol;
     }
 
     public String getLevel() {
