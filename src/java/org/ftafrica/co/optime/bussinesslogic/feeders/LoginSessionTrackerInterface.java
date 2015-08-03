@@ -6,8 +6,8 @@
 
 package org.ftafrica.co.optime.bussinesslogic.feeders;
 
+import java.util.List;
 import javax.ejb.Local;
-import javax.ejb.Remote;
 import org.ftafrica.co.optime.model.Employees;
 
 /**
@@ -17,7 +17,9 @@ import org.ftafrica.co.optime.model.Employees;
 @Local
 public interface LoginSessionTrackerInterface {
     public String getSessionID();
+    public List<String> getProj();
     public boolean CreateSessionId(String username, String Password);  
      public Employees GetExistingUser(String employeeId);
+     public void logOut();
     
 }

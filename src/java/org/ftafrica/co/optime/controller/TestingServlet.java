@@ -17,9 +17,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.ftafrica.co.optime.Helper.HeatMap.HeatMapJsonObject;
-
-import org.ftafrica.co.optime.bussinesslogic.feeders.HeatMapBean;
+import org.ftafrica.co.optime.Helper.DashBoard.DashboardMain;
+import org.ftafrica.co.optime.bussinesslogic.feeders.DashboardBean;
 
 /**
  * 
@@ -28,7 +27,7 @@ import org.ftafrica.co.optime.bussinesslogic.feeders.HeatMapBean;
 @WebServlet(name = "TestingServlet", urlPatterns = {"/TestingServlet"})
 public class TestingServlet extends HttpServlet {
     @EJB
-    HeatMapBean hmb;
+    DashboardBean dbb;
    
             
     
@@ -37,7 +36,6 @@ public class TestingServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -51,15 +49,12 @@ public class TestingServlet extends HttpServlet {
            my.add("Proj06");
           
           
-           List<HeatMapJsonObject> hmh = hmb.AutoGenarateHeatMapForProjects(my);
+        DashboardMain hmh = dbb.GenerateDashBoardMain(my);
           
             /* TODO output your page here. You may use following sample code. */
+            out.write(gson.toJson(hmh));
+          //  out.print();
             
-            out.print(gson.toJson(hmh));
-            out.flush();
-            
-      
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

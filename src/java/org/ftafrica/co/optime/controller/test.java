@@ -6,19 +6,12 @@
 
 package org.ftafrica.co.optime.controller;
 
-import static com.sun.faces.facelets.util.Path.context;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.ftafrica.co.optime.bussinesslogic.feeders.LoginSessionTracker;
 import org.ftafrica.co.optime.bussinesslogic.feeders.LoginSessionTrackerInterface;
 
 /**
@@ -48,31 +41,19 @@ public class test extends HttpServlet {
             if(loginSeesionTrackerBean == null){
       // EJB is not present in the HTTP session
       // so let's fetch a new one from the container
-      try {
-        InitialContext ic = new InitialContext();
-        loginSeesionTrackerBean = (LoginSessionTrackerInterface)
-         ic.lookup("java:app/LoginSessionTracker/[LoginSessionTrackerInterface]");
+     // response.setContentType("application/json;charset=UTF-8");
         
-        // put EJB in HTTP session for future servlet calls
-        request.getSession().setAttribute(SESSION_TRACKER_BEAN_SESION_KEY,loginSeesionTrackerBean);
-        
-      } catch (NamingException e) {
-        throw new ServletException(e);
-      }
-    }
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet test</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet test at " + loginSeesionTrackerBean.getSessionID() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+                
+                
+          }
+            else
+            {
+        //response.setContentType("application/json;charset=UTF-8");
+      PrintWriter out = response.getWriter();
+            out.write("Khanyisani Ntabeni");
+           
+       
+    }  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

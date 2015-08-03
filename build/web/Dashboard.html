@@ -5,11 +5,167 @@
 <meta name="description" content="Optim">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link type="text/css" rel="stylesheet" href="css/style.css">
+<link type="text/css" rel="stylesheet" href="css/dashstyle.css">
 
 <script src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/canvasjs.min.js"></script>
+
 <script>
+
+$(document).ready(function() {
+     $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "Login"
+            },
+            success : function(responsejson) {
+               
+    $('#nameAndSurname').text(responsejson);
+    
+     $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "DashBoard"
+            },
+            success : function(responseJson) {
+               data = responseJson;
+             //  mydata = responseJson;
+    $('#numberopenroles').text(data.dashboardFlags.OpenRoles);
+$('#numberofbooks').text(data.dashboardFlags.BookOfWork);
+$('#leavingsoon').text(data.dashboardFlags.LeavingSoon);
+$('#occupiedpositions').text(data.dashboardFlags.OccupiedRoles);
+$('#capacityneeded').text(data.dashboardFlags.Capacity);
+
+
+
+		   var chart2 = new CanvasJS.Chart("chartContainer",
+    	{
+		theme: "theme5",
+      title:{
+        text: "Succession"
+		
+      },
+	  
+	   axisY: {
+				title: "Employees"
+				},
+                animationEnabled: true,
+      data: [
+      {
+       type: "doughnut", 
+       dataPoints: [
+       { color: "#D90F14", y: data.successorGrapg.NoSuccessors, label: "No Successors" },
+       { color: "green", y: data.successorGrapg.Successors, label: "Successors" },
+	    { color: "#FF8000", y: data.successorGrapg.Predecessors, label: "Predecessors" }
+   
+      
+       ]
+     }
+     ]
+   });
+   
+      chart2.render();
+      var chart3 = new CanvasJS.Chart("trainingContainer",
+    	{
+		theme: "theme5",//theme1
+      title:{
+        text: "Training"
+      },
+	  
+	  axisY: {
+				title: "Employees"
+				},
+                animationEnabled: true,
+      data: [
+      {
+       type: "doughnut", 
+       dataPoints: [
+       { color: "#D90F14", y: data.trainingGraph.NotTrained, label: "Not Trained" },
+       { color: "green", y: data.trainingGraph.Trained, label: "Trained" },
+	    { color: "#FF8000", y: data.trainingGraph.OnTraining, label: "on Training" }
+   
+      
+       ]
+     }
+     ]
+   });
+      
+            
+            chart3.render();
+			
+			
+			
+			
+			
+			var chart4 = new CanvasJS.Chart("hiringContainer",
+    	{
+		theme: "theme5",
+      title:{
+        text: "Hiring"
+      },
+	  
+	   axisY: {
+				title: "Employees"
+				},
+                animationEnabled: true,
+      data: [
+      {
+       type: "doughnut", 
+       dataPoints: [
+       { color: "#D90F14", y: data.HiringGraph.FailedApplicants, label: "Failed Applicants" },
+       { color: "green", y: data.HiringGraph.Hired, label: "Hired" },
+	    { color: "#FF8000", y: data.HiringGraph.Hiring, label: "Hiring" }
+   
+      
+       ]
+     }
+     ]
+   });
+      
+	  
+	  chart4.render();
+	  
+	  
+	  	var chart5 = new CanvasJS.Chart("capacityContainer",
+    	{
+		theme: "theme5",
+      title:{
+        text: "Capacity"
+      },
+	  
+	   axisY: {
+				title: "Employees"
+				},
+                animationEnabled: true,
+      data: [
+      {
+       type: "doughnut", 
+       dataPoints: [
+       { color: "#D90F14", y: data.capacityGraph.OnNotice, label: "Notice" },
+       { color: "green", y: data.capacityGraph.Placed, label: "Placed" },
+	    { color: "#FF8000", y: data.capacityGraph.OpenPositions, label: "Open positions" }
+   
+      
+       ]
+     }
+     ]
+   });
+      chart5.render();
+       
+
+   
+       
+            }
+    });
+   
+       
+            }
+    });
+    });
+
+</script>
+<script>
+
 
 function hide(){
 document.getElementById("content_area").style.visibility = "hidden";
@@ -66,122 +222,7 @@ $(function() {
     
 	
 	
-	  window.onload = function () {
-          
-		   var chart2 = new CanvasJS.Chart("chartContainer",
-    	{
-		theme: "theme5",
-      title:{
-        text: "Succession"
-		
-      },
-	  
-	   axisY: {
-				title: "Employees"
-				},
-                animationEnabled: true,
-      data: [
-      {
-       type: "bar", 
-       dataPoints: [
-       { color: "#D90F14", y: 8, label: "No Successors" },
-       { color: "green", y: 32.0, label: "Successors" },
-	    { color: "#FF8000", y: 60.0, label: "Predecessors" }
-   
-      
-       ]
-     }
-     ]
-   });
-   
-      chart2.render();
-      var chart3 = new CanvasJS.Chart("trainingContainer",
-    	{
-		theme: "theme5",//theme1
-      title:{
-        text: "Training"
-      },
-	  
-	  axisY: {
-				title: "Employees"
-				},
-                animationEnabled: true,
-      data: [
-      {
-       type: "bar", 
-       dataPoints: [
-       { color: "#D90F14", y: 13.5, label: "Not Trained" },
-       { color: "green", y: 65.5, label: "Trained" },
-	    { color: "#FF8000", y: 22.0, label: "on Training" }
-   
-      
-       ]
-     }
-     ]
-   });
-      
-            
-            chart3.render();
-			
-			
-			
-			
-			
-			var chart4 = new CanvasJS.Chart("hiringContainer",
-    	{
-		theme: "theme5",
-      title:{
-        text: "Hiring"
-      },
-	  
-	   axisY: {
-				title: "Employees"
-				},
-                animationEnabled: true,
-      data: [
-      {
-       type: "bar", 
-       dataPoints: [
-       { color: "#D90F14", y: 53.37, label: "Not Hired" },
-       { color: "green", y: 35.0, label: "Hired" },
-	    { color: "#FF8000", y: 15.0, label: "Hiring" }
-   
-      
-       ]
-     }
-     ]
-   });
-      
-	  
-	  chart4.render();
-	  
-	  
-	  	var chart5 = new CanvasJS.Chart("capacityContainer",
-    	{
-		theme: "theme5",
-      title:{
-        text: "Capacity"
-      },
-	  
-	   axisY: {
-				title: "Employees"
-				},
-                animationEnabled: true,
-      data: [
-      {
-       type: "bar", 
-       dataPoints: [
-       { color: "#D90F14", y: 23.37, label: "Notice" },
-       { color: "green", y: 65.0, label: "Placed" },
-	    { color: "#FF8000", y: 12.63, label: "Open positions" }
-   
-      
-       ]
-     }
-     ]
-   });
-      chart5.render();
-        }
+	 
 		
 		
 	 
@@ -196,7 +237,7 @@ $(function() {
 
 </head>
 
-<body >
+<body  >
 
 <div id="wrapper">
     <div class="banner">
@@ -221,7 +262,7 @@ $(function() {
 			<div class="user_placeholder">
 			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
 			 <div class="username">
-			 	<Span>Jack Daniel</Span>		    
+			 	<Span id="nameAndSurname"> </Span>		    
 			  </div>					    
 			  </div>
 		   
@@ -294,31 +335,31 @@ $(function() {
 	
 			<div class="dash_flags"> <!---flags starts here...---->
 			 			 <div class="flag_projects"   onclick="location.href='projects.html';">
-	     <Span class="dash_num">14</span>
-        <Span class="dash_flag">Book of Work</span>
+	     <Span class="dash_num" id="numberofbooks"></span>
+        <Span class="dash_flag" >Book of Work</span>
 	</div>
 	<div class="flag_open_role"  onclick="location.href='capacity.html';">   
-	 <Span class="dash_num">18</span>
+	 <Span class="dash_num" id="numberopenroles"></span>
         <Span class="dash_flag">Open Roles</span>    
 	</div>
 
 	
 	<div class="flag_leaving_soon" onClick="location.href='capacity.html';" > 
 	
-	 <Span class="dash_num">8</span>
+	 <Span class="dash_num" id="leavingsoon"></span>
 	
         <Span class="dash_flag" >Leaving Soon</span>
 		
 	</div>
 
 	<div class="flag_occupied" onClick="location.href='capacity.html';">
-	 <Span class="dash_num">30</span>
+	 <Span class="dash_num" id="occupiedpositions"></span>
         <Span class="dash_flag">Occupied Roles</span>
 	</div>
 	
 	
 	<div class="flag_capacity" onClick="location.href='capacity.html';">
-	 <Span class="dash_num">38</span>
+	 <Span class="dash_num" id="capacityneeded"></span>
         <Span class="dash_flag">Capacity</span>
 	</div>
 			</div> <!--- flags ends here....-->
@@ -398,6 +439,26 @@ $(function() {
 	
 
 </div>
+    <script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
 
 </body>
+
+
+
 </html>
+
+

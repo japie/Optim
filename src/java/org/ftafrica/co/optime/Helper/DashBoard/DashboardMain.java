@@ -12,10 +12,11 @@ package org.ftafrica.co.optime.Helper.DashBoard;
  */
 public class DashboardMain {
     
-    SuccessionGraph successorGrapg;
-    HiringGraph trainingGraph;
-    CapacityGraph capacityGraph;
-    DashboardFlags dashboardFlags;
+    private SuccessionGraph successorGrapg;
+     private HiringGraph HiringGraph;
+     private CapacityGraph capacityGraph;
+   private  DashboardFlags dashboardFlags;
+    private TrainingGraph trainingGraph;
 
     public DashboardMain() {
     }
@@ -28,12 +29,12 @@ public class DashboardMain {
         this.successorGrapg = successorGrapg;
     }
 
-    public HiringGraph getTrainingGraph() {
-        return trainingGraph;
+    public HiringGraph getHiringGraph() {
+        return HiringGraph;
     }
 
-    public void setTrainingGraph(HiringGraph trainingGraph) {
-        this.trainingGraph = trainingGraph;
+    public void setHiringGraph(HiringGraph HiringGraph) {
+        this.HiringGraph = HiringGraph;
     }
 
     public CapacityGraph getCapacityGraph() {
@@ -50,6 +51,14 @@ public class DashboardMain {
 
     public void setDashboardFlags(DashboardFlags dashboardFlags) {
         this.dashboardFlags = dashboardFlags;
+    }
+
+    public TrainingGraph getTrainingGraph() {
+        return trainingGraph;
+    }
+
+    public void setTrainingGraph(TrainingGraph trainingGraph) {
+        this.trainingGraph = trainingGraph;
     }
     
     

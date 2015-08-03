@@ -20,6 +20,14 @@
         <servlet-name>HeatmapServlet</servlet-name>
         <servlet-class>org.ftafrica.co.optime.controller.HeatmapServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loginS</servlet-name>
+        <servlet-class>org.ftafrica.co.optime.controller.loginS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MainControllerServlet</servlet-name>
+        <servlet-class>org.ftafrica.co.optime.controller.MainControllerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>HeatmapServlet</servlet-name>
         <url-pattern>/HeatmapServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginS</servlet-name>
+        <url-pattern>/loginS</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MainControllerServlet</servlet-name>
+        <url-pattern>/MainControllerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

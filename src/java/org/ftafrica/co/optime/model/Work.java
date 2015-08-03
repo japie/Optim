@@ -45,6 +45,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Work.findByOpenPro", query = "SELECT w FROM Work w WHERE w.level = :lev AND w.status = :status"),
     
     
+    @NamedQuery(name = "Work.findByOpenPro", query = "SELECT w FROM Work w WHERE w.level = :lev AND w.status = :status"),
     
     
     @NamedQuery(name = "Work.findByCompany", query = "SELECT w FROM Work w WHERE w.company = :company"),

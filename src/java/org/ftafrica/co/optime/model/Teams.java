@@ -33,6 +33,7 @@ import org.ftafrica.co.optime.model.Roles;
 @NamedQueries({
     @NamedQuery(name = "Teams.findAll", query = "SELECT t FROM Teams t"),
     @NamedQuery(name = "Teams.findByProjID", query = "SELECT DISTINCT t.levels FROM Teams t WHERE t.projectid.projectid = :proj"),
+    @NamedQuery(name = "Teams.findByProjID2", query = "SELECT t FROM Teams t WHERE t.projectid.projectid = :projId"),
     @NamedQuery(name = "Teams.findDistinctFunctions", query = "SELECT DISTINCT t.phases FROM Teams t WHERE t.levels =:level AND t.projectid.projectid = :proj"),
      @NamedQuery(name = "Teams.findProjectTeamByLevelsAndPhases", query = "SELECT t FROM Teams t WHERE t.levels= :levels AND t.phases =:phases"),
     @NamedQuery(name = "Teams.findByTeamsid", query = "SELECT t FROM Teams t WHERE t.teamsid = :teamsid"),

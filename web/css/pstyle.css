@@ -1552,7 +1552,7 @@ margin-top:5px;
 
 #personalheader{
 height:50px;
-background-color:#B2C2D1;
+background-color:white;
 width:815px;
 margin-left:auto;
 margin-right:auto;
@@ -1563,7 +1563,7 @@ margin-top:3px;
 }
 #personalfooter{
 height:50px;
-background-color:#B2C2D1;
+background-color:white;
 width:815px;
 margin-left:auto;
 margin-right:auto;
@@ -1574,7 +1574,7 @@ margin-bottom:4px;
 }
 #tablecontentprofile{
 height:auto;
-background-color:#B2C2D1;
+background-color:white;
 width:815px;
 border-radius:20px;
 border:5px solid grey;

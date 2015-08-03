@@ -39,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employees.findByPhysicalAddress", query = "SELECT e FROM Employees e WHERE e.physicalAddress = :physicalAddress"),
     @NamedQuery(name = "Employees.findByPostalAddress", query = "SELECT e FROM Employees e WHERE e.postalAddress = :postalAddress")})
 public class Employees implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeid")
+    private Collection<Hiring> hiringCollection;
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -286,6 +288,15 @@ public class Employees implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Employees[ employeeId=" + employeeId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Hiring> getHiringCollection() {
+        return hiringCollection;
+    }
+
+    public void setHiringCollection(Collection<Hiring> hiringCollection) {
+        this.hiringCollection = hiringCollection;
     }
 
     
