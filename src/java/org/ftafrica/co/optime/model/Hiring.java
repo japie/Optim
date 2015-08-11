@@ -36,15 +36,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Hiring.findByExperience", query = "SELECT h FROM Hiring h WHERE h.experience = :experience"),
     @NamedQuery(name = "Hiring.findByPosition", query = "SELECT h FROM Hiring h WHERE h.position = :position")})
 public class Hiring implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
+    @Column(name = "Number of Employees")
+    private String numberofEmployees;
+    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
+    @ManyToOne(optional = false)
+    private Roles roleid;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "Role_id")
-    private String roleid;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    
     @Column(name = "Level")
     private String level;
     @Basic(optional = false)
@@ -81,7 +85,7 @@ public class Hiring implements Serializable {
         this.hiringid = hiringid;
     }
 
-    public Hiring(Integer hiringid, String roleid, String level, String status, String experience, String position) {
+    public Hiring(Integer hiringid, Roles roleid, String level, String status, String experience, String position) {
         this.hiringid = hiringid;
         this.roleid = roleid;
         this.level = level;
@@ -90,13 +94,9 @@ public class Hiring implements Serializable {
         this.position = position;
     }
 
-    public String getRoleid() {
-        return roleid;
-    }
+  
 
-    public void setRoleid(String roleid) {
-        this.roleid = roleid;
-    }
+  
 
     public String getLevel() {
         return level;
@@ -177,6 +177,22 @@ public class Hiring implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Hiring[ hiringid=" + hiringid + " ]";
+    }
+
+    public String getNumberofEmployees() {
+        return numberofEmployees;
+    }
+
+    public void setNumberofEmployees(String numberofEmployees) {
+        this.numberofEmployees = numberofEmployees;
+    }
+
+    public Roles getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Roles roleid) {
+        this.roleid = roleid;
     }
     
 }

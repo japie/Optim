@@ -8,6 +8,7 @@ package org.ftafrica.co.optime.controller;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,9 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.ftafrica.co.optime.Helper.DashBoard.DashboardMain;
 import org.ftafrica.co.optime.Helper.HeatMap.HeatMapJsonObject;
+import org.ftafrica.co.optime.Helper.HeatMap.sideview.MainSideView;
 import org.ftafrica.co.optime.bussinesslogic.feeders.DashboardBean;
 import org.ftafrica.co.optime.bussinesslogic.feeders.HeatMapBean;
 import org.ftafrica.co.optime.bussinesslogic.feeders.LoginSessionTrackerInterface;
+import org.ftafrica.co.optime.bussinesslogic.feeders.SideViewBean;
 import org.ftafrica.co.optime.model.Employees;
 
 /**
@@ -32,6 +35,8 @@ public class MainControllerServlet extends HttpServlet {
  @EJB
  HeatMapBean heatmapBean;
  Gson JsonConverter = new Gson();
+ @EJB  
+ SideViewBean sideViewBean;
  
     
     
@@ -86,7 +91,16 @@ public class MainControllerServlet extends HttpServlet {
                  case "HeatMap":
                      //return heatmap json
                      List<HeatMapJsonObject> mainHeatMap = heatmapBean.AutoGenarateHeatMapForProjects(Projects);
+                     response.setContentType("application/json;charset=UTF-8");
                      out.write(JsonConverter.toJson(mainHeatMap));
+                     break;
+                 case "SideView":
+                     //return heatmap json
+                     List<MainSideView> my = new ArrayList();
+                     MainSideView mainSideView = sideViewBean.GenarateHeatMapSideView(request.getParameter("employeeId"));
+                     my.add(mainSideView);
+                    // response.setContentType("application/json;charset=UTF-8");
+                     out.write(JsonConverter.toJson(my));
                      break;
              }
     }   

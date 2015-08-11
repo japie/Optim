@@ -34,22 +34,24 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TrainingPlan.findAll", query = "SELECT t FROM TrainingPlan t"),
+    @NamedQuery(name = "TrainingPlan.findAllEmployees", query = "SELECT t.employeeId FROM TrainingPlan t"),
     @NamedQuery(name = "TrainingPlan.findByTrainingEmpId", query = "SELECT t FROM TrainingPlan t WHERE t.employeeId.employeeId = :id"),
+    @NamedQuery(name = "TrainingPlan.findSingleResult", query = "SELECT t FROM TrainingPlan t WHERE t.employeeId.employeeId = :empId AND t.courseId.coursesId = :course AND t.roleid.roleId = :roleId "),
     @NamedQuery(name = "TrainingPlan.findByTrainingId", query = "SELECT t FROM TrainingPlan t WHERE t.trainingId = :trainingId"),
+    @NamedQuery(name = "TrainingPlan.findDistinctRoles", query = "SELECT DISTINCT t.roleid.roleId FROM TrainingPlan t"),
     @NamedQuery(name = "TrainingPlan.findByCourseName", query = "SELECT t FROM TrainingPlan t WHERE t.courseName = :courseName"),
     @NamedQuery(name = "TrainingPlan.findTrainigList", query = "SELECT t FROM TrainingPlan t WHERE t.level = :lev AND t.status = :status"),
     @NamedQuery(name = "TrainingPlan.findTrainedList", query = "SELECT t FROM TrainingPlan t WHERE t.level = :lev AND t.status = :status"),
     @NamedQuery(name = "TrainingPlan.findNotTrainedList", query = "SELECT t FROM TrainingPlan t WHERE t.level = :lev AND t.status = :status"),
     @NamedQuery(name = "TrainingPlan.findByTrainingType", query = "SELECT t FROM TrainingPlan t WHERE t.trainingType = :trainingType")})
 public class TrainingPlan implements Serializable {
+    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
+    @ManyToOne(optional = false)
+    private Roles roleid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "Role_id")
-    private String roleid;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    
     @Column(name = "Level")
     private String level;
     @Basic(optional = false)
@@ -170,13 +172,9 @@ public class TrainingPlan implements Serializable {
         return "org.ftafrica.co.optime.model.TrainingPlan[ trainingId=" + trainingId + " ]";
     }
 
-    public String getRoleid() {
-        return roleid;
-    }
+   
 
-    public void setRoleid(String roleid) {
-        this.roleid = roleid;
-    }
+   
 
     public String getLevel() {
         return level;
@@ -192,6 +190,14 @@ public class TrainingPlan implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Roles getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Roles roleid) {
+        this.roleid = roleid;
     }
     
 }

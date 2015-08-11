@@ -19,9 +19,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.ftafrica.co.optime.model.Employees;
-import org.ftafrica.co.optime.model.Projects;
-import org.ftafrica.co.optime.model.Roles;
 
 /**
  *
@@ -33,11 +30,16 @@ import org.ftafrica.co.optime.model.Roles;
 @NamedQueries({
     @NamedQuery(name = "Teams.findAll", query = "SELECT t FROM Teams t"),
     @NamedQuery(name = "Teams.findByProjID", query = "SELECT DISTINCT t.levels FROM Teams t WHERE t.projectid.projectid = :proj"),
+    @NamedQuery(name = "Teams.findEmployeesByProjID", query = "SELECT t.employeeid FROM Teams t WHERE t.projectid.projectid = :proj"),
+    @NamedQuery(name = "Teams.findEmployeesByProjID2", query = "SELECT t FROM Teams t WHERE t.projectid.projectid = :proj AND t.employeeid.employeeId = :id"),
+    @NamedQuery(name = "Teams.findRolesByProjID", query = "SELECT DISTINCT t.roleid.roleId FROM Teams t WHERE t.projectid.projectid = :proj"),
+    @NamedQuery(name = "Teams.findRolesByProjIdAndRole", query = "SELECT  t.employeeid FROM Teams t WHERE t.projectid.projectid = :proj AND t.roleid.roleId = :roleId"),
     @NamedQuery(name = "Teams.findByProjID2", query = "SELECT t FROM Teams t WHERE t.projectid.projectid = :projId"),
     @NamedQuery(name = "Teams.findDistinctFunctions", query = "SELECT DISTINCT t.phases FROM Teams t WHERE t.levels =:level AND t.projectid.projectid = :proj"),
      @NamedQuery(name = "Teams.findProjectTeamByLevelsAndPhases", query = "SELECT t FROM Teams t WHERE t.levels= :levels AND t.phases =:phases"),
     @NamedQuery(name = "Teams.findByTeamsid", query = "SELECT t FROM Teams t WHERE t.teamsid = :teamsid"),
     @NamedQuery(name = "Teams.findByTeamrecordid", query = "SELECT t FROM Teams t WHERE t.teamrecordid = :teamrecordid"),
+    @NamedQuery(name = "Teams.findProjByEmployeeId", query = "SELECT t.projectid.projectName FROM Teams t WHERE t.employeeid.employeeId = :empId"),
     @NamedQuery(name = "Teams.findByDepartmentid", query = "SELECT t FROM Teams t WHERE t.departmentid = :departmentid"),
     @NamedQuery(name = "Teams.findByLevels", query = "SELECT t FROM Teams t WHERE t.levels = :levels"),
     @NamedQuery(name = "Teams.findByPhases", query = "SELECT t FROM Teams t WHERE t.phases = :phases")})

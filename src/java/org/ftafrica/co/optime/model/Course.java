@@ -13,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,10 +35,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c"),
     @NamedQuery(name = "Course.findByCoursesId", query = "SELECT c FROM Course c WHERE c.coursesId = :coursesId"),
+    @NamedQuery(name = "Course.findByRoleId", query = "SELECT c FROM Course c WHERE c.roleid.roleId = :roleId"),
     @NamedQuery(name = "Course.findByCourseName", query = "SELECT c FROM Course c WHERE c.courseName = :courseName"),
     @NamedQuery(name = "Course.findByCourseDuration", query = "SELECT c FROM Course c WHERE c.courseDuration = :courseDuration"),
     @NamedQuery(name = "Course.findByCourseCost", query = "SELECT c FROM Course c WHERE c.courseCost = :courseCost")})
 public class Course implements Serializable {
+    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
+    @ManyToOne(optional = false)
+    private Roles roleid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseId")
     private Collection<TrainingPlan> trainingPlanCollection;
     private static final long serialVersionUID = 1L;
@@ -166,6 +172,14 @@ public class Course implements Serializable {
 
     public void setTrainingPlanCollection(Collection<TrainingPlan> trainingPlanCollection) {
         this.trainingPlanCollection = trainingPlanCollection;
+    }
+
+    public Roles getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Roles roleid) {
+        this.roleid = roleid;
     }
     
 }

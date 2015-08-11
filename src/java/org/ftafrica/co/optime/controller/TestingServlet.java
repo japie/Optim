@@ -17,8 +17,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.ftafrica.co.optime.Helper.DashBoard.DashboardMain;
-import org.ftafrica.co.optime.bussinesslogic.feeders.DashboardBean;
+import org.ftafrica.co.optime.Helper.Succesion.SuccessionHelperClass;
+import org.ftafrica.co.optime.Helper.training.MainTraining;
+import org.ftafrica.co.optime.bussinesslogic.feeders.SuccessionBean;
+
 
 /**
  * 
@@ -27,12 +29,13 @@ import org.ftafrica.co.optime.bussinesslogic.feeders.DashboardBean;
 @WebServlet(name = "TestingServlet", urlPatterns = {"/TestingServlet"})
 public class TestingServlet extends HttpServlet {
     @EJB
-    DashboardBean dbb;
+    SuccessionBean dbb;
    
             
     
     Gson gson = new Gson();
 
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,7 +52,8 @@ public class TestingServlet extends HttpServlet {
            my.add("Proj06");
           
           
-        DashboardMain hmh = dbb.GenerateDashBoardMain(my);
+        List<SuccessionHelperClass> hmh = dbb.GenerateSuccessionPlan("Proj06");
+       // List<String> lol = dbb.GetDistinctRolesFromTeams(my.get(0));
           
             /* TODO output your page here. You may use following sample code. */
             out.write(gson.toJson(hmh));

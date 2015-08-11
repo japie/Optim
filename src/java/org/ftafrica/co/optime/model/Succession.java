@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Succession.findAll", query = "SELECT s FROM Succession s"),
     @NamedQuery(name = "Succession.findByPre", query = "SELECT s FROM Succession s WHERE s.predecessor.employeeId =:pre"),
+    @NamedQuery(name = "Succession.findByPre2", query = "SELECT s.successor FROM Succession s WHERE s.predecessor.employeeId =:empId"),
     @NamedQuery(name = "Succession.FindNull", query = "SELECT s FROM Succession s WHERE s.successor IS NULL"),
     @NamedQuery(name = "Succession.findByPlanId", query = "SELECT s FROM Succession s WHERE s.planId = :planId"),
     @NamedQuery(name = "Succession.findByList", query = "SELECT s FROM Succession s WHERE s.level = :lev"),
@@ -50,11 +51,18 @@ public class Succession implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    @Column(name = "Role_id")
-    private String roleid;
+    @Column(name = "Comment_id")
+    private String commentid;
+    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
+    @ManyToOne(optional = false)
+    private Roles roleid;
+    @JoinColumn(name = "Project_id", referencedColumnName = "Project_id")
+    @ManyToOne(optional = false)
+    private Projects projectid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    
     @Column(name = "Level")
     private String level;
     private static final long serialVersionUID = 1L;
@@ -237,13 +245,9 @@ public class Succession implements Serializable {
         return "org.ftafrica.co.optime.model.Succession[ planId=" + planId + " ]";
     }
 
-    public String getRoleid() {
-        return roleid;
-    }
+    
 
-    public void setRoleid(String roleid) {
-        this.roleid = roleid;
-    }
+    
 
     public String getLevel() {
         return level;
@@ -251,6 +255,30 @@ public class Succession implements Serializable {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public String getCommentid() {
+        return commentid;
+    }
+
+    public void setCommentid(String commentid) {
+        this.commentid = commentid;
+    }
+
+    public Roles getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Roles roleid) {
+        this.roleid = roleid;
+    }
+
+    public Projects getProjectid() {
+        return projectid;
+    }
+
+    public void setProjectid(Projects projectid) {
+        this.projectid = projectid;
     }
     
 }

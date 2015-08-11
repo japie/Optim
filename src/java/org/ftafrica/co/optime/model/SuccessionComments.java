@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.ftafrica.co.optime.model;
 
 import java.io.Serializable;
@@ -35,8 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SuccessionComments.findBySuccCommId", query = "SELECT s FROM SuccessionComments s WHERE s.succCommId = :succCommId"),
     @NamedQuery(name = "SuccessionComments.findByPlanProgress", query = "SELECT s FROM SuccessionComments s WHERE s.planProgress = :planProgress"),
     @NamedQuery(name = "SuccessionComments.findByComment", query = "SELECT s FROM SuccessionComments s WHERE s.comment = :comment"),
-    @NamedQuery(name = "SuccessionComments.findByCommentDate", query = "SELECT s FROM SuccessionComments s WHERE s.commentDate = :commentDate"),
-    @NamedQuery(name = "SuccessionComments.findByCommentBy", query = "SELECT s FROM SuccessionComments s WHERE s.commentBy = :commentBy")})
+    @NamedQuery(name = "SuccessionComments.findByCommentDate", query = "SELECT s FROM SuccessionComments s WHERE s.commentDate = :commentDate")})
 public class SuccessionComments implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,11 +58,9 @@ public class SuccessionComments implements Serializable {
     @Column(name = "comment_date")
     @Temporal(TemporalType.DATE)
     private Date commentDate;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "comment_by")
-    private String commentBy;
+    @JoinColumn(name = "comment_by", referencedColumnName = "employee_id")
+    @ManyToOne(optional = false)
+    private Employees commentBy;
     @JoinColumn(name = "succession_plan_id", referencedColumnName = "plan_id")
     @ManyToOne(optional = false)
     private Succession successionPlanId;
@@ -76,12 +72,11 @@ public class SuccessionComments implements Serializable {
         this.succCommId = succCommId;
     }
 
-    public SuccessionComments(String succCommId, String planProgress, String comment, Date commentDate, String commentBy) {
+    public SuccessionComments(String succCommId, String planProgress, String comment, Date commentDate) {
         this.succCommId = succCommId;
         this.planProgress = planProgress;
         this.comment = comment;
         this.commentDate = commentDate;
-        this.commentBy = commentBy;
     }
 
     public String getSuccCommId() {
@@ -116,11 +111,11 @@ public class SuccessionComments implements Serializable {
         this.commentDate = commentDate;
     }
 
-    public String getCommentBy() {
+    public Employees getCommentBy() {
         return commentBy;
     }
 
-    public void setCommentBy(String commentBy) {
+    public void setCommentBy(Employees commentBy) {
         this.commentBy = commentBy;
     }
 

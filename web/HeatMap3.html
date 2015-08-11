@@ -1,0 +1,958 @@
+<!DOCTYPE>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+
+ <script src="js/canvasjs.min.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/Chart.js"></script>
+<script src="Json/NewHeatMap.json"></script>
+<script src="Json/SideView.json"></script>
+<script src="js/morris-0.4.1.min.js"></script>
+<script src="js/raphael-min.js"></script>
+
+
+
+<script>
+
+var mydata;
+var mypersondata; 
+function elimDub(arr) {
+
+  var i,
+      len=arr.length,
+      out=[],
+      obj={};
+
+  for (i=0;i<len;i++) {
+    obj[arr[i]]=0;
+  }
+  for (i in obj) {
+    out.push(i);
+  }
+  return alert(out);
+}
+ ///sideview pop up data population
+function show(getId){
+    //var mypersondata;
+    $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "SideView",
+                employeeId:getId
+            },
+            
+            success : function(responsjson) { 
+                
+            mypersondata = JSON.parse(responsjson);
+            var myWidth = $(".heatwrap_cap").width();
+
+      
+	    if ($( ".heatwrap_cap" ).width() <= 700) {
+			
+		}else{
+		 
+		  /* $('.tfa').css('visibility','hidden');*/
+		  $( ".heatwrap_cap" ).animate({width:600}, 200);
+	
+	      $('#perName').text('');
+		  $('#perSurname').text('');
+		  $('#Role').text('');
+		  $('#comments').text(''); 
+		  var dv ='';
+		  $('.succ_list').text('');
+		  $('.usage').text('');
+               
+				   if(mypersondata[0].EmployeeId === getId){
+				       
+				      $('#perName').append(mypersondata[0].Name);
+					  $('#perSurname').append(mypersondata[0].Surname);
+					  $('#Role').append("Role: "+mypersondata[0].Role);
+dv ='<div class="jstDiv"><div class="person"><img src="img/index3.jpg" style="width:30px;height:30px;"><div class="suc_names">'
+   +'<span id="suc_name"></span>'+'<span id="suc_surname"></span>'+'</div>'+'<div class="rate">'+'<div class="inner_rate_div">'+'<Span>Match</span>'+'<Span id="personRating"></span></div>'
+			 
+			 +'</div>'+'</div>'; 
+					   
+					  $('.succ_list').append(dv);
+					   dv ='';
+					  $('#suc_name').append(mypersondata[0].EmployeeSuccessors[0].Name);
+					  $('#suc_surname').append(mypersondata[0].EmployeeSuccessors[0].Surname);
+					  $('#comments').append(mypersondata[0].CommentNotice);
+					  $('.usage').append('Utalization:'+mypersondata[0].EmployeesProjects[0].utilization+"%");
+					  if(mypersondata[0].EmployeeSuccessors[0].SkillMatch < 100){
+					     $('.rate').css('background-color','#FF6600');
+						  $('#personRating').append(mypersondata[0].EmployeeSuccessors[0].SkillMatch+"%");
+					  }else{
+					   $('.rate').css('background-color','#187616');
+						  $('#personRating').append(mypersondata[0].EmployeeSuccessors[0].SkillMatch+"%");
+					  }
+					  
+					  
+				   }else{
+				      alert("person X not found");
+				     }
+	
+		     $('.tfa').css('vertical-align','top');
+			 $('.tfa').css('display','inline-block');
+			 $('.tfa').css('visibility','visible');
+			 $('.tfa').css('width','23%');
+			 $('#ht td').css('font-size','70%');
+		     $('.tfa').css('background-color','#FFFFFF');
+		}
+		
+            
+            }
+        });
+ }
+$(document).ready(function() {
+     $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "HeatMap"
+            },
+            success : function(responsejson) {
+            mydata = responsejson; 
+                var table = $('#ht');
+
+var levels = '';
+var  func = '';
+var c = '';
+var size =0;
+var open_raw ="<tr>";
+var close_raw ="</tr>";
+var role_cell ='';
+var form_table ='';
+var green = "Style = 'background-color:#187616'; color:'#ffffff'; ";
+		var amber = "Style = 'background-color:#FF6600'; color:'#ffffff';";
+		var red = "Style = 'background-color:#C61A2B'; color:'#ffffff';";
+/*mydata[0].mainHeatMap[1].RolesCol[a].Phase*/
+
+var combine =''; 
+//-------creating headers---->
+var arr=[]; var arr1=[];  var getLength=0;var val =0;
+for(var f = 1 ; f <= 10;f++){
+   try{
+			for(var a = 0; a < mydata[0].mainHeatMap[f].RolesCol.length;a++){	 
+				val = val +1;  
+				//	alert("pos:"+ a);
+				arr[a]= mydata[0].mainHeatMap[f].RolesCol[a].Phase; //all
+			//	arr1[a] = mydata[0].mainHeatMap[1].RolesCol[a].Phase;//least
+				
+			}
+			getLength =  val;
+			
+			for(var d=0;d<arr.length;d++){
+			  arr1.push(arr[d]);
+			}
+           
+			 var i,
+      len=arr1.length,
+      out=[],
+      obj={};
+	var c = 0;
+		  for (i=0;i<len;i++) {
+			obj[arr1[i]]=0;		
+		  }
+		  for (i in obj) {
+			out.push(i);
+			
+			c = c +1;		
+		  }
+		
+		if(c == 8){
+		for(c = 0; c<out.length;c++)
+		  role_cell +="<td class='phase'>"+out[c]+"</td>";
+		 
+		}
+		
+		 
+		
+			//end of sorting
+  
+
+var thead = "<tr><th></th><th colspan="+out.length+" class='func'>Functions<th></tr>";
+		 			
+			  combine =thead+open_raw +"<th></th>"+ role_cell + close_raw;
+				
+		}catch(err){
+		 
+		}		  
+	}
+   
+//-------creating cells-------->
+var xx = ''; var td ="<td>"; var getAllNames = ''; var reg_lev = []; var observer = 0; 
+  for(var x = 1 ; x <= mydata[0].mainHeatMap.length;x++){
+    try{
+	  
+	  
+  func = "<tr> <td> "+mydata[0].mainHeatMap[x].Level+"</td>";
+  	reg_lev[x] = mydata[0].mainHeatMap[x].Level;
+	 
+	 var s ='';
+	 for(var i = 0;i<mydata[0].mainHeatMap[x].RolesCol.length;i++){		
+		
+var cll = ".cell"+mydata[0].mainHeatMap[x].RolesCol[i].Phase;
+ var clss ="cell"+mydata[0].mainHeatMap[x].RolesCol[i].Phase;
+ var tdClass ="";
+ var td ="<td class='"+clss+"'>"; var getAllNames = ''; 
+    var name = ''; var arr2=[];var arry=[]; var lookup = {};var f='';
+     levels ="";  var ids=[];
+	          
+					 
+					// ids.push(out[t]+t+x);
+					for(var d=0;d<out.length;d++){
+						
+						levels +="<td class='"+(d+""+x)+"' style='background-color:#C61A2B'></td>";
+						
+						}     
+			
+	 }
+	 
+}catch(err){
+	    //display message error here....
+		//alert(err)
+	 }
+	
+  c = "</tr>";//close raw after specified count.
+  var comb = func + levels+ c;
+	/*alert(mydata[0].mainHeatMap[size].RolesCol.length);*/
+form_table =	combine + comb;
+ 
+  table.append(form_table);
+levels ='';
+  c = '';
+  func = '';
+   combine ='';
+  
+
+  }
+ getData(out);
+
+  
+    }
+    });
+  
+   });
+    
+function getData(arr){
+var table = $('#ht');
+var names =[];	
+try{
+	for(var x = 1 ; x <= mydata[0].mainHeatMap.length;x++){
+		
+		for(var i = 0;i<mydata[0].mainHeatMap[x].RolesCol.length;i++){	
+		 	
+			 for(var t = 0;t<mydata[0].mainHeatMap[x].RolesCol[i].Employees.length;t++){
+					
+				  if(mydata[0].mainHeatMap[x].RolesCol[i].Employees.length == 1){ 
+				  
+			//	  names.push(mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name);
+		//	 if($('.'+i+""+x)){	
+				 if(mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Status =="Green"){		
+				$('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].EmployeeId+"' onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Name+"</a><br>");
+				    $('.'+i+""+x).css('background-color','#187616');
+					$('.'+i+""+x+' a').css('color','#ffffff');
+				 }else if(mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Status =="Amber"){		
+	$('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].EmployeeId+"'  onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Name+"</a><img src='img/exclamation_silver_2.png'  width='15' height='15' class='noti_icon' style=' margin-left:3px;' /><br>");
+				    $('.'+i+""+x).css('background-color','#BF6000');
+					$('.'+i+""+x+' a').css('color','#ccc');
+				 }else{
+ $('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].EmployeeId+"'  onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Name+"</a><img src='img/exclamation_silver_2.png'  width='15' height='15' class='noti_icon' style=' margin-left:3px;' /><br>");
+				    $('.'+i+""+x).css('background-color','#C61A2B');
+					$('.'+i+""+x+' a').css('color','#ccc');
+					$('td a').css('font-family','segoe UI');
+					$('td a').css('font-weight','lighter');
+					$('td a').css('font-size','.8em');
+					
+					 }
+	
+				
+				
+		
+				  }	else if(mydata[0].mainHeatMap[x].RolesCol[i].Employees.length >= 2){ 
+						 
+						 
+						 
+						 	 if(mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Status =="Green"){		
+			$('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].EmployeeId+"' onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name+"</a><br>");
+				    $('.'+i+""+x).css('background-color','#187616');
+					$('.'+i+""+x+' a').css('color','#ffffff');
+				 }else if(mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Status =="Amber"){		
+	$('.'+i+""+x).append("<a class='pushElement'  id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].EmployeeId+"' onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name+"</a><img src='img/exclamation_silver_2.png'  width='15' height='15' class='noti_icon' style=' margin-left:3px;' /><br>");
+				  $('.'+i+""+x).css('background-color','#BF6000');
+					$('.'+i+""+x+' a').css('color','#ccc');
+					
+				 }else{
+					 $('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].EmployeeId+"'  onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name+"</a><img src='img/exclamation_silver.png'  width='15' height='15' class='noti_icon' style='opacity:1; margin-left:3px'  /><br>");
+				    $('.'+i+""+x).css('background-color','#C61A2B');
+					$('.'+i+""+x+' a').css('color','#ccc');
+					$('td a').css('font-family','segoe UI');
+					$('td a').css('font-weight','lighter');
+					$('td a').css('font-size','.8em');
+					
+					 }
+	
+						 
+						 }
+				 
+			 }//end for
+		
+		}
+
+		
+		
+		}
+}catch(e){}
+	
+}
+//window.onload = function(){
+//
+// var level = 0;
+// try{  //levels
+//    	for(var x = 1 ; x <= mydata[0].mainHeatMap.length;x++){  
+//			
+//			for(var a = 0; a < mydata[0].mainHeatMap[x].RolesCol.length;a++){  //roles
+//				cells(x, a);	
+//			}
+//		}
+//	   
+//	
+// }catch(err){
+// 
+// }
+//
+//}
+//function cells(level, role){
+// var table = $('#ht');
+//  var emp = ''; var count_emp=0; var op_raw ="<tr>"; var op_col ="<th>"; var op_cel="<td>"; var role_cell ="";
+// try{
+// 
+// var thead = "<tr><th></th><th colspan="+ mydata[0].mainHeatMap[1].RolesCol.length+" class='func'>Functions<th></tr>";
+// 
+//   for(var x = 0;x <level;x++){
+//      if(x=level){
+//	    for(var i = 0; i<role;i++){
+//		
+//		  if(i=role){
+//		  	for(var r=0;r<mydata[0].mainHeatMap[x].RolesCol[i].Employees.length;r++){
+//			
+//			
+//				 if(mydata[0].mainHeatMap[x].RolesCol[i].Employees.length>1){
+//				 
+//				    for(var t = 0;t<mydata[0].mainHeatMap[x].RolesCol[i].Employees.length;t++){
+//					
+//			 		 emp += mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name;
+//			  			count_emp = count_emp +1;
+//					}
+//						}else{
+//						 emp += mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Name;
+//						}
+//						
+//			}
+//		  //  alert("there's "+count_emp+"(" +emp+")"+" employee(s) @ level "+ x +" in phase "+ i);
+//			
+//		  }
+//		 
+//		}
+//		
+//	  }
+//	  var combine = thead+"<tr>"+role_cell+"</tr>";
+//	  table.append(combine);
+//    
+//   }
+//   
+//  }catch(err){
+//  // alternative..or error here..
+// 
+//  }
+//   
+//}   
+
+</script>
+
+
+<script>
+
+ 
+function hide(){
+document.getElementById("content_area").style.visibility = "hidden";
+}
+
+
+
+
+$(function(){
+ 
+   var myWidth = $(".heatwrap_cap").width();
+   $('td a').click(function(){
+      
+	    if ($( ".heatwrap_cap" ).width() <= 700) {
+			
+		}else{
+		 
+		  /* $('.tfa').css('visibility','hidden');*/
+		  $( ".heatwrap_cap" ).animate({width:600}, 200);
+		
+		     $('.tfa').css('vertical-align','top');
+			 $('.tfa').css('display','inline-block');
+			 $('.tfa').css('visibility','visible');
+			 $('.tfa').css('width','23%');
+			 
+		   $('.tfa').css('background-color','#FFFFFF');
+		}
+		
+      
+   });
+
+});
+
+
+$(function(){
+    $('.close').click(function(){
+	    
+		  $('.heatwrap_cap').css('width','100%'); 
+			 
+			 $('.tfa').css('visibility','hidden');
+ 			 $('#ht td').css('font-size','100%');
+		   $('.tfa').css('background-color','#000000');
+	
+	});
+
+});
+
+
+
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+  
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+
+</script>
+
+
+<title>Optim </title>
+
+<style>
+/*-----------------------profile menu ------------------ */
+
+.onclick-menu {
+    position: relative;
+    display: inline-block;
+	
+
+}
+
+.onclick-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-menu:focus .menu:after{
+ border-bottom:10px solid  #2393E4;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:14em;
+}
+
+.onclick-menu:focus .onclick-menu-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-menu-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+
+
+/*----------------------end of profile menu ----*/
+
+.onclick-msg-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.onclick-msg-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-msg-menu:focus .noti-menu:after{
+ border-bottom:10px solid  #333;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:15em;
+}
+
+.onclick-msg-menu:focus .onclick-noti-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-noti-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+
+/* --------end of notification menu ------ */
+
+.onclick-inbox-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.onclick-inbox-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-inbox-menu:focus .inbox-menu:after{
+ border-bottom:10px solid  #333;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:16em;
+}
+
+.onclick-inbox-menu:focus .onclick-inbox-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-inbox-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+</style>
+
+
+
+</head>
+
+<body >
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span>Jack Daniel</Span>		    
+			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" id="opt_container">
+      
+	     <div class="content_area"  >
+		
+	
+		  <div class="capacityPlan_bar">
+		 
+		  <Span class="cap_header">Heat Map</Span>
+		  
+				  
+				  <span class="notify_box">Reminder<a class="notify">0</a></span>
+				    <span class="notify_box">Warnings<a class="notify">0</a></span>
+				 <span class="notify_box">Alerts<a class="notify">0</a></span>
+				 
+		  </div>
+		<div class="heatwrap_cap"><!--content starts here...-->
+		
+		  <div class="heat_board">
+		   
+		      <section class ="notes">
+ 
+ <div class="mxm">
+   <div class="red"></div><a>Urgent</a>
+	<div class="amber"></div><a>Needs Attention</a>
+	<div class="green"></div><a>On Track</a>
+
+	
+	<div class="dwnload" ><a>Download</a></div>
+
+	<div class="print"><a>Print</a></div>
+    
+	</div>
+	
+ </section>
+<section class ="hmap-table">
+  <div class="tabbing">
+        <ul class="tabs_1">
+    <li>
+        <input type="radio" checked name="tabs" id="tab_1">
+        <label for="tab_1">All</label>
+        <div id="tab-content_1" class="tab_content">
+	       Nothing to display.
+            <!-- Your content goes here -->
+        </div>
+    </li>
+    <li>
+        <input type="radio" name="tabs" id="tab_2">
+        <label for="tab_2">Calypso</label>
+        <div id="tab_content2" class="tab_content">
+            <table  align="center" width="100%" id="ht" class="heatmap_table">
+	  
+		  
+		 
+			</table>
+		<table class="budget_tab" >
+		   <tr >
+		
+			<td class="budget_name">Budget</td>
+			<td ></td>
+			<td ></td>
+			<td></td>		
+			<td></td>
+			<td ></td>
+		  </tr>		   
+		</table>
+            <!-- Your content goes here -->
+        </div>
+    </li>
+    <li>
+        <input type="radio" name="tabs" id="tab_3">
+        <label for="tab_3">Project XY</label>
+        <div id="tab_content3" class="tab_content">
+            <h3>Tab 3</h3>
+            <!-- Your content goes here -->
+        </div>
+    </li>
+</ul>
+ </div>  
+</section>
+
+
+   			
+  
+ 
+				
+				
+		  </div>
+		     <div class="tfa">
+			 
+	   <div class="close_banner">
+			 <div class="close_btn"><Span class="close">X</span></div>
+			 </div>
+			 
+		<div class="wraper">
+			<div class="top">
+			 <div class="uImg">
+			 <img src="img/no-profile-male-img.gif" style="width:40px;height:40px;">
+			 </div>
+			 <div class="uNames"><Span id="perName">Movic</Span> <Span id="perSurname">Abrahim</Span></div>
+		    </div>
+			  <div class="mng_btn"></div>
+		</div>
+
+
+			 <div class="doughnut"  align="center">
+			 <Span class="wf">Workforce</span>
+			
+			<div id="util">
+ <Span class="usage">Overall Usage:104%</span>
+</div>
+		       <div id="donut"></div>
+  
+  <script id="jsbin-javascript">
+// mypersondata = JSON.parse(person);
+/*
+ * Play with this code and it'll update in the panel opposite.
+ *
+ * Why not try some of the options above?
+ */
+// var i; var data ='';
+  //for(i=0; i<mypersondata[0].EmployeesProjects.length;i++){
+ //     if(mypersondata[0].EmployeesProjects.length == 1){
+//	   data = {label:mypersondata[0].EmployeesProjects[i].name, value: mypersondata[0].EmployeesProjects[i].utilization};
+//	  }
+ //  }
+Morris.Donut({
+  element: 'donut',
+  data: [
+  //  {label: "Murex", value: 34},
+   // {label: "Calypso", value: 50},
+    {label: "Calypso", value: 30}
+     
+   
+  ]
+});
+
+</script>
+
+
+
+	         </div>
+			 
+			  <div class="notice">
+			    <fieldset class="leg_notice" style="text-align:right;">
+			<legend><b>Notice:</b></legend>
+			<p id="comments">I Quit... :-) !!!</p>
+			
+ 		 </fieldset>
+		 <a id="Role">Role: Senior Consultant</a>
+		
+		  
+		  
+			 </div>
+		
+		<div class="pop_successors">
+		<div class="sucpop_banner">
+		<img src="img/images.png" style="width:15px;height:15px; margin-left:10px;">
+		  <a>Successors</a>
+		  </div>
+		 <div class="succ_list">
+		 
+		 <!--<div class="jstDiv">
+		   <div class="person">
+		      <img src="img/green_proflie.png" style="width:30px;height:30px;"> 
+	
+			<div class="suc_names">
+			  <span id="name">Mastor</span>
+			  <span id="surname">Mashongane</span>
+			  </div>
+			 <div class="rate">
+			   <div class="inner_rate_div">
+			 <Span>Match</span>
+			 <Span>100%</span></div>
+			 
+			 </div>
+			 
+	   </div>
+	   
+		   </div> <!--jstDiv ends here---->
+		   
+	   
+		 </div>
+		 
+		
+		</div> <div class="view_prof"><span>View full profile</span> </div>
+			 </div>
+	 </div>  
+	 
+	   
+ 
+ 
+		
+				 </div>   <!--this div wraps the positions list dont touch-->
+		 
+		 
+		 
+		    
+				</div>  <!---end of content area--->
+				 
+				 
+				 
+	
+	</div>
+	<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
+		     
+
+		</li>
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap2.html">Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organo.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 			
+	  </ul>
+	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+	
+</div>
+
+</body>
+</html>

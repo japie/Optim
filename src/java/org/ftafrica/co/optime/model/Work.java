@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Work.findByOccupiedPro", query = "SELECT w FROM Work w WHERE w.level = :lev AND w.status = :status "),
     @NamedQuery(name = "Work.findByOpenPro", query = "SELECT w FROM Work w WHERE w.level = :lev AND w.status = :status"),
     
+    @NamedQuery(name = "Work.FindTeamEmployessById", query = "SELECT w.employeeId FROM Work w WHERE w.status = :status2 OR w.status = :status"),//
     
     @NamedQuery(name = "Work.findByOpenPro", query = "SELECT w FROM Work w WHERE w.level = :lev AND w.status = :status"),
     
@@ -61,7 +62,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Work implements Serializable {
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Column(name = "Notice_Date")
+    @Temporal(TemporalType.DATE)
+    private Date noticeDate;
+    @Basic(optional = false)
+    @NotNull
+    
     @Column(name = "status")
     private String status;
     private static final long serialVersionUID = 1L;
@@ -261,5 +267,15 @@ public class Work implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Date getNoticeDate() {
+        return noticeDate;
+    }
+
+    public void setNoticeDate(Date noticeDate) {
+        this.noticeDate = noticeDate;
+    }
+
+   
     
 }
