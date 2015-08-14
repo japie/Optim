@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.ftafrica.co.optime.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,13 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,31 +28,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TrainingPlan.findAll", query = "SELECT t FROM TrainingPlan t"),
-    @NamedQuery(name = "TrainingPlan.findAllEmployees", query = "SELECT t.employeeId FROM TrainingPlan t"),
+     @NamedQuery(name = "TrainingPlan.findAllEmployees", query = "SELECT t.employeeId FROM TrainingPlan t"),
     @NamedQuery(name = "TrainingPlan.findByTrainingEmpId", query = "SELECT t FROM TrainingPlan t WHERE t.employeeId.employeeId = :id"),
     @NamedQuery(name = "TrainingPlan.findSingleResult", query = "SELECT t FROM TrainingPlan t WHERE t.employeeId.employeeId = :empId AND t.courseId.coursesId = :course AND t.roleid.roleId = :roleId "),
     @NamedQuery(name = "TrainingPlan.findByTrainingId", query = "SELECT t FROM TrainingPlan t WHERE t.trainingId = :trainingId"),
     @NamedQuery(name = "TrainingPlan.findDistinctRoles", query = "SELECT DISTINCT t.roleid.roleId FROM TrainingPlan t"),
-    @NamedQuery(name = "TrainingPlan.findByCourseName", query = "SELECT t FROM TrainingPlan t WHERE t.courseName = :courseName"),
     @NamedQuery(name = "TrainingPlan.findTrainigList", query = "SELECT t FROM TrainingPlan t WHERE t.level = :lev AND t.status = :status"),
     @NamedQuery(name = "TrainingPlan.findTrainedList", query = "SELECT t FROM TrainingPlan t WHERE t.level = :lev AND t.status = :status"),
     @NamedQuery(name = "TrainingPlan.findNotTrainedList", query = "SELECT t FROM TrainingPlan t WHERE t.level = :lev AND t.status = :status"),
-    @NamedQuery(name = "TrainingPlan.findByTrainingType", query = "SELECT t FROM TrainingPlan t WHERE t.trainingType = :trainingType")})
+    @NamedQuery(name = "TrainingPlan.findByTrainingType", query = "SELECT t FROM TrainingPlan t WHERE t.trainingType = :trainingType"),
+    @NamedQuery(name = "TrainingPlan.findByLevel", query = "SELECT t FROM TrainingPlan t WHERE t.level = :level"),
+    @NamedQuery(name = "TrainingPlan.findByStatus", query = "SELECT t FROM TrainingPlan t WHERE t.status = :status")})
 public class TrainingPlan implements Serializable {
-    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
-    @ManyToOne(optional = false)
-    private Roles roleid;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    
-    @Column(name = "Level")
-    private String level;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "Status")
-    private String status;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -69,17 +50,23 @@ public class TrainingPlan implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "course_name")
-    private String courseName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "training_type")
     private String trainingType;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trainingId")
-    private Collection<TrainingComments> trainingCommentsCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "Level")
+    private String level;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "Status")
+    private String status;
+    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
+    @ManyToOne(optional = false)
+    private Roles roleid;
     @JoinColumn(name = "course_id", referencedColumnName = "courses_id")
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Course courseId;
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     @ManyToOne(optional = false)
@@ -92,10 +79,11 @@ public class TrainingPlan implements Serializable {
         this.trainingId = trainingId;
     }
 
-    public TrainingPlan(String trainingId, String courseName, String trainingType) {
+    public TrainingPlan(String trainingId, String trainingType, String level, String status) {
         this.trainingId = trainingId;
-        this.courseName = courseName;
         this.trainingType = trainingType;
+        this.level = level;
+        this.status = status;
     }
 
     public String getTrainingId() {
@@ -106,14 +94,6 @@ public class TrainingPlan implements Serializable {
         this.trainingId = trainingId;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
     public String getTrainingType() {
         return trainingType;
     }
@@ -122,13 +102,28 @@ public class TrainingPlan implements Serializable {
         this.trainingType = trainingType;
     }
 
-    @XmlTransient
-    public Collection<TrainingComments> getTrainingCommentsCollection() {
-        return trainingCommentsCollection;
+    public String getLevel() {
+        return level;
     }
 
-    public void setTrainingCommentsCollection(Collection<TrainingComments> trainingCommentsCollection) {
-        this.trainingCommentsCollection = trainingCommentsCollection;
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Roles getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Roles roleid) {
+        this.roleid = roleid;
     }
 
     public Course getCourseId() {
@@ -170,34 +165,6 @@ public class TrainingPlan implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.TrainingPlan[ trainingId=" + trainingId + " ]";
-    }
-
-   
-
-   
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Roles getRoleid() {
-        return roleid;
-    }
-
-    public void setRoleid(Roles roleid) {
-        this.roleid = roleid;
     }
     
 }

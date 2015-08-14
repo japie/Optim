@@ -17,9 +17,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.ftafrica.co.optime.Helper.Succesion.SuccessionHelperClass;
+import org.ftafrica.co.optime.Helper.hiring.HiringPlanHelper;
 import org.ftafrica.co.optime.Helper.training.MainTraining;
-import org.ftafrica.co.optime.bussinesslogic.feeders.SuccessionBean;
+import org.ftafrica.co.optime.bussinesslogic.feeders.HiringPlanBean;
 
 
 /**
@@ -29,7 +29,7 @@ import org.ftafrica.co.optime.bussinesslogic.feeders.SuccessionBean;
 @WebServlet(name = "TestingServlet", urlPatterns = {"/TestingServlet"})
 public class TestingServlet extends HttpServlet {
     @EJB
-    SuccessionBean dbb;
+    HiringPlanBean dbb;
    
             
     
@@ -46,16 +46,17 @@ public class TestingServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+       // response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter(); 
         List<String> my = new ArrayList();
            my.add("Proj06");
           
           
-        List<SuccessionHelperClass> hmh = dbb.GenerateSuccessionPlan("Proj06");
+        List<HiringPlanHelper> hmh = dbb.GenerateHiringPlanJsonObject(my.get(0));
        // List<String> lol = dbb.GetDistinctRolesFromTeams(my.get(0));
           
             /* TODO output your page here. You may use following sample code. */
+      //  response.setContentType("application/json;charset=UTF-8");
             out.write(gson.toJson(hmh));
           //  out.print();
             

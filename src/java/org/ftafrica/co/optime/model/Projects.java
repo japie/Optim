@@ -47,6 +47,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Projects.findByContractperiod", query = "SELECT p FROM Projects p WHERE p.contractperiod = :contractperiod"),
     @NamedQuery(name = "Projects.findByProjectmanager", query = "SELECT p FROM Projects p WHERE p.projectmanager = :projectmanager")})
 public class Projects implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 4)
+    @Column(name = "Duration")
+    private String duration;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "Department")
+    private String department;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectid")
     private Collection<Succession> successionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projid")
@@ -290,6 +300,22 @@ public class Projects implements Serializable {
 
     public void setTasksCollection(Collection<Tasks> tasksCollection) {
         this.tasksCollection = tasksCollection;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
     
 }

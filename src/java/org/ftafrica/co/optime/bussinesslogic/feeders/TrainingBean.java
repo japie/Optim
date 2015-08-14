@@ -50,7 +50,7 @@ public class TrainingBean {
                     catch(Exception e){}
                     if(SingleTrainingPlan != null){
                     
-                    qualification.setQualificationTitle(SingleTrainingPlan.getCourseName());
+                    qualification.setQualificationTitle(c.getCourseName().toString());
                     qualification.setQualificationStatus(SingleTrainingPlan.getStatus());
                     qualificationList.add(qualification);
                     }

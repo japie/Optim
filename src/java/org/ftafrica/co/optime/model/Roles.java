@@ -6,17 +6,21 @@
 package org.ftafrica.co.optime.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,6 +37,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Roles.findByEmploymentType", query = "SELECT r FROM Roles r WHERE r.employmentType = :employmentType"),
     @NamedQuery(name = "Roles.findByCertificate", query = "SELECT r FROM Roles r WHERE r.certificate = :certificate")})
 public class Roles implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleid")
+    private Collection<Hiring> hiringCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleid")
+    private Collection<Course> courseCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleid")
+    private Collection<TrainingPlan> trainingPlanCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -151,6 +161,33 @@ public class Roles implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Roles[ roleId=" + roleId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Course> getCourseCollection() {
+        return courseCollection;
+    }
+
+    public void setCourseCollection(Collection<Course> courseCollection) {
+        this.courseCollection = courseCollection;
+    }
+
+    @XmlTransient
+    public Collection<TrainingPlan> getTrainingPlanCollection() {
+        return trainingPlanCollection;
+    }
+
+    public void setTrainingPlanCollection(Collection<TrainingPlan> trainingPlanCollection) {
+        this.trainingPlanCollection = trainingPlanCollection;
+    }
+
+    @XmlTransient
+    public Collection<Hiring> getHiringCollection() {
+        return hiringCollection;
+    }
+
+    public void setHiringCollection(Collection<Hiring> hiringCollection) {
+        this.hiringCollection = hiringCollection;
     }
     
 }

@@ -28,27 +28,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Hiring.findAll", query = "SELECT h FROM Hiring h"),
-    @NamedQuery(name = "Hiring.findByRoleid", query = "SELECT h FROM Hiring h WHERE h.roleid = :roleid"),
     @NamedQuery(name = "Hiring.findAllHiring", query = "SELECT h FROM Hiring h WHERE h.projectId.projectid = :ProjId AND h.status = :status "),
+    @NamedQuery(name = "Hiring.findAllHiring2", query = "SELECT h FROM Hiring h WHERE h.projectId.projectid = :ProjId AND h.status = :status AND h.roleid.roleId = :RoleId"),
+    @NamedQuery(name = "Hiring.findAllHired", query = "SELECT h FROM Hiring h WHERE h.roleid.roleId = :RoleId"),
+    @NamedQuery(name = "Hiring.findRolesByProjID", query = "SELECT DISTINCT h.roleid.roleId FROM Hiring h WHERE h.projectId.projectid = :proj"),
     @NamedQuery(name = "Hiring.findByLevel", query = "SELECT h FROM Hiring h WHERE h.level = :level"),
     @NamedQuery(name = "Hiring.findByStatus", query = "SELECT h FROM Hiring h WHERE h.status = :status"),
     @NamedQuery(name = "Hiring.findByHiringid", query = "SELECT h FROM Hiring h WHERE h.hiringid = :hiringid"),
     @NamedQuery(name = "Hiring.findByExperience", query = "SELECT h FROM Hiring h WHERE h.experience = :experience"),
     @NamedQuery(name = "Hiring.findByPosition", query = "SELECT h FROM Hiring h WHERE h.position = :position")})
 public class Hiring implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "Number of Employees")
-    private String numberofEmployees;
-    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
-    @ManyToOne(optional = false)
-    private Roles roleid;
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
-    
     @Column(name = "Level")
     private String level;
     @Basic(optional = false)
@@ -71,12 +64,15 @@ public class Hiring implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "Position")
     private String position;
-    @JoinColumn(name = "Employee_id", referencedColumnName = "employee_id")
+    @JoinColumn(name = "Role_id", referencedColumnName = "role_id")
     @ManyToOne(optional = false)
-    private Employees employeeid;
+    private Roles roleid;
     @JoinColumn(name = "project_id", referencedColumnName = "Project_id")
     @ManyToOne(optional = false)
     private Projects projectId;
+    @JoinColumn(name = "Employee_id", referencedColumnName = "employee_id")
+    @ManyToOne(optional = false)
+    private Employees employeeid;
 
     public Hiring() {
     }
@@ -85,18 +81,13 @@ public class Hiring implements Serializable {
         this.hiringid = hiringid;
     }
 
-    public Hiring(Integer hiringid, Roles roleid, String level, String status, String experience, String position) {
+    public Hiring(Integer hiringid, String level, String status, String experience, String position) {
         this.hiringid = hiringid;
-        this.roleid = roleid;
         this.level = level;
         this.status = status;
         this.experience = experience;
         this.position = position;
     }
-
-  
-
-  
 
     public String getLevel() {
         return level;
@@ -138,12 +129,12 @@ public class Hiring implements Serializable {
         this.position = position;
     }
 
-    public Employees getEmployeeid() {
-        return employeeid;
+    public Roles getRoleid() {
+        return roleid;
     }
 
-    public void setEmployeeid(Employees employeeid) {
-        this.employeeid = employeeid;
+    public void setRoleid(Roles roleid) {
+        this.roleid = roleid;
     }
 
     public Projects getProjectId() {
@@ -152,6 +143,14 @@ public class Hiring implements Serializable {
 
     public void setProjectId(Projects projectId) {
         this.projectId = projectId;
+    }
+
+    public Employees getEmployeeid() {
+        return employeeid;
+    }
+
+    public void setEmployeeid(Employees employeeid) {
+        this.employeeid = employeeid;
     }
 
     @Override
@@ -177,22 +176,6 @@ public class Hiring implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Hiring[ hiringid=" + hiringid + " ]";
-    }
-
-    public String getNumberofEmployees() {
-        return numberofEmployees;
-    }
-
-    public void setNumberofEmployees(String numberofEmployees) {
-        this.numberofEmployees = numberofEmployees;
-    }
-
-    public Roles getRoleid() {
-        return roleid;
-    }
-
-    public void setRoleid(Roles roleid) {
-        this.roleid = roleid;
     }
     
 }
