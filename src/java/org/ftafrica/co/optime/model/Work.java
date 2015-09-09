@@ -26,13 +26,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Training 8
+ * @author solomonm
  */
 @Entity
 @Table(name = "work")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Work.findAll", query = "SELECT w FROM Work w"),
+    
+      @NamedQuery(name = "Work.findAll", query = "SELECT w FROM Work w"),
     @NamedQuery(name = "Work.findSpecificLevels", query = "SELECT DISTINCT w.level FROM Work w WHERE w.department =:departmen"),
     @NamedQuery(name = "Work.findByWorkId", query = "SELECT w FROM Work w WHERE w.workId = :workId"),
     @NamedQuery(name = "Work.findByNotice", query = "SELECT w FROM Work w WHERE w.level = :lev AND w.status = :status AND w.department = :dep"),
@@ -58,18 +59,22 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Work.findByGeneralExperience", query = "SELECT w FROM Work w WHERE w.generalExperience = :generalExperience"),
     @NamedQuery(name = "Work.findByStatus", query = "SELECT w FROM Work w WHERE w.status = :status"),
     @NamedQuery(name = "Work.findByStartDate", query = "SELECT w FROM Work w WHERE w.startDate = :startDate"),
-    @NamedQuery(name = "Work.findByEndDate", query = "SELECT w FROM Work w WHERE w.endDate = :endDate")})
-public class Work implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "Notice_Date")
-    @Temporal(TemporalType.DATE)
-    private Date noticeDate;
-    @Basic(optional = false)
-    @NotNull
+   // @NamedQuery(name = "Work.findByEndDate", query = "SELECT w FROM Work w WHERE w.endDate = :endDate")
     
-    @Column(name = "status")
-    private String status;
+    //@NamedQuery(name = "Work.findAll", query = "SELECT w FROM Work w"),
+    //@NamedQuery(name = "Work.findByWorkId", query = "SELECT w FROM Work w WHERE w.workId = :workId"),
+    //@NamedQuery(name = "Work.findByCompany", query = "SELECT w FROM Work w WHERE w.company = :company"),
+    //@NamedQuery(name = "Work.findByDepartment", query = "SELECT w FROM Work w WHERE w.department = :department"),
+    //@NamedQuery(name = "Work.findByPosition", query = "SELECT w FROM Work w WHERE w.position = :position"),
+    //@NamedQuery(name = "Work.findByContract", query = "SELECT w FROM Work w WHERE w.contract = :contract"),
+    //@NamedQuery(name = "Work.findByRelevantExperience", query = "SELECT w FROM Work w WHERE w.relevantExperience = :relevantExperience"),
+    //@NamedQuery(name = "Work.findByGeneralExperience", query = "SELECT w FROM Work w WHERE w.generalExperience = :generalExperience"),
+    //@NamedQuery(name = "Work.findByStatus", query = "SELECT w FROM Work w WHERE w.status = :status"),
+    //NamedQuery(name = "Work.findByStartDate", query = "SELECT w FROM Work w WHERE w.startDate = :startDate"),
+    //@NamedQuery(name = "Work.findByEndDate", query = "SELECT w FROM Work w WHERE w.endDate = :endDate"),
+    //@NamedQuery(name = "Work.findByNoticeDate", query = "SELECT w FROM Work w WHERE w.noticeDate = :noticeDate"),
+    @NamedQuery(name = "Work.findBySalaryRange", query = "SELECT w FROM Work w WHERE w.salaryRange = :salaryRange")})
+public class Work implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -113,6 +118,11 @@ public class Work implements Serializable {
     private String level;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "status")
+    private String status;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "start_date")
     @Temporal(TemporalType.DATE)
     private Date startDate;
@@ -121,6 +131,15 @@ public class Work implements Serializable {
     @Column(name = "end_date")
     @Temporal(TemporalType.DATE)
     private Date endDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Notice_Date")
+    @Temporal(TemporalType.DATE)
+    private Date noticeDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Salary_Range")
+    private double salaryRange;
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     @ManyToOne(optional = false)
     private Employees employeeId;
@@ -132,7 +151,7 @@ public class Work implements Serializable {
         this.workId = workId;
     }
 
-    public Work(String workId, String company, String department, String position, String contract, int relevantExperience, int generalExperience, String level, String status, Date startDate, Date endDate) {
+    public Work(String workId, String company, String department, String position, String contract, int relevantExperience, int generalExperience, String level, String status, Date startDate, Date endDate, Date noticeDate, double salaryRange) {
         this.workId = workId;
         this.company = company;
         this.department = department;
@@ -144,6 +163,8 @@ public class Work implements Serializable {
         this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.noticeDate = noticeDate;
+        this.salaryRange = salaryRange;
     }
 
     public String getWorkId() {
@@ -210,6 +231,13 @@ public class Work implements Serializable {
         this.level = level;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Date getStartDate() {
         return startDate;
@@ -225,6 +253,22 @@ public class Work implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Date getNoticeDate() {
+        return noticeDate;
+    }
+
+    public void setNoticeDate(Date noticeDate) {
+        this.noticeDate = noticeDate;
+    }
+
+    public double getSalaryRange() {
+        return salaryRange;
+    }
+
+    public void setSalaryRange(double salaryRange) {
+        this.salaryRange = salaryRange;
     }
 
     public Employees getEmployeeId() {
@@ -259,23 +303,5 @@ public class Work implements Serializable {
     public String toString() {
         return "org.ftafrica.co.optime.model.Work[ workId=" + workId + " ]";
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getNoticeDate() {
-        return noticeDate;
-    }
-
-    public void setNoticeDate(Date noticeDate) {
-        this.noticeDate = noticeDate;
-    }
-
-   
     
 }

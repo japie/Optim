@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.ftafrica.co.optime.controller;
 
 import com.google.gson.Gson;
@@ -17,49 +16,63 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.ftafrica.co.optime.Helper.HeatMap.HeatMapJsonObject;
+import org.ftafrica.co.optime.Helper.Succesion.SuccessorMainDataObject;
+import org.ftafrica.co.optime.Helper.Succesion.recomendationengine.SuccessionDB2CVSFile;
+import org.ftafrica.co.optime.Helper.Succesion.recomendationengine.SuccessionRecommendation;
+import org.ftafrica.co.optime.Helper.employee.EmployeeListHelper;
 import org.ftafrica.co.optime.Helper.hiring.HiringPlanHelper;
-import org.ftafrica.co.optime.Helper.training.MainTraining;
+import org.ftafrica.co.optime.Helper.projects.Project;
+import org.ftafrica.co.optime.Helper.projects.ProjectHelper;
+import org.ftafrica.co.optime.Helper.projects.ProjectsHelper;
+import org.ftafrica.co.optime.bussinesslogic.EmployeesFacade;
+import org.ftafrica.co.optime.bussinesslogic.ProjectsFacade;
+import org.ftafrica.co.optime.bussinesslogic.feeders.CapacityPhases;
+import org.ftafrica.co.optime.bussinesslogic.feeders.CapacityProjectBean;
+import org.ftafrica.co.optime.bussinesslogic.feeders.HeatMapBean;
 import org.ftafrica.co.optime.bussinesslogic.feeders.HiringPlanBean;
+import org.ftafrica.co.optime.bussinesslogic.feeders.ProjectOverviewBean;
+import org.ftafrica.co.optime.bussinesslogic.feeders.SuccessionBean;
 
 
-/**
- * 
- * @author Training 8
- */
 @WebServlet(name = "TestingServlet", urlPatterns = {"/TestingServlet"})
 public class TestingServlet extends HttpServlet {
+
     @EJB
     HiringPlanBean dbb;
-   
-            
-    
+    @EJB
+    SuccessionDB2CVSFile cvx;
+    @EJB
+    SuccessionRecommendation sss;
+    @EJB
+    EmployeesFacade emp;
+    @EJB
+    ProjectsFacade proj;
+    @EJB
+    SuccessionBean sbb;
+    @EJB
+    CapacityProjectBean cpb;
+    @EJB
+    ProjectOverviewBean prj;
+    @EJB
+    CapacityPhases cph;
+    @EJB
+    HeatMapBean heatMapBean;
+
     Gson gson = new Gson();
 
-    
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // response.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = response.getWriter(); 
+        // response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         List<String> my = new ArrayList();
-           my.add("Proj06");
-          
-          
-        List<HiringPlanHelper> hmh = dbb.GenerateHiringPlanJsonObject(my.get(0));
-       // List<String> lol = dbb.GetDistinctRolesFromTeams(my.get(0));
-          
-            /* TODO output your page here. You may use following sample code. */
-      //  response.setContentType("application/json;charset=UTF-8");
-            out.write(gson.toJson(hmh));
-          //  out.print();
-            
+        my.add("Proj06");
+
+        // cvx.ConvertDB2CSVFile();
+        List<EmployeeListHelper> hmh = emp.GenerateAllEmployeesProfile();
+
+        out.write(gson.toJson(hmh));
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

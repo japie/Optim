@@ -13,7 +13,16 @@
 <script>
 
 $(document).ready(function() {
-     $.ajax({
+     $('#numberopenroles').html('<img src="img/ajax-loader.gif" style="margin-top:-28px" width="80px"/>');
+     $('#numberofbooks').html('<img src="img/ajax-loader.gif" style="margin-top:-28px" width="80px"/>');
+     $('#leavingsoon').html('<img src="img/ajax-loader.gif" style="margin-top:-28px" width="80px"/>');
+     $('#occupiedpositions').html('<img src="img/ajax-loader.gif" style="margin-top:-28px" width="80px"/>');
+     $('#capacityneeded').html('<img src="img/ajax-loader.gif" style="margin-top:-28px" width="80px"/>'); 
+     $('#chartContainer').html('<img src="img/ajax-loader.gif" style="margin-left:50px;" width="300px"/>'); 
+     $('#capacityContainer').html('<img src="img/ajax-loader.gif" style="margin-left:50px;" width="300px"/>'); 
+     $('#hiringContainer').html('<img src="img/ajax-loader.gif" style="margin-left:50px;" width="300px"/>');
+     $('#trainingContainer').html('<img src="img/ajax-loader.gif" style="margin-left:50px;" width="300px"/>');
+        $.ajax({
             url : 'MainControllerServlet',
             data : { 
                 check : "Login"
@@ -28,8 +37,10 @@ $(document).ready(function() {
                 check : "DashBoard"
             },
             success : function(responseJson) {
-               data = responseJson;
-             // mydata = responseJson;
+              // mydata = responseJson;
+       
+           var  data =  JSON.parse(responseJson);
+           
     $('#numberopenroles').text(data.dashboardFlags.OpenRoles);
 $('#numberofbooks').text(data.dashboardFlags.BookOfWork);
 $('#leavingsoon').text(data.dashboardFlags.LeavingSoon);
@@ -338,13 +349,13 @@ $(function() {
 	     <Span class="dash_num" id="numberofbooks"></span>
         <Span class="dash_flag" >Book of Work</span>
 	</div>
-	<div class="flag_open_role"  onclick="location.href='capacity.html';">   
+	<div class="flag_open_role"  onclick="location.href='tosuccessionplan.html';">   
 	 <Span class="dash_num" id="numberopenroles"></span>
         <Span class="dash_flag">Open Roles</span>    
 	</div>
 
 	
-	<div class="flag_leaving_soon" onClick="location.href='capacity.html';" > 
+	<div class="flag_leaving_soon" onClick="location.href='tosuccessionplan.html';" > 
 	
 	 <Span class="dash_num" id="leavingsoon"></span>
 	
@@ -352,13 +363,13 @@ $(function() {
 		
 	</div>
 
-	<div class="flag_occupied" onClick="location.href='capacity.html';">
+	<div class="flag_occupied" onClick="location.href='profiles.html';">
 	 <Span class="dash_num" id="occupiedpositions"></span>
-        <Span class="dash_flag">Occupied Roles</span>
+        <Span class="dash_flag">Employees</span>
 	</div>
 	
 	
-	<div class="flag_capacity" onClick="location.href='capacity.html';">
+	<div class="flag_capacity" onClick="location.href='capacityP.html';">
 	 <Span class="dash_num" id="capacityneeded"></span>
         <Span class="dash_flag">Capacity</span>
 	</div>
@@ -374,10 +385,10 @@ $(function() {
 	<div class="graphs" >
 	   
 	   
-<div id="chartContainer" onClick="location.href='successionPlan.html';" style="margin-top:50px; margin-left:10px;  height: 300px; width: 440px;"></div>  
-	  <div id="trainingContainer"  onClick="location.href='trainingplan.html';" style="margin-top:-303px; margin-left: 455px;"></div>
-         <div id="capacityContainer" onClick="location.href='Capacity.html';" style="margin-top:50px; margin-right:5px; margin-left: 455px; height: 300px; width: 440px;"></div>
-        <div id="hiringContainer" onClick="location.href='hiringPlan.html';" style="margin-top:-300px; margin-left:10px; height: 300px; width: 440px;"></div>
+<div id="chartContainer" onClick="location.href='tosuccessionplan.html';" style="margin-top:50px; margin-left:10px;  height: 300px; width: 440px;"></div>  
+	  <div id="trainingContainer"  onClick="location.href='totrainingplan.html';" style="margin-top:-303px; margin-left: 455px;"></div>
+         <div id="capacityContainer" onClick="location.href='capacityP.html';" style="margin-top:50px; margin-right:5px; margin-left: 455px; height: 300px; width: 440px;"></div>
+        <div id="hiringContainer" onClick="location.href='tohiringplan.html';" style="margin-top:-300px; margin-left:10px; height: 300px; width: 440px;"></div>
         
 	   </div><!----G ends here...---->
 	   
@@ -394,16 +405,11 @@ $(function() {
 	</div>
 	<div class="side_bar" style="float: left;">
 	  <ul class = 'side_bar_list'>
- 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
-		     
-
-		</li>
-		 <hr align="right" class="line" width="150px"  size=1>
 		  
-		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<li ><a class="item" href="Dashboard.html" style="font-weight:bolder" >Dashboard</a>
 		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
 		
-		 <hr align="right" class="line" width="150px"  size=1> 
+		 <hr align="right" class="line" width="150px"  size=1 style="color:blue"> 
 		    </li>
 			
 		<li ><a class="item" href="HeatMap3.html">Heat Map</a>
@@ -419,7 +425,7 @@ $(function() {
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		 
-		<li ><a class="item" href="organo.html">Organogram</a>
+		<li ><a class="item" href="organogram.html">Organogram</a>
 		
 		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
 		</li>
@@ -430,7 +436,14 @@ $(function() {
 		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
 		</li>
 		
-		 <hr align="right" class="line" width="150px"  size=1> 			
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
 	  </ul>
 	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
 	  

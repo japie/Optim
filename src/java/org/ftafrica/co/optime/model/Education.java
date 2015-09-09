@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.ftafrica.co.optime.model;
 
 import java.io.Serializable;
@@ -34,20 +33,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Education.findAll", query = "SELECT e FROM Education e"),
     @NamedQuery(name = "Education.findByEducationId", query = "SELECT e FROM Education e WHERE e.educationId = :educationId"),
-    @NamedQuery(name = "Education.findByQualifiaction", query = "SELECT e FROM Education e WHERE e.qualifiaction = :qualifiaction"),
+    @NamedQuery(name = "Education.findByQualification", query = "SELECT e FROM Education e WHERE e.qualification = :qualification"),
+    @NamedQuery(name = "Education.findByEmployeeId", query = "SELECT e FROM Education e WHERE e.employeeId.employeeId = :id"),
     @NamedQuery(name = "Education.findByInstitution", query = "SELECT e FROM Education e WHERE e.institution = :institution"),
     @NamedQuery(name = "Education.findByYearCompleted", query = "SELECT e FROM Education e WHERE e.yearCompleted = :yearCompleted")})
 public class Education implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Column(name = "file")
-    private byte[] file;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "qualification")
-    private String qualification;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -58,18 +48,19 @@ public class Education implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "qualifiaction")
-    private String qualifiaction;
+    @Column(name = "qualification")
+    private String qualification;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
     @Column(name = "institution")
     private String institution;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "year_completed")
     @Temporal(TemporalType.DATE)
     private Date yearCompleted;
+    @Lob
+    @Column(name = "file")
+    private byte[] file;
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     @ManyToOne(optional = false)
     private Employees employeeId;
@@ -81,12 +72,10 @@ public class Education implements Serializable {
         this.educationId = educationId;
     }
 
-    public Education(String educationId, String qualifiaction, String institution, Date yearCompleted, byte[] file) {
+    public Education(String educationId, String qualification, String institution) {
         this.educationId = educationId;
-        this.qualifiaction = qualifiaction;
+        this.qualification = qualification;
         this.institution = institution;
-        this.yearCompleted = yearCompleted;
-        this.file = file;
     }
 
     public String getEducationId() {
@@ -97,12 +86,12 @@ public class Education implements Serializable {
         this.educationId = educationId;
     }
 
-    public String getQualifiaction() {
-        return qualifiaction;
+    public String getQualification() {
+        return qualification;
     }
 
-    public void setQualifiaction(String qualifiaction) {
-        this.qualifiaction = qualifiaction;
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
     }
 
     public String getInstitution() {
@@ -121,6 +110,13 @@ public class Education implements Serializable {
         this.yearCompleted = yearCompleted;
     }
 
+    public byte[] getFile() {
+        return file;
+    }
+
+    public void setFile(byte[] file) {
+        this.file = file;
+    }
 
     public Employees getEmployeeId() {
         return employeeId;
@@ -153,22 +149,6 @@ public class Education implements Serializable {
     @Override
     public String toString() {
         return "org.ftafrica.co.optime.model.Education[ educationId=" + educationId + " ]";
-    }
-
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
-
-    public byte[] getFile() {
-        return file;
-    }
-
-    public void setFile(byte[] file) {
-        this.file = file;
     }
     
 }

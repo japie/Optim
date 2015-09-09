@@ -1,0 +1,335 @@
+<!DOCTYPE>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+<link type="text/css" rel="stylesheet" href="css/jqUI.css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/JqUI.js"></script>
+
+<script>
+
+  $(function() {
+    $( ".datepicker" ).datepicker();
+  });
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+
+
+
+</head>
+
+<body >
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span id="nameAndSurname"> </Span>		    
+					  </div>					    
+					  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>
+		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>
+		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" align="center"  id="opt_container">
+      
+	     <div class="content_area" >
+		    <div id="headerEmp"> 
+			
+			 <div class="newEmp"><Span>New Employee Profile</span></div></div>
+			 
+			  <div id="personDetails">
+		        <div id="pd"><span>Personal Details</span></div>
+				
+			<div id="wrapProperties">
+			    
+				 <div class="fields">
+				  <Span class="def"> First Names</Span><input type="text" placeholder="Smith" style="margin-left:20px;" class="inputs" /><br>
+					<Span class="def"> Surname</Span><input type="text" placeholder="Will" style="margin-left:40px;" class="inputs" /><br>
+										<label class="lblGender">Gender
+					 
+					  <select name="sort" id="Gender" style="margin-left:40px;" >
+					  <option value="Male">Male</option>
+					  <option value="Female">Female</option>
+						<!-- ? -->
+					  </select>
+					</label><br>
+		 <span class="def">Date</span><input type="text" placeholder="Date Of Birth" class="datepicker"  style="margin-left:67px;" class="inputs" ><br>
+					<span class="def"> ID Number</span><input type="text" placeholder="ID Number" style="margin-left:20px;"  class="inputs" ><br>
+					<span class="def"> Ethic</span><input type="text" placeholder="Ethic" style="margin-left:65px;" class="inputs" ><br>
+					<span class="def"> Merital status</span><input type="text" placeholder="Ethic"  style="margin-right:12px;"  class="inputs" ><br>
+				 </div>
+				  <div id="imgHolder">
+				  <a class="tooltip" href="#"> 
+			
+				     <div id="emp_pic">
+					    <img src="img/emp_pic.png" id="emp_img" width="95"/>
+				      </div>
+					<span class="classic">Upload image</span></a>
+					 <div id="title">
+										  <label class="lblTitle">
+					 
+					  <select name="sort" id="define" >
+					   
+					  <option value="Mr">Mr</option>
+					  <option value="Mrs">Mrs</option>
+					   <option value="Ms">Ms</option>
+						<!-- ? -->
+					  </select>
+					
+					</label>
+					 </div>
+				  </div>
+			</div> <!--end wp--->
+			</div>
+			<div id="workDetails">
+			   <div id="ContDetails"><span>Contact Details</span></div>
+			   <div class="Contfields">
+			   <input type="text" placeholder="Phone Number" id="phoneNum" style="margin-left:40px;" class="inputs" />
+			   <input type="text" placeholder="Home Tel" id="phoneNum" style="margin-left:40px;" class="inputs" />
+			  
+			    <Textarea type="" placeholder="Physical Address" id="phAdress" style="margin-left:40px;" class="inputs" ></Textarea> 
+				<Textarea type="" placeholder="Postal Address" id="postAdress" style="margin-left:40px;" class="inputs" ></Textarea>
+				<input type="text" placeholder="Area Code" id="aCode" style="margin-left:40px;" class="inputs" />
+				<form action="#">
+					  <input type="email" name="email" style="margin-left:40px;" id="mail" placeholder="Email Address" class="inputs">
+					 <!-- <input type="submit">-->
+				</form>
+			   </div>
+			</div>  <!-- end of contact fields setup-->
+					
+				<div id="education">
+					   <div id="eduDetails"><span>Education</span></div>
+					   <div id="eduFields"> 
+					     <input type="text" placeholder="Qualification" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="University" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="Year Completed" style="margin-left:40px;" class="inputs" />
+					   </div>
+					</div><!--end of edu--->
+					
+		<div id="prevWork">
+		<div id="prevWHead"><span>Previous Work & Experience</span></div>
+		<div id="prevFields"> 
+						 <input type="text" placeholder="Company" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="Role" style="margin-left:40px;" class="inputs" /> 
+						 <input type="text" placeholder="Period worked" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="Role Level" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="Contactable Reference" id="phoneNum" style="margin-left:40px;" class="inputs" />
+		      </div>
+		</div> <!--end of pw--->
+		
+		<div id="currWork">
+		    <div id="currWHead"><span>Current Position</span></div>
+		   <div id="currFields">
+		     
+						 <input type="text" placeholder="Company" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="Role" style="margin-left:40px;" class="inputs" /> 
+						 <input type="text" placeholder="Date Started" class="datepicker" style="margin-left:40px;" />
+						 <input type="text" placeholder="Role Level" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="Salary Range" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="Current Project" style="margin-left:40px;" class="inputs" />
+						 <input type="text" placeholder="Next Project" style="margin-left:40px;" class="inputs" />
+		   </div>
+		</div>
+		
+		
+		<div id="save_btn">
+		  <div id="save">Save</div>
+		  <div id="clear">Clear</div>
+		</div>
+
+		
+		 </div>	
+	    
+		
+			
+	
+	</div>
+	<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		
+		 
+		  
+		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap3.html" >Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html" style="font-weight:bold">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue"> 
+		 
+		<li ><a class="item" href="organogram.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	</div>
+</div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
+</body>
+</html>

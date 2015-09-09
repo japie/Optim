@@ -1,15 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Optim</title>
+        <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link type="text/css" rel="stylesheet" href="css/homestyle.css">
+<link type="text/css" rel="stylesheet" href="css/loader.css">
 
 </head>
 
-<body style="background-color:white";>
+<body style="background-color:white" >
 <script src="js/jquery-1.11.3.min.js"></script>
 <script>
+
+$(document).ready(function() {
+ 
+    setTimeout(function(){
+        $('body').addClass('loaded');
+        $('h1').css('color','#222222');
+    }, 3000);
+ 
+});
 
 function cancel(){
 
@@ -39,7 +51,7 @@ function showlogdiv(){
 document.getElementById('loginform').style.visibility = 'visible';
 document.getElementById('loginform').style.zindex = '10001';
 document.getElementById('signup').style.visibility = 'hidden';
-
+$('#container').css('background', '#000000');
 }
 
 function showsigndiv(){
@@ -88,60 +100,79 @@ document.getElementById('loginform').style.visibility = 'hidden';
 				}
             }
 </script>
-<title>Optim </title>
-
+<!---page loader--->
+<div id="loader-wrapper">
+   
+    <div id="loader"></div>
+ 
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+ <div class="entry-header"><a id="welc">Welcome :)</a><br><a id="load_tit">Loading Optim...</a></div>
+</div>
+  
 <div id="container">
     <div class="content_area">
     <div class="banner">
-		<div onclick="showlogdiv()" class="login"><div class="btn_login"><span>Log in</span></div></div>
-	<img src="img/Optime2.gif" alt="Smiley face" class="opt_icon" style="width:50%;height:100%;">
+        
+		<div onClick="showlogdiv()" class="login"><div class="btn_login"><span>Log in</span></div></div>
+	<img src="img/Optime2.gif" alt="Smiley face" class="opt_icon" style="width:38%;height:100%;">
 	
 			</div>
 			
-				
-			<div class="wrap_plan_box">
-				<div class="suc_box" >
-					<img id="pic" src="img\succession.jpg" alt="Succession plan">
-					<p class="headings">Succession Plan</p>
-					<p class="plandescription">
-					Succession planning is a process for identifying and developing
+			<div id="liner">
+                          
+                            </div>
+			<!--start content-->
+                        <div id="info_space">
+                            <div class="plan_items" id="cont_1">
+                                <div id="succession">
+                                   
+                                    <Span>Succession Plan</Span>
+                                    <div>Succession planning is a process for identifying and developing
 					 internal people with the potential to fill key business leadership positions in the company.
 					 Succession planning increases the availability of experienced and capable employees that
-					are prepared to assume these roles as they become available.</p>
-				</div>
-				
-				<div  class="cap_box">
-					<img id="pic" src="img\capacity.jpg" alt="Capacity plan">
-					<p class="headings">Capacity Planning</p>
-					<p class="plandescription">Capacity planning is the process of determining the production capacity needed by an organization
+					are prepared to assume these roles as they become available.</div>
+                                    </div>
+                                <div id="Capacity">
+                                    <Span>Capacity Plan</Span>
+                                    <div>
+                                    Capacity planning is the process of determining the production capacity needed by an organization
 					 to meet changing demands for its products. In the context of capacity planning, design
-					 capacity is the maximum amount of work that an organization is capable of completing in a given period.</p>
-				</div>
-				
-				<div class="train_box">
-					<img id="pic" src="img\training.jpg" alt="Training Plan">
-					<p class="headings">Training Plan</p>
-					<p class="plandescription">The training plan will outline who will deliver the training, and when and where your apprentice or 
+					 capacity is the maximum amount of work that an organization is capable of completing in a given period.
+                                    </div>
+                                    </div>
+                                
+                            </div>
+                            <div class="plan_items" id="cont_2">
+                               <div id="training">
+                                    <Span>Training Plan</Span>
+                                    <div>
+                                         The training plan will outline who will deliver the training, and when and where your apprentice or 
 					trainee needs to go to receive the structured component of the training.
 					Trainer outline of the training process he or she will use in a training program.
-					Treat the training plan as a working document. It should be flexible to meet all your needs.</p>
-				</div>
-				
-				<div class="hire_box">
-					<img id="pic" src="img\hiring.jpg" alt="Hiring Plan">
-					<p class="headings">Hiring Plan</p>
-					<p class="plandescription">The single most important thing you can do to ensure the success of your organization is to hire
+					Treat the training plan as a working document. It should be flexible to meet all your needs.   
+                                    </div>
+                                    </div>
+                                <div id="hiring">
+                                    <Span>Hiring Plan</Span>
+                                    <div>
+                                        
+                                        The single most important thing you can do to ensure the success of your organization is to hire
 					 the best people you can find to do its work.
 					 The best people don't always have the most impressive credentials or education.
-					 They're not necessarily the ones you like the most, or have the most in common.</p>
-				</div>
-				</div>
-				<br><br><h1 class="header">Partners</h1>
-					<img class="pic1"  src="img\standardbank.png" alt="Smiley face"> 
-					<img class="pic1" src="img\futuretalent.jpg" alt="Smiley face">
-					<img class="pic1" src="img\absa.jpg" alt="Smiley face">
-					<img class="pic1" src="img\rmb.jpg" alt="Smiley face">
-					
+					 They're not necessarily the ones you like the most, or have the most in common.
+                                    </div>
+                                    </div>
+                                
+                            </div>
+                            
+                            
+                            
+                             
+                            </div>
+                      
+                        
+                        <!--end content-->
 				<div id="loginform">
                                     <form action="LoginServlet" method="POST" id="log_in">
                                       
@@ -150,7 +181,7 @@ document.getElementById('loginform').style.visibility = 'hidden';
 				<div class="user_pass">
 				<input style="height:30px;width:475px;" id="usernameField" type="text" name="username" placeholder="Username or Email Address"  ><br>
 				
-				<input style="height:30px;width:475px"; type="password" id="passwordField" name="password" placeholder="**************" value="" ><br>
+				<input style="height:30px;width:475px" type="password" id="passwordField" name="password" placeholder="**************" value="" ><br>
 				<a href="#">Forgot password?</a><br><br>
 				<div class="btns">
 				<div class="login_btn"><span>Login</span></div>
@@ -166,6 +197,10 @@ document.getElementById('loginform').style.visibility = 'hidden';
 				
      </div>
 </div>
-
+<div class="footer">
+    
+    <div id="copyR"><span>Copyright ©2015 FTConsulting</span></div>
+  
+    </div>
 </body>
 </html>

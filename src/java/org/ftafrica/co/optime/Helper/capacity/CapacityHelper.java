@@ -12,4 +12,35 @@ package org.ftafrica.co.optime.Helper.capacity;
  */
 public class CapacityHelper {
     
+    String ProjectID;
+    String ProjectName;
+    String ProjectTeam;
+
+    public CapacityHelper() {
+    }
+
+    public String getProjectID() {
+        return ProjectID;
+    }
+
+    public void setProjectID(String ProjectID) {
+        this.ProjectID = ProjectID;
+    }
+
+    public String getProjectName() {
+        return ProjectName;
+    }
+
+    public void setProjectName(String ProjectName) {
+        this.ProjectName = ProjectName;
+    }
+
+    public String getProjectTeam() {
+        return ProjectTeam;
+    }
+
+    public void setProjectTeam(String ProjectTeam) {
+        this.ProjectTeam = ProjectTeam;
+    }
+    
 }

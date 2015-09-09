@@ -1,13 +1,15 @@
 <!DOCTYPE>
-
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="description" content="Optim">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link type="text/css" rel="stylesheet" href="css/style.css">
+<link type="text/css" rel="stylesheet" href="css/capacitystyle.css">
 
 <script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/CapacityLanding.json"></script>
+<script src="js/externaljs.js"></script>
 <script>
 
 function hide(){
@@ -28,8 +30,6 @@ $(function() {
     month = objDate.toLocaleString(locale, { month: "short" });
 
 
-
-  
     $( "#nav_btn" ).click(function() {
         if ($( ".side_bar" ).width() <= 70) {
             $( ".side_bar" ).animate({width: myDivWidth}, 200); 
@@ -203,7 +203,7 @@ $(function() {
 
 </head>
 
-<body >
+<body  onLoad="capacitylanding()">
 
 <div id="wrapper">
     <div class="banner">
@@ -228,7 +228,7 @@ $(function() {
 			<div class="user_placeholder">
 			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
 			 <div class="username">
-			 	<Span>Jack Daniel</Span>		    
+			 	<Span id="nameAndSurname"> </Span>		    
 			  </div>					    
 			  </div>
 		   
@@ -297,64 +297,16 @@ $(function() {
 		       <div class="capacity_board">
 		    
 		<div class="projects_mapping">   
-	       <div class="projects_box" onClick="location.href='capacityP.html';">
-		   <span class="status">30%</span>
-		      <span class="project_name">Optim</span>
+	       <div class="projects_box" id="pjx" onClick="location.href='capacityP.html';">
+		   
+		      <div class="status"><a id="projectteam"></a></div>
+			<div class="projects_name"><a id="projectname"></a></div> 
+			 <div class="jstline"></div>
 			 <!-- <span class="team_rating">Team rating(18%)</span>-->
 			  <!-- <span class="team_status">Team rating 56%</span>-->
 		   </div>
-		   
-		   
-		   
-		    <div class="projects_box">
-		   <span class="status">18%</span>
-		      <span class="project_name">Calypso</span>
-			 <!-- <span class="team_rating">Team rating(18%)</span>-->
-			  <!-- <span class="team_status">Team rating 56%</span>-->
-		   </div>
-		  
-		  
-		    
-		    <div class="projects_box">
-		   <span class="status">18%</span>
-		      <span class="project_name">Calypso</span>
-			 <!-- <span class="team_rating">Team rating(18%)</span>-->
-			  <!-- <span class="team_status">Team rating 56%</span>-->
-		   </div>
-		   
-		     
-		    <div class="projects_box">
-		   <span class="status">18%</span>
-		      <span class="project_name">Calypso</span>
-			 <!-- <span class="team_rating">Team rating(18%)</span>-->
-			  <!-- <span class="team_status">Team rating 56%</span>-->
-		   </div>
-		   
-		     
-		    <div class="projects_box">
-		   <span class="status">18%</span>
-		      <span class="project_name">Calypso</span>
-			 <!-- <span class="team_rating">Team rating(18%)</span>-->
-			  <!-- <span class="team_status">Team rating 56%</span>-->
-		   </div>
-		   
-		     
-		    <div class="projects_box" style="background-color:#439A25">
-		   <span class="status">100%</span>
-		      <span class="project_name">Project XY</span>
-			 <!-- <span class="team_rating">Team rating(18%)</span>-->
-			  <!-- <span class="team_status">Team rating 56%</span>-->
-		   </div>
-		   
-		     
-		    <div class="projects_box">
-		   <span class="status">18%</span>
-		      <span class="project_name">Calypso</span>
-			 <!-- <span class="team_rating">Team rating(18%)</span>-->
-			  <!-- <span class="team_status">Team rating 56%</span>-->
-		   </div>
-		   
-		     <div class="more_projects">
+
+		     <div class="more_projects" style="visibility:hidden">
 		     
 		      <span class="all_proj">More...</span>
 			 <!-- <span class="team_rating">Team rating(18%)</span>-->
@@ -375,39 +327,36 @@ $(function() {
 	</div>
 	<div class="side_bar" style="float: left;">
 	  <ul class = 'side_bar_list'>
- 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
-		     
-
-		</li>
-		 <hr align="right" class="line" width="150px"  size=1>
+ 		
+		
 		  
-		<li ><a class="item" href="#">Dashboard</a>
+		<li ><a class="item" href="Dashboard.html">Dashboard</a>
 		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		    </li>
 			
-		<li ><a class="item" href="#">Heat Map</a>
+		<li ><a class="item" href="HeatMap3.html">Heat Map</a>
 		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
 		</li>
 		
 		 <hr align="right" class="line" width="150px"  size=1>
 		  
-		<li ><a class="item" href="#">Profiles</a>
+		<li ><a class="item" href="profiles">Profiles</a>
 		
 		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
 		</li>
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		 
-		<li ><a class="item" href="#">Organogram</a>
+		<li ><a class="item" href="organogram.html">Organogram</a>
 		
 		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
 		</li>
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		 
-		<li ><a class="item" href="#">Book of work</a>
+		<li ><a class="item" href="projects.html">Book of work</a>
 		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
 		</li>
 		
@@ -419,6 +368,21 @@ $(function() {
 	
 
 </div>
+    <script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
 
 </body>
 </html>

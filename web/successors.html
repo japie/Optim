@@ -1,13 +1,13 @@
 <!DOCTYPE>
-
 <head>
 <meta charset="utf-8">
 <meta name="description" content="Optim">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link type="text/css" rel="stylesheet" href="css/style.css">
-
+<link type="text/css" rel="stylesheet" href="css/globalstyle one.css">
 <script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/externaljs.js"></script>
+<script src="js/ListSuccessors.json"></script>
 <script>
 
 function hide(){
@@ -67,7 +67,7 @@ $(function() {
 
 </head>
 
-<body >
+<body onLoad="displaysuccessors()">
 
 <div id="wrapper">
     <div class="banner">
@@ -157,10 +157,9 @@ $(function() {
 		       <div class="successors_head">
 			       <img src="img/settings.png" style="width:35px;height:35px; margin-left:10px;">
 			       <Span class="success_txt">Succesion Plan</span>
-				   <div class="tobe_occupied_role"><a class="current_role">Bussiness Analyst: Criteria <br/></a>
-	  <a>Experience: 3years, Qual: IT related.....required: 5</a></div>
-	  
-	  
+				   <div class="tobe_occupied_role"><a class="current_role">Bussiness Analyst: Criteria</a></br>
+	  <a class="experience">Experience: 3years, Qual: IT related.....required: 5</a></div>
+	 
 	  <div class="predecessor-box" >
 	      <div class="predecessor">
 					<div class="p_pic">
@@ -168,30 +167,23 @@ $(function() {
 					</div>
 					<div class="predecessor_names">
 					   <a>Predecessor <br/></a>
-					    <a id="prede_name" href="#">Employee Name<br/></a>
-						<a id="note_placed">Notice placed: dd-mm-yyyy</a>
+					    <a id="prede_name" href="#">Employee Name</a></br>
+						<a style="font-weight:lighter;font-size:12px">Notice Date: </a><a id="note_placed">Notice placed:</a>
 					</div>
 					
 			</div>
 	   </div>
 				 </div>
-	  	      
-	
-	  
 	   	
-	
-	
 	   <div class="succesionbar"><div class="candidate_count"><span class="profile_num">Successors(3)</span> </div>
-	 <div class="manual_plan"><a href="#">Try manual search</a></div>
-	     
+	 <div class="manual_plan"><a href="#" style="visibility:hidden">Try manual search</a></div>
+	
 	   </div>
 	<div class="wrap_succ_box">	
 	    <div class="successors-box">
 	   <div class="match_rate">
-	     
-		  
 		  <a id="match"> Match</a>
-		   <a> 100%</a>
+		   <a class="match"> 100</a><a>%</a>
 		 
 	</div>
 	  <div class="succesor">
@@ -202,57 +194,28 @@ $(function() {
 					<a class="success_status">2 years Experience as Business Analyst, currently a Developer</a>
 					
 		   </div>
-		
+	
 	</div>
 	<div class="succesor_btns">
 	      
-		 <div class="view_profile">
-		    <a>  View Profile</a>
+		 <div class="view_profilef">
+		    
 		 </div>
 		 <div class="hire_train">
-		      <a>Hire</a>
+		     
 		 </div>
 		  
 	</div>
+	<form action="ProfileView.html" method="GET" style="margin-left:670px;"">
+   <input type="text" id="foo" name="foo" hidden>
+   <input type="submit" value="Full Profile" name="submit">
+   <input type="submit" value="Hire" name="submit" style="width:90px">
+</form>
+
+
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	 <div class="successors-box">
-	   <div class="match_rate" style="background-color:#D76B00">
-	     
-		  
-		  <a id="match"> Match</a>
-		   <a> 70%</a>
-		 
-	</div>
-	  <div class="succesor">
-	      <img src="img/ember_proflie.png" id="successor_img" class="success_pic" style="width:60px;height:60px;">
-		  <div class="succuss_def">
-		  <a id="success_description" class="suc_description"> Tony KG| BSc in Computer Sciences and Statistics</a>
-		   			  <a class="suc_description" > - KPI = 3.8 </a>  <br/>
-					<a class="success_status">2 years Experience as Business Analyst, currently a Developer</a>
-					
-		   </div>
-	</div>
-	<div class="succesor_btns">
-	      
-		 <div class="view_profile">
-		    <a>  View Profile</a>
-		 </div>
-		 <div class="hire_train">
-		      <a>Hire</a>
-		 </div>
-		  
-	</div>
-	</div>
-</div>
+   
 	 </div>   <!--this div wraps the positions list dont touch-->
-		 
 		 
 		 
 		   
@@ -264,19 +227,15 @@ $(function() {
 	</div>
 	<div class="side_bar" style="float: left;">
 	  <ul class = 'side_bar_list'>
- 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
-		     
-
-		</li>
-		 <hr align="right" class="line" width="150px"  size=1>
-		  
-		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+ 		
+		
+		<li ><a class="item" href="Dashboard.html" style="font-weight: bold">Dashboard</a>
 		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
 		
-		 <hr align="right" class="line" width="150px"  size=1> 
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue;"> 
 		    </li>
 			
-		<li ><a class="item" href="HeatMap2.html">Heat Map</a>
+		<li ><a class="item" href="HeatMap3.html">Heat Map</a>
 		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
 		</li>
 		
@@ -289,7 +248,7 @@ $(function() {
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		 
-		<li ><a class="item" href="organo.html">Organogram</a>
+		<li ><a class="item" href="organogram.html">Organogram</a>
 		
 		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
 		</li>
@@ -300,7 +259,17 @@ $(function() {
 		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
 		</li>
 		
-		 <hr align="right" class="line" width="150px"  size=1> 			
+		 <hr align="right" class="line" width="150px"  size=1> 
+                 
+                 
+                 <li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+                
+                <hr align="right" class="line" width="150px"  size=1>
+                 
+               
 	  </ul>
 	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
 	  

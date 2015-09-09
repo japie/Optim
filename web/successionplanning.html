@@ -1,0 +1,317 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/globalstyle.css">
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/externaljs.js"></script>
+<script src="js/allsuccesion.JSON"></script>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="json/Hiring.json"></script>
+<script src="js/externaljs.js"></script>
+<script src="js/Hiring.json"></script>
+
+
+
+<script src="js///ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/tableExport.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script src="js/html2canvas.js"></script>
+<script src="js/jspdf/libs/sprintf.js"></script>
+<script src="js/jspdf/jspdf.js"></script>
+<script src="js/jspdf/libs/base64.js"></script>
+<script src="js/jquery.velocity.min.js"></script>
+
+<script>
+
+function hide(){
+document.getElementById("content_area").style.visibility = "hidden";
+}
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+
+
+
+</head>
+
+<body onLoad="ff()">
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span id="nameAndSurname"> </Span>		    
+			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;"  id="opt_container">
+      
+	     <div class="content_area"  >
+		       <div class="succession_head" id="successionid">
+			       <img src="img/images.png" style="width:25px;height:25px; margin-left:10px;">
+			       <Span class="success_txt">Succesion Plan</span>
+				   
+				    
+			
+	  	    
+			  <div class="search-box">
+	      <div class="container-4">
+	   <input type="text" id="search" placeholder="Search..."/>
+	    <button class="magnify"><i class="fa fa-search"></i></button>
+		    </div>
+	   </div>
+	   	
+	<div class="success_filter_mode">
+	<div class="num_positions"></div><a>All Positions </a><a class="total_positions"></a>
+	<label>Filter By:
+ 
+  <select name="sort" id="filtering" onChange="ff()">
+   
+  <option value="Date">Date</option>
+  <option value="Positions">Open Positions</option>
+  <option value="Notice">Serving Notice</option>
+
+    <!-- ? -->
+  </select>
+
+</label>
+	<div id="left_flags">
+   <div class="red_flag"></div><a>Open Positions</a>
+	<div class="amber_flag"></div><a>Serving Notice</a>
+ </div> 	
+	
+	</div>
+                               
+  
+
+						  
+					 
+	
+			<div class="business_roles"><a class="sorted_by">June</a><a class="num_roles">Roles Open   </a> &nbsp;&nbsp;&nbsp;&nbsp;<a class="numberofroles" class="num_roles"></a><a class="num_roles">    Candidates Leaving  &nbsp;&nbsp;&nbsp;&nbsp;</a><a class="numberofpeopleleaving" class="num_roles"></a> <div onClick="printDiv('successionid')" class="h_print" ><a>Print</a></div>
+                        
+                        </div>
+<div class="outline_roles">    <!-- position/role box starts here   --->
+	
+	         <div class="role_status">  </div><!-- status signature-->
+		      
+		<div class="role-box">
+	     <Span class="rolename"><a class="roletype">Business Analyst</a>-<a class="projectname">Optim</a> <a class="posted_date" class="dateposted" style="float:right; color:#999999;font-size:16px;margin-right:3px; font-family: Segoe UI;">Posted:02-June-2015</a></span>
+	     </div>
+	<div class="critic">
+	<div id="right_data" >
+<form action="successors.html" method="GET">
+    <input type="text" id="view_personss" name="PersonName" hidden>
+   <input type="submit" value="View Successors" id="view_btn" name="submit">
+</form>
+
+	 </div>
+	    <a class="experience">3years</a><br>
+	    <a>Notification Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</a><a class="contracttype">Permanant</a><a><br>  
+   </div>
+
+	
+	   </div>  <!-- position/role box ends here   --->
+
+	   
+	 </div>   <!--this div wraps the positions list dont touch-->
+		 
+		 
+		 
+		   
+				</div>  <!---end of content area--->
+				 
+				 
+				 
+	
+	</div>
+<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		
+		 <li ><a class="item" href="Dashboard.html" style="font-weight:bold">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue"> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap3.html" >Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organogram.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+	
+
+</div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
+</body>
+</html>

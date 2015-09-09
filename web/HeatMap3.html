@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 
 <head>
 <meta charset="utf-8">
@@ -10,369 +10,23 @@
  <script src="js/canvasjs.min.js"></script>
 <script src="js/jquery-1.11.3.min.js"></script>
 <script src="js/Chart.js"></script>
-<script src="Json/NewHeatMap.json"></script>
+<script src="Json/HeatMapall.json"></script>
 <script src="Json/SideView.json"></script>
+
 <script src="js/morris-0.4.1.min.js"></script>
 <script src="js/raphael-min.js"></script>
+<script src="js/externaljs.js"></script>
+<script src="js///ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/tableExport.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script src="js/html2canvas.js"></script>
+<script src="js/jspdf/libs/sprintf.js"></script>
+<script src="js/jspdf/jspdf.js"></script>
+<script src="js/jspdf/libs/base64.js"></script>
+<script src="js/jquery.velocity.min.js"></script>
 
 
 
-<script>
-
-var mydata;
-var mypersondata; 
-function elimDub(arr) {
-
-  var i,
-      len=arr.length,
-      out=[],
-      obj={};
-
-  for (i=0;i<len;i++) {
-    obj[arr[i]]=0;
-  }
-  for (i in obj) {
-    out.push(i);
-  }
-  return alert(out);
-}
- ///sideview pop up data population
-function show(getId){
-    //var mypersondata;
-    $.ajax({
-            url : 'MainControllerServlet',
-            data : { 
-                check : "SideView",
-                employeeId:getId
-            },
-            
-            success : function(responsjson) { 
-                
-            mypersondata = JSON.parse(responsjson);
-            var myWidth = $(".heatwrap_cap").width();
-
-      
-	    if ($( ".heatwrap_cap" ).width() <= 700) {
-			
-		}else{
-		 
-		  /* $('.tfa').css('visibility','hidden');*/
-		  $( ".heatwrap_cap" ).animate({width:600}, 200);
-	
-	      $('#perName').text('');
-		  $('#perSurname').text('');
-		  $('#Role').text('');
-		  $('#comments').text(''); 
-		  var dv ='';
-		  $('.succ_list').text('');
-		  $('.usage').text('');
-               
-				   if(mypersondata[0].EmployeeId === getId){
-				       
-				      $('#perName').append(mypersondata[0].Name);
-					  $('#perSurname').append(mypersondata[0].Surname);
-					  $('#Role').append("Role: "+mypersondata[0].Role);
-dv ='<div class="jstDiv"><div class="person"><img src="img/index3.jpg" style="width:30px;height:30px;"><div class="suc_names">'
-   +'<span id="suc_name"></span>'+'<span id="suc_surname"></span>'+'</div>'+'<div class="rate">'+'<div class="inner_rate_div">'+'<Span>Match</span>'+'<Span id="personRating"></span></div>'
-			 
-			 +'</div>'+'</div>'; 
-					   
-					  $('.succ_list').append(dv);
-					   dv ='';
-					  $('#suc_name').append(mypersondata[0].EmployeeSuccessors[0].Name);
-					  $('#suc_surname').append(mypersondata[0].EmployeeSuccessors[0].Surname);
-					  $('#comments').append(mypersondata[0].CommentNotice);
-					  $('.usage').append('Utalization:'+mypersondata[0].EmployeesProjects[0].utilization+"%");
-					  if(mypersondata[0].EmployeeSuccessors[0].SkillMatch < 100){
-					     $('.rate').css('background-color','#FF6600');
-						  $('#personRating').append(mypersondata[0].EmployeeSuccessors[0].SkillMatch+"%");
-					  }else{
-					   $('.rate').css('background-color','#187616');
-						  $('#personRating').append(mypersondata[0].EmployeeSuccessors[0].SkillMatch+"%");
-					  }
-					  
-					  
-				   }else{
-				      alert("person X not found");
-				     }
-	
-		     $('.tfa').css('vertical-align','top');
-			 $('.tfa').css('display','inline-block');
-			 $('.tfa').css('visibility','visible');
-			 $('.tfa').css('width','23%');
-			 $('#ht td').css('font-size','70%');
-		     $('.tfa').css('background-color','#FFFFFF');
-		}
-		
-            
-            }
-        });
- }
-$(document).ready(function() {
-     $.ajax({
-            url : 'MainControllerServlet',
-            data : { 
-                check : "HeatMap"
-            },
-            success : function(responsejson) {
-            mydata = responsejson; 
-                var table = $('#ht');
-
-var levels = '';
-var  func = '';
-var c = '';
-var size =0;
-var open_raw ="<tr>";
-var close_raw ="</tr>";
-var role_cell ='';
-var form_table ='';
-var green = "Style = 'background-color:#187616'; color:'#ffffff'; ";
-		var amber = "Style = 'background-color:#FF6600'; color:'#ffffff';";
-		var red = "Style = 'background-color:#C61A2B'; color:'#ffffff';";
-/*mydata[0].mainHeatMap[1].RolesCol[a].Phase*/
-
-var combine =''; 
-//-------creating headers---->
-var arr=[]; var arr1=[];  var getLength=0;var val =0;
-for(var f = 1 ; f <= 10;f++){
-   try{
-			for(var a = 0; a < mydata[0].mainHeatMap[f].RolesCol.length;a++){	 
-				val = val +1;  
-				//	alert("pos:"+ a);
-				arr[a]= mydata[0].mainHeatMap[f].RolesCol[a].Phase; //all
-			//	arr1[a] = mydata[0].mainHeatMap[1].RolesCol[a].Phase;//least
-				
-			}
-			getLength =  val;
-			
-			for(var d=0;d<arr.length;d++){
-			  arr1.push(arr[d]);
-			}
-           
-			 var i,
-      len=arr1.length,
-      out=[],
-      obj={};
-	var c = 0;
-		  for (i=0;i<len;i++) {
-			obj[arr1[i]]=0;		
-		  }
-		  for (i in obj) {
-			out.push(i);
-			
-			c = c +1;		
-		  }
-		
-		if(c == 8){
-		for(c = 0; c<out.length;c++)
-		  role_cell +="<td class='phase'>"+out[c]+"</td>";
-		 
-		}
-		
-		 
-		
-			//end of sorting
-  
-
-var thead = "<tr><th></th><th colspan="+out.length+" class='func'>Functions<th></tr>";
-		 			
-			  combine =thead+open_raw +"<th></th>"+ role_cell + close_raw;
-				
-		}catch(err){
-		 
-		}		  
-	}
-   
-//-------creating cells-------->
-var xx = ''; var td ="<td>"; var getAllNames = ''; var reg_lev = []; var observer = 0; 
-  for(var x = 1 ; x <= mydata[0].mainHeatMap.length;x++){
-    try{
-	  
-	  
-  func = "<tr> <td> "+mydata[0].mainHeatMap[x].Level+"</td>";
-  	reg_lev[x] = mydata[0].mainHeatMap[x].Level;
-	 
-	 var s ='';
-	 for(var i = 0;i<mydata[0].mainHeatMap[x].RolesCol.length;i++){		
-		
-var cll = ".cell"+mydata[0].mainHeatMap[x].RolesCol[i].Phase;
- var clss ="cell"+mydata[0].mainHeatMap[x].RolesCol[i].Phase;
- var tdClass ="";
- var td ="<td class='"+clss+"'>"; var getAllNames = ''; 
-    var name = ''; var arr2=[];var arry=[]; var lookup = {};var f='';
-     levels ="";  var ids=[];
-	          
-					 
-					// ids.push(out[t]+t+x);
-					for(var d=0;d<out.length;d++){
-						
-						levels +="<td class='"+(d+""+x)+"' style='background-color:#C61A2B'></td>";
-						
-						}     
-			
-	 }
-	 
-}catch(err){
-	    //display message error here....
-		//alert(err)
-	 }
-	
-  c = "</tr>";//close raw after specified count.
-  var comb = func + levels+ c;
-	/*alert(mydata[0].mainHeatMap[size].RolesCol.length);*/
-form_table =	combine + comb;
- 
-  table.append(form_table);
-levels ='';
-  c = '';
-  func = '';
-   combine ='';
-  
-
-  }
- getData(out);
-
-  
-    }
-    });
-  
-   });
-    
-function getData(arr){
-var table = $('#ht');
-var names =[];	
-try{
-	for(var x = 1 ; x <= mydata[0].mainHeatMap.length;x++){
-		
-		for(var i = 0;i<mydata[0].mainHeatMap[x].RolesCol.length;i++){	
-		 	
-			 for(var t = 0;t<mydata[0].mainHeatMap[x].RolesCol[i].Employees.length;t++){
-					
-				  if(mydata[0].mainHeatMap[x].RolesCol[i].Employees.length == 1){ 
-				  
-			//	  names.push(mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name);
-		//	 if($('.'+i+""+x)){	
-				 if(mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Status =="Green"){		
-				$('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].EmployeeId+"' onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Name+"</a><br>");
-				    $('.'+i+""+x).css('background-color','#187616');
-					$('.'+i+""+x+' a').css('color','#ffffff');
-				 }else if(mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Status =="Amber"){		
-	$('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].EmployeeId+"'  onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Name+"</a><img src='img/exclamation_silver_2.png'  width='15' height='15' class='noti_icon' style=' margin-left:3px;' /><br>");
-				    $('.'+i+""+x).css('background-color','#BF6000');
-					$('.'+i+""+x+' a').css('color','#ccc');
-				 }else{
- $('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].EmployeeId+"'  onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Name+"</a><img src='img/exclamation_silver_2.png'  width='15' height='15' class='noti_icon' style=' margin-left:3px;' /><br>");
-				    $('.'+i+""+x).css('background-color','#C61A2B');
-					$('.'+i+""+x+' a').css('color','#ccc');
-					$('td a').css('font-family','segoe UI');
-					$('td a').css('font-weight','lighter');
-					$('td a').css('font-size','.8em');
-					
-					 }
-	
-				
-				
-		
-				  }	else if(mydata[0].mainHeatMap[x].RolesCol[i].Employees.length >= 2){ 
-						 
-						 
-						 
-						 	 if(mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Status =="Green"){		
-			$('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].EmployeeId+"' onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name+"</a><br>");
-				    $('.'+i+""+x).css('background-color','#187616');
-					$('.'+i+""+x+' a').css('color','#ffffff');
-				 }else if(mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Status =="Amber"){		
-	$('.'+i+""+x).append("<a class='pushElement'  id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].EmployeeId+"' onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name+"</a><img src='img/exclamation_silver_2.png'  width='15' height='15' class='noti_icon' style=' margin-left:3px;' /><br>");
-				  $('.'+i+""+x).css('background-color','#BF6000');
-					$('.'+i+""+x+' a').css('color','#ccc');
-					
-				 }else{
-					 $('.'+i+""+x).append("<a class='pushElement' id='"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].EmployeeId+"'  onClick='show(this.id)'>"+mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name+"</a><img src='img/exclamation_silver.png'  width='15' height='15' class='noti_icon' style='opacity:1; margin-left:3px'  /><br>");
-				    $('.'+i+""+x).css('background-color','#C61A2B');
-					$('.'+i+""+x+' a').css('color','#ccc');
-					$('td a').css('font-family','segoe UI');
-					$('td a').css('font-weight','lighter');
-					$('td a').css('font-size','.8em');
-					
-					 }
-	
-						 
-						 }
-				 
-			 }//end for
-		
-		}
-
-		
-		
-		}
-}catch(e){}
-	
-}
-//window.onload = function(){
-//
-// var level = 0;
-// try{  //levels
-//    	for(var x = 1 ; x <= mydata[0].mainHeatMap.length;x++){  
-//			
-//			for(var a = 0; a < mydata[0].mainHeatMap[x].RolesCol.length;a++){  //roles
-//				cells(x, a);	
-//			}
-//		}
-//	   
-//	
-// }catch(err){
-// 
-// }
-//
-//}
-//function cells(level, role){
-// var table = $('#ht');
-//  var emp = ''; var count_emp=0; var op_raw ="<tr>"; var op_col ="<th>"; var op_cel="<td>"; var role_cell ="";
-// try{
-// 
-// var thead = "<tr><th></th><th colspan="+ mydata[0].mainHeatMap[1].RolesCol.length+" class='func'>Functions<th></tr>";
-// 
-//   for(var x = 0;x <level;x++){
-//      if(x=level){
-//	    for(var i = 0; i<role;i++){
-//		
-//		  if(i=role){
-//		  	for(var r=0;r<mydata[0].mainHeatMap[x].RolesCol[i].Employees.length;r++){
-//			
-//			
-//				 if(mydata[0].mainHeatMap[x].RolesCol[i].Employees.length>1){
-//				 
-//				    for(var t = 0;t<mydata[0].mainHeatMap[x].RolesCol[i].Employees.length;t++){
-//					
-//			 		 emp += mydata[0].mainHeatMap[x].RolesCol[i].Employees[t].Name;
-//			  			count_emp = count_emp +1;
-//					}
-//						}else{
-//						 emp += mydata[0].mainHeatMap[x].RolesCol[i].Employees[0].Name;
-//						}
-//						
-//			}
-//		  //  alert("there's "+count_emp+"(" +emp+")"+" employee(s) @ level "+ x +" in phase "+ i);
-//			
-//		  }
-//		 
-//		}
-//		
-//	  }
-//	  var combine = thead+"<tr>"+role_cell+"</tr>";
-//	  table.append(combine);
-//    
-//   }
-//   
-//  }catch(err){
-//  // alternative..or error here..
-// 
-//  }
-//   
-//}   
-
-</script>
 
 
 <script>
@@ -384,40 +38,126 @@ document.getElementById("content_area").style.visibility = "hidden";
 
 
 
-
-$(function(){
  
-   var myWidth = $(".heatwrap_cap").width();
-   $('td a').click(function(){
-      
-	    if ($( ".heatwrap_cap" ).width() <= 700) {
+function show(id){
+    
+ 
+ $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "SideView",
+                accessId:id
+            },
+            success : function(responseJson) {
+              
+             
+var pers=JSON.parse(responseJson);
+injectJSon(pers);
+  $('#perName').text('');
+	 $('#perSurname').text('');
+	 $('.usage').text('');
+	 $('#comments').text('');
+          $('#Role').text('');
+          $('#t_success').text('');
+          $('#t_success').text("No Successor");
+         
+  if ($( ".heatwrap_cap" ).width() <= 700) {
 			
 		}else{
-		 
-		  /* $('.tfa').css('visibility','hidden');*/
+ 
+   var myWidth = $(".heatwrap_cap").width();
+     
+   for( var x =0; x< pers.length;x++){
+      
+ if(pers[x].EmployeeId === id){
+	    $('#perName').append(pers[x].Name);
+		$('#perSurname').append(pers[x].Surname);
+		$('#comments').append(pers[x].CommentNotice);
+                 $('#emp_id').attr("value",pers[x].EmployeeId);
+                $('#Role').append(pers[x].Role);
+		   var count = 0; var util = 0;
+		 for( var i =0 ; i< pers[x].EmployeesProjects.length;i++){
+		     count = count + 1; 
+			  util +=pers[x].EmployeesProjects[i].utilization;
+		 }
+		  var percentage  =  (util/count);
+		   $('.usage').append(percentage+"%");
+		     
+			  var count = 0;
+		   for( var  t=0 ; t< pers[x].EmployeeSuccessors.length;t++){
+                       
+		 if(pers[x].EmployeeSuccessors.length === 0){
+                     
+                       
+                 }else{
+                      $('#t_success').html('');
+                     $('#t_success').append("Successor( "+pers[x].EmployeeSuccessors.length+" )");
+                 }
+	 $('.succ_list').append('<div class="jstDiv"><div class="person"><img src="img/green_proflie.png" style="width:30px;height:30px;"><div id='+pers[x].EmployeeSuccessors[t].EmployeeId+' class="suc_names"   onClick="show(this.id)"><span id="name">'+pers[x].EmployeeSuccessors[t].Name+'</span><span id="surname">'+pers[x].EmployeeSuccessors[t].Surname+'</span></div><div class="rate"><div class="inner_rate_div"><Span>Match</span><Span>'+pers[x].EmployeeSuccessors[t].SkillMatch+"%"+'</span></div></div></div></div>');	
+	   
+	    if(pers[x].EmployeeSuccessors[t].SkillMatch < 100){
+		   $(".inner_rate_div").css("background-color","#FF7B28");
+		} else {
+		   $(".inner_rate_div").css("background-color","#009900");
+		} 
+		    
+		   }  
+		   
+		      /* $('.tfa').css('visibility','hidden');*/
 		  $( ".heatwrap_cap" ).animate({width:600}, 200);
 		
 		     $('.tfa').css('vertical-align','top');
 			 $('.tfa').css('display','inline-block');
 			 $('.tfa').css('visibility','visible');
 			 $('.tfa').css('width','23%');
-			 
+			 // $('.heatmap_table tr').css('font-size','0.4em');
+			 // $('#ht .lev a').css('font-size','0.7em');
+                          
+			   //$('.heatmap_table tr td').css('font-size','0.4em');
+		  $('#ht *').css('font-size','0.7em');
 		   $('.tfa').css('background-color','#FFFFFF');
+		   
+		}else{
+		   // person does not exist.
+		     /* $('.tfa').css('visibility','hidden');*/
+		  $( ".heatwrap_cap" ).animate({width:600}, 200);
+		
+		     $('.tfa').css('vertical-align','top');
+			 $('.tfa').css('display','inline-block');
+			 $('.tfa').css('visibility','visible');
+			 $('.tfa').css('width','23%');
+			//  $('.heatmap_table tr').css('font-size','0.9em');
+			 // $('#ht tr').css('font-size','0.9em');
+			 //  $('.heatmap_table tr td').css('font-size','0.9em');
+			 // $('#ht *').css('font-size','0.9em');
+		   $('.tfa').css('background-color','#FFFFFF');
+		}
+   
+   }	 
+		
 		}
 		
       
-   });
-
-});
+   
+   
+       
+            }
+    });
+   
+}
 
 
 $(function(){
+ 
     $('.close').click(function(){
-	    
+	     $('.succ_list').text('');
 		  $('.heatwrap_cap').css('width','100%'); 
-			 
+			// $('.heatmap_table .tooltip').css('font-size','1.4em');
 			 $('.tfa').css('visibility','hidden');
- 			 $('#ht td').css('font-size','100%');
+ 			// $('#ht td').css('font-size','1.3em');
+                        // $('#ht td a').css('font-size','0.8em');
+			 $('#ht *').css('font-size','.9em');
+			// $('.heatwrap_cap tr').css('font-size','1em');
 		   $('.tfa').css('background-color','#000000');
 	
 	});
@@ -621,7 +361,9 @@ $(function() {
 
 </head>
 
-<body >
+<body>
+
+
 
 <div id="wrapper">
     <div class="banner">
@@ -646,7 +388,7 @@ $(function() {
 			<div class="user_placeholder">
 			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
 			 <div class="username">
-			 	<Span>Jack Daniel</Span>		    
+			 	<Span id="nameAndSurname"> </Span>		    
 			  </div>					    
 			  </div>
 		   
@@ -707,7 +449,7 @@ $(function() {
 
 	<div class="content" style="float: right;" id="opt_container">
       
-	     <div class="content_area"  >
+	     <div  id="heatID" class="content_area"  >
 		
 	
 		  <div class="capacityPlan_bar">
@@ -715,9 +457,7 @@ $(function() {
 		  <Span class="cap_header">Heat Map</Span>
 		  
 				  
-				  <span class="notify_box">Reminder<a class="notify">0</a></span>
-				    <span class="notify_box">Warnings<a class="notify">0</a></span>
-				 <span class="notify_box">Alerts<a class="notify">0</a></span>
+				
 				 
 		  </div>
 		<div class="heatwrap_cap"><!--content starts here...-->
@@ -732,55 +472,42 @@ $(function() {
 	<div class="green"></div><a>On Track</a>
 
 	
-	<div class="dwnload" ><a>Download</a></div>
+	<div class="h_dwnload" >
+						 
+						  <label class="downOpt">
+  <select name="sort" class="dwnload" >
+   <option value="download"  style="cursor:default; color:#999999; border-bottom:1px solid #666666;" disabled="disabled">Download </option>
+ 
+  <option value="Excel" onClick ="$('#ht').tableExport({tableName:'heatmap_table',type:'excel',escape:'false'});">Excel</option>
+  <option value="txt" onClick ="$('#ht').tableExport({tableName:'heatmap_table',type:'txt',escape:'false'});">Text</option>
+ 
+ </select>
+</label>
+						 </div>
 
-	<div class="print"><a>Print</a></div>
+	<div  onClick="printDiv('heatID')" class="print"><span>Print</span></div>
     
 	</div>
 	
  </section>
+  <div id="loader_handle"></div>
 <section class ="hmap-table">
-  <div class="tabbing">
+  <div class="tabbing" id="tabs">
         <ul class="tabs_1">
-    <li>
-        <input type="radio" checked name="tabs" id="tab_1">
-        <label for="tab_1">All</label>
+    <li onClick=" allLevl()">
+        <input type="radio" checked name="tabs" id="tab">
+        
+        <label for="tab" id="alltap">All</label>
         <div id="tab-content_1" class="tab_content">
-	       Nothing to display.
-            <!-- Your content goes here -->
-        </div>
-    </li>
-    <li>
-        <input type="radio" name="tabs" id="tab_2">
-        <label for="tab_2">Calypso</label>
-        <div id="tab_content2" class="tab_content">
-            <table  align="center" width="100%" id="ht" class="heatmap_table">
-	  
-		  
-		 
-			</table>
-		<table class="budget_tab" >
-		   <tr >
 		
-			<td class="budget_name">Budget</td>
-			<td ></td>
-			<td ></td>
-			<td></td>		
-			<td></td>
-			<td ></td>
-		  </tr>		   
-		</table>
-            <!-- Your content goes here -->
+	       <table  align="center" width="100%" id="ht" class="heatmap_table">		  
+		   <tr id="roless" class="roles"><td></td></tr>
+			</table>
         </div>
     </li>
-    <li>
-        <input type="radio" name="tabs" id="tab_3">
-        <label for="tab_3">Project XY</label>
-        <div id="tab_content3" class="tab_content">
-            <h3>Tab 3</h3>
-            <!-- Your content goes here -->
-        </div>
-    </li>
+	
+	
+	
 </ul>
  </div>  
 </section>
@@ -813,34 +540,43 @@ $(function() {
 			 <Span class="wf">Workforce</span>
 			
 			<div id="util">
- <Span class="usage">Overall Usage:104%</span>
+ <Span class="usage">Overall Usage:0%</span>
+ <span class="usage1">Utilization</span>
 </div>
 		       <div id="donut"></div>
   
   <script id="jsbin-javascript">
-// mypersondata = JSON.parse(person);
+  
 /*
  * Play with this code and it'll update in the panel opposite.
  *
  * Why not try some of the options above?
  */
-// var i; var data ='';
-  //for(i=0; i<mypersondata[0].EmployeesProjects.length;i++){
- //     if(mypersondata[0].EmployeesProjects.length == 1){
-//	   data = {label:mypersondata[0].EmployeesProjects[i].name, value: mypersondata[0].EmployeesProjects[i].utilization};
-//	  }
- //  }
+
+function injectJSon(mypersondata){
+ var i; var data ='';var data1 ='';var fullp = '';
+  for(i=0; i<mypersondata[0].EmployeesProjects.length;i++){
+      var proj_util = 0;
+      if(mypersondata[0].EmployeesProjects.length === 1){
+            data = {label:mypersondata[0].EmployeesProjects[i].name, value: mypersondata[0].EmployeesProjects[i].utilization };
+          if( mypersondata[0].EmployeesProjects[i].utilization<100){
+            proj_util = 100 - mypersondata[0].EmployeesProjects[i].utilization;
+           data1 = {label:"Not Utilized", value: proj_util};
+	   
+          }
+	 
+	  // fullp = data+","+ data1;
+            }
+          
+      }
+  
 Morris.Donut({
   element: 'donut',
-  data: [
-  //  {label: "Murex", value: 34},
-   // {label: "Calypso", value: 50},
-    {label: "Calypso", value: 30}
-     
-   
-  ]
-});
+  colors:['#FC011B','#00FF00'],
+  data:[data1,data]
 
+});
+}
 </script>
 
 
@@ -853,7 +589,7 @@ Morris.Donut({
 			<p id="comments">I Quit... :-) !!!</p>
 			
  		 </fieldset>
-		 <a id="Role">Role: Senior Consultant</a>
+                              <a >Role: </a><a id="Role"></a>
 		
 		  
 		  
@@ -861,36 +597,28 @@ Morris.Donut({
 		
 		<div class="pop_successors">
 		<div class="sucpop_banner">
-		<img src="img/images.png" style="width:15px;height:15px; margin-left:10px;">
-		  <a>Successors</a>
+                    <img src="img/images.png" alt="*" style="width:15px;height:15px; margin-left:10px;">
+                <a id="t_success">Successors</a>
 		  </div>
 		 <div class="succ_list">
 		 
-		 <!--<div class="jstDiv">
-		   <div class="person">
-		      <img src="img/green_proflie.png" style="width:30px;height:30px;"> 
-	
-			<div class="suc_names">
-			  <span id="name">Mastor</span>
-			  <span id="surname">Mashongane</span>
-			  </div>
-			 <div class="rate">
-			   <div class="inner_rate_div">
-			 <Span>Match</span>
-			 <Span>100%</span></div>
-			 
-			 </div>
-			 
-	   </div>
-	   
-		   </div> <!--jstDiv ends here---->
+		   
+		   
+		   
 		   
 	   
 		 </div>
 		 
 		
-		</div> <div class="view_prof"><span>View full profile</span> </div>
-			 </div>
+                </div> 
+                  <form action="ProfileView.html" method="GET">      
+                <div  class="view_prof">
+                     <input type="text" id="emp_id" name="#?"  hidden/>
+                    <input type="submit" name="View full profile" value="View full profile">
+                </div> 
+                        </form>
+                     </div>
+                   
 	 </div>  
 	 
 	   
@@ -910,11 +638,8 @@ Morris.Donut({
 	</div>
 	<div class="side_bar" style="float: left;">
 	  <ul class = 'side_bar_list'>
- 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
-		     
-
-		</li>
-		 <hr align="right" class="line" width="150px"  size=1>
+ 		
+		 
 		  
 		<li ><a class="item" href="Dashboard.html">Dashboard</a>
 		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
@@ -922,11 +647,11 @@ Morris.Donut({
 		 <hr align="right" class="line" width="150px"  size=1> 
 		    </li>
 			
-		<li ><a class="item" href="HeatMap2.html">Heat Map</a>
+		<li ><a class="item" href="HeatMap3.html" style="font-weight:bold">Heat Map</a>
 		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
 		</li>
 		
-		 <hr align="right" class="line" width="150px"  size=1>
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue">
 		  
 		<li ><a class="item" href="profiles.html">Profiles</a>
 		
@@ -935,7 +660,7 @@ Morris.Donut({
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		 
-		<li ><a class="item" href="organo.html">Organogram</a>
+		<li ><a class="item" href="organogram.html">Organogram</a>
 		
 		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
 		</li>
@@ -946,13 +671,35 @@ Morris.Donut({
 		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
 		</li>
 		
-		 <hr align="right" class="line" width="150px"  size=1> 			
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
 	  </ul>
-	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
 	  
 	</div>
 	
 </div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
 
 </body>
 </html>

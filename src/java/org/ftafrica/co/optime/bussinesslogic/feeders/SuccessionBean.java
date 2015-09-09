@@ -5,18 +5,31 @@
  */
 package org.ftafrica.co.optime.bussinesslogic.feeders;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.ftafrica.co.optime.Helper.Succesion.SuccessionHelper;
 import org.ftafrica.co.optime.Helper.Succesion.SuccessionHelperClass;
+import org.ftafrica.co.optime.Helper.Succesion.SuccessorData;
+import org.ftafrica.co.optime.Helper.Succesion.SuccessorMainData;
+import org.ftafrica.co.optime.Helper.Succesion.SuccessorMainDataObject;
 import org.ftafrica.co.optime.model.Employees;
 import org.ftafrica.co.optime.model.Projects;
 import org.ftafrica.co.optime.model.Roles;
 import org.ftafrica.co.optime.model.Teams;
 import org.ftafrica.co.optime.model.Work;
+import org.ftafrica.co.optime.Helper.Succesion.recomendationengine.SuccessionRecommendation;
+import org.ftafrica.co.optime.model.Education;
+import org.ftafrica.co.optime.model.Recommendationdata;
+
 
 /**
  *
@@ -100,7 +113,7 @@ public class SuccessionBean {
              sucHelperClass.setProjects(em.find(Projects.class, Project).getProjectName());
              sucHelperClass.setInfo("Employement Type: "+TeamMember.getRoleid().getEmploymentType()+" Education: " +TeamMember.getRoleid().getRequiredQualification()+" Expirience required: "+TeamMember.getRoleid().getExperienceRequired());
              sucHelperClass.setPostDate(employeeWorkData.getNoticeDate().toString());
-             sucHelperClass.setID(""+TeamMember.getRoleid().getRoleId());
+             sucHelperClass.setID(""+TeamMember.getEmployeeid().getEmployeeId());
               
           }
           else{
@@ -120,4 +133,105 @@ public class SuccessionBean {
 
         return succList;
     }
+   public List<SuccessorData> SuggestSuccessors(List<RecommendedItem> recItem){
+       List<SuccessorData> sucDataList = new ArrayList();
+//       System.out.print(recItem.get(1).getValue());
+       for(RecommendedItem ri: recItem){
+           SuccessorData sucData = new SuccessorData();
+           sucData.setEmployeeId(""+ri.getItemID());
+           sucData.setMatchPercentage(ri.getValue()*100);
+         
+          sucDataList.add(sucData); 
+          
+       }
+      
+   return sucDataList;
+   }
+   
+   
+   // recommendations for the predecessor #succession plan
+   public SuccessorMainDataObject SuggestSuccessorsObject(String SuccessorId){
+        try {
+            ConvertDB2CSVFile();
+        } catch (IOException ex) {
+            Logger.getLogger(SuccessionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   SuccessionRecommendation sucRec = new SuccessionRecommendation();
+   List<SuccessorData> succDataList = SuggestSuccessors(sucRec.MakeRecommendation(18,5));
+   List<SuccessorMainData> successorMainData = new ArrayList();
+   SuccessorMainDataObject sucMainDataObject = new SuccessorMainDataObject();
+   
+   for(SuccessorData sd: succDataList){
+    Employees emp = em.find(Employees.class,sd.getEmployeeId());
+    Work work = new Work();
+    Education education = new Education();
+    try{
+    work = em.createNamedQuery("Work.findByWorkEmpId",Work.class).setParameter("id",sd.getEmployeeId()).getSingleResult();
+    }
+    catch(Exception e){
+    
+    }
+    try{
+    
+       education = em.createNamedQuery("Education.findByEmployeeId",Education.class).setParameter("id", sd.getEmployeeId()).getSingleResult();
+    
+    }catch(Exception e){
+   
+        
+    }
+    
+    SuccessorMainData SucMainData  = new SuccessorMainData();
+    SucMainData.setEmployeeId(sd.getEmployeeId());
+    SucMainData.setMatchPercentage(sd.getMatchPercentage());
+    SucMainData.setNameAndQualification(emp.getName()+" "+emp.getSurname()+"| "+education.getQualification());
+    SucMainData.setJobTitleAndExpirience(work.getPosition()+" , "+work.getGeneralExperience());
+    successorMainData.add(SucMainData);
+   }
+   
+    Employees emp1 = em.find(Employees.class,SuccessorId);
+    Work work1 = new Work();
+    Education education1 = new Education();
+    try{
+    work1 = em.createNamedQuery("Work.findByWorkEmpId",Work.class).setParameter("id",SuccessorId).getSingleResult();
+    }
+    catch(Exception e){
+    
+    }
+    try{
+    
+       education1 = em.createNamedQuery("Education.findByEmployeeId",Education.class).setParameter("id", SuccessorId).getSingleResult();
+    
+    }catch(Exception e){ 
+        
+        
+        
+    }
+    sucMainDataObject.setJobTitle(work1.getPosition());
+    sucMainDataObject.setNoticeDate(work1.getNoticeDate().toString());
+    sucMainDataObject.setExpirienceAndQualification(work1.getGeneralExperience()+" | "+education1.getQualification());
+    sucMainDataObject.setSuccessorsList(successorMainData);
+    sucMainDataObject.setPredeccessorNameAndSurname(emp1.getName()+" "+emp1.getSurname());
+    
+   
+   return sucMainDataObject;
+           }
+   
+   
+    public void ConvertDB2CSVFile() throws IOException{
+        List<Recommendationdata> recData = GetRecData();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\8460p\\Documents\\Optim Share\\project updated\\___Master____\\optim\\data\\data.csv",true))) {
+            for(Recommendationdata rd: recData){
+                
+                bw.write(rd.getEmployeeId() + "," + rd.getRecItemId() +  "\n");
+            }     }
+    
+    }
+    
+    public List<Recommendationdata> GetRecData(){
+      
+        return em.createNamedQuery("Recommendationdata.findAll").getResultList();
+    }
+    
+    
 }
+

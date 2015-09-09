@@ -1,0 +1,353 @@
+
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/trainingstyle.css">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+<script src="js/externaljs.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/TrainingPlan.JSON"></script>
+<script src="js/Chart.js"></script>
+
+
+
+<script>
+
+			function displaygraph(x,y,z,k){
+					var polarData = [
+				{
+					value: z,
+					color:"#8AF2DB",
+					highlight: "#FF5A5E",
+					label: "Needs Training"
+				},
+				
+				{
+					value: y,
+					color: "#009797",
+					highlight: "#FFC870",
+					label: "In Training"
+				},
+				{
+					value: x,
+					color: "#dddddd",
+					highlight: "#00CC66",
+					label: "Completed Training"
+				},
+								{
+					value: k,
+					color: "#dddddd",
+					highlight: "#00CC66",
+					label: "Not defined"
+				}
+
+
+			];
+				var ctx = document.getElementById("chart-area").getContext("2d");
+				window.myPolarArea = new Chart(ctx).PolarArea(polarData, {
+					responsive:true
+				});
+			
+			x=0;
+			y=0;
+			z=0;
+			k=0;
+			};
+
+
+
+	</script>
+
+<script>
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+
+
+
+</head>
+
+<body onLoad="trainingplan()">
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span id="nameAndSurname"> </Span>		    
+					  </div>					    
+					  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>
+		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>
+		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" align="center"  id="opt_container">
+      
+	     <div class="content_area" >
+		     
+			 <div class="TplanHead">
+			 <img src="img/complete-knowledge-icon.png" style="width:35px;height:35px; margin-left:10px;">
+			 <Span class="Tplan">Training Plan</span></div>
+			  <div id="TplanContent">
+			   <section class ="Troles">
+            
+            
+			  <div class="role_btns">
+			   <label>View:
+  <select name="sort" id="filtering" class="filteringroles" onChange="trainingplan()">
+  </select></label>
+   <div id="loader_handle"></div>
+  <div onClick="printDiv('opt_container')" class="print" ><span>Print</span></div>
+  
+							  </div>
+                         
+          </section>
+		
+		
+		
+		<div class="Ttable">
+		<table id="TrainingTable">
+		<tr>
+		  <th colspan="8" class="fRole"><a>Analysis</a></th>
+		</tr>
+		<tr>
+		<th>Candidates</th>
+		<th colspan="7" class="trainingmodules">Training Modules</th>
+		
+		
+		</tr>
+		<tr class="skills" id="skillsname">
+		<td style="background-color:#FFFFFF"></td>
+		</tr>
+		<tr class="testing">
+		<td class="name">cccc</td>	
+		</tr>
+		</table>
+		</div>
+		 </div>
+	<div class="grph">
+	
+	<div class="graph_title">
+	<a> </a>
+	</div>
+	<div id="canvas-holder" style="width:30%">
+	  <div><Span>Current Training Update</span></div>
+			<canvas id="chart-area" width="300" height="300"/>
+		</div>
+	<div class="twarn"><div id="txtWarning">Warning! Candidates who failed training</div>
+	
+	  <div id="failed">
+	     <div class="person1">
+		   <div id="pic">
+		     <img src="img/index.jpg" />
+		   </div>
+		    <div class="detail">Sara L. Jackson</div>
+		 </div>
+		 <div class="person1">
+		   <div id="pic">
+		     <img src="img/index3.jpg" width="40" height="40" />
+		   </div>
+		   <div class="detail">William Smith</div>
+		 </div>
+	  </div>
+	</div>	
+	<div class="TNotice">
+
+	  <div id="titleNote"><a>Note</a></div>
+	  <div id="theNote">
+	  <Span>The plan will help all executives to effectively manage the organisation according to authorized personnel policies and procedures that fully conform to current laws and regulations,they will also assure that the organisation and its mission, program, products and services are consistently presented in strong positive image to relevant stakeholders.							
+</Span>
+	  </div>
+	</div>
+
+	</div>
+		 </div>	
+		 
+		
+	</div>
+	<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		
+		 <li ><a class="item" href="Dashboard.html" style="font-weight:bold">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue"> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap3.html" >Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organogram.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	  
+	</div>
+
+</div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
+</body>
+</html>

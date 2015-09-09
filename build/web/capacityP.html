@@ -8,6 +8,8 @@
 <link type="text/css" rel="stylesheet" href="css/style.css">
 
 <script src="js/jquery-1.11.3.min.js"></script>
+<script src="Json/CapacityAll.json"></script>
+<script src="js/externaljs.js"></script>
 <script>
 
 
@@ -158,6 +160,7 @@ $(function() {
 function passName(){
 
 document.getElementById("display_note").innerHTML = "sdf";
+
 }
   
 		
@@ -170,7 +173,7 @@ document.getElementById("display_note").innerHTML = "sdf";
 
 </head>
 
-<body >
+<body onLoad="capacityplan()" >
 
 <div id="wrapper">
     <div class="banner">
@@ -195,7 +198,7 @@ document.getElementById("display_note").innerHTML = "sdf";
 			<div class="user_placeholder">
 			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
 			 <div class="username">
-			 	<Span>Jack Daniel</Span>		    
+			 	<Span id="nameAndSurname"> </Span>		    
 			  </div>					    
 			  </div>
 		   
@@ -270,15 +273,16 @@ document.getElementById("display_note").innerHTML = "sdf";
 		   
 		      <ul class="tabs">
     <li>
-        <input type="radio" checked name="tabs" id="tab1">
-        <label for="tab1">Optim</label>
+        <input type="radio" checked="checked"  name="tabs" id="tab1">
+        <label for="tab1" id="proj_name" >New Tab</label>
         <div id="tab-content1" class="tab-content">
-	 <table class="table-style-three"  width="650">
+	 <table class="table-style-three" id=""  width="650">
 	    <colgroup>
 	      <col class="vzebra-odd"> 
 	      <col class="vzebra-even">
 	      <col class="vzebra-odd">
 	      <col class="vzebra-even">
+		  
 	   </colgroup>
   <tr >
     <th scope="col" style="border:none;" class="auto-style5"></th>
@@ -287,77 +291,22 @@ document.getElementById("display_note").innerHTML = "sdf";
     
   </tr>
   <tr>  		
-    <td class="auto-style6">Processes</td>
-	<td class="auto-style2">Start Date</td>
-	<td  class="auto-style3">End Date</td>
-	<td  class="auto-style1">Days</td>
-	<td  class="cap_theader_staff">&nbsp;Effort</td>
-	<td  class="tot_emp" >Number of Employees</td>
+    <td  class="cap_theader_staff"  >Phases</td>
+	<td class="cap_theader_staff">Start Date</td>
+	<td  class="cap_theader_staff">End Date</td>
+	<td class="cap_theader_staff">MD</td>
+	<td  class="cap_theader_staff">&nbsp;AMD</td>
+	<td  class="cap_theader_staff" >Number of Employees</td>
 	
   </tr>
-  <tr>
-    <td>Spec Gathering</td>
-	<td ></td>
-	<td ></td>
-	<td ></td>
-	<td></td>
-	<td > </td>
-  </tr>
-  <tr>
-    <td >Design</td>
-	<td ></td>
-	<td ></td>
-	<td></td>
-	<td></td>
-	<td > </td>
-  </tr>
-   <tr>
-    <td >Development</td>
-	<td></td>
-	<td ></td>
-	<td ></td>
-	<td ></td>
-	<td > </td>
-	
-  </tr>
-   <tr>
-    <td>Maintenance</td>
-	<td ></td>
-	<td></td>
-	<td ></td>
-	<td ></td>
-	<td > </td>
-	
-  </tr>
-   <tr>
-    <td>Go live</td>
-	<td></td>
-	<td ></td>
-	<td></td>
-	<td ></td>
-	<td> </td>
-	
-  </tr>
+  
+
 </table>
             <!-- Your content goes here -->
         </div>
     </li>
-    <li>
-        <input type="radio" name="tabs" id="tab2">
-        <label for="tab2">tab 2</label>
-        <div id="tab-content2" class="tab-content">
-            <h3>Tab 2</h3>
-            <!-- Your content goes here -->
-        </div>
-    </li>
-    <li>
-        <input type="radio" name="tabs" id="tab3">
-        <label for="tab3">tab 3</label>
-        <div id="tab-content3" class="tab-content">
-            <h3>Tab 3</h3>
-            <!-- Your content goes here -->
-        </div>
-    </li>
+    
+    
 </ul>
    
    
@@ -366,61 +315,41 @@ document.getElementById("display_note").innerHTML = "sdf";
 		   
 		  
 		  <div class="proj_list">
-		  <div class="list_header"><a>Projects(4)</a></div>
+		  <div class="list_header"><a>Projects(0)</a></div>
 		  <div class="list_proj">
-		      <div class="proj_wrap">
-<input type="radio" name="radio" id="radio1" onClick="passName()" class="radio" checked/>
+		      <div class="proj_wrap">	  
+<input type="radio" name="radio" onClick="location.href='capacityOptim.html';" id="radio1"  class="radio"/>
 <label  class="proj_value" for="radio1">Optim</label>
 </div>
 
-<div class="proj_wrap">
-<input type="radio" name="radio" id="radio2" class="radio"/>
-<label  class="proj_value" for="radio2">Project XY</label>
-</div>
+
 
 <div class="proj_wrap">	
-<input type="radio" name="radio" id="radio3" class="radio"/>
-<label   class="proj_value" for="radio3">Calypso</label>
-</div>
 
-<div class="proj_wrap">	
-<input type="radio" name="radio" id="radio4" class="radio"/>
-<label class="proj_value" for="radio4">Project X</label>
 
  <div class="perf_graph"><a>Optim: Team performance</a><canvas id="canvas" width="300" height="300"> </div>
 </div>
 		</div>
-		  </div>
-		 
+		  </div> 
 		 </div>
-		
 		</div>
 				 </div>   <!--this div wraps the positions list dont touch-->
-		 
-		 
-		 
-		   
 				</div>  <!---end of content area--->
 				 
 				 
 				 
 	
 	</div>
-	<div class="side_bar" style="float: left;">
+<div class="side_bar" style="float: left;">
 	  <ul class = 'side_bar_list'>
- 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
-		     
-
-		</li>
-		 <hr align="right" class="line" width="150px"  size=1>
-		  
-		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+ 		
+		<li ><a class="item" href="Dashboard.html"style="font-weight:bold">Dashboard</a>
 		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
 		
-		 <hr align="right" class="line" width="150px"  size=1> 
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue"> 
 		    </li>
 			
-		<li ><a class="item" href="HeatMap2.html">Heat Map</a>
+		<li ><a class="item" href="HeatMap3.html" >Heat Map</a>
 		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
 		</li>
 		
@@ -433,7 +362,7 @@ document.getElementById("display_note").innerHTML = "sdf";
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		 
-		<li ><a class="item" href="organo.html">Organogram</a>
+		<li ><a class="item" href="organogram.html">Organogram</a>
 		
 		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
 		</li>
@@ -444,14 +373,38 @@ document.getElementById("display_note").innerHTML = "sdf";
 		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
 		</li>
 		
-		 <hr align="right" class="line" width="150px"  size=1> 			
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+		 		
 	  </ul>
 	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
 	  
 	</div>
-	
 
 </div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
 
+    });
+    
+});
+</script>
 </body>
 </html>

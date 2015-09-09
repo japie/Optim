@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/homestyle.css">
+
+</head>
+
+<body style="background-color:white";>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+
+function cancel(){
+
+/*document.getElementById('loginform').style.visibility = 'hidden';
+document.getElementById('signup').style.visibility = 'hidden';*/
+
+   	
+}
+$(document).ready(function(){
+    $(".login_btn").click(function(){
+        
+	document.getElementById("log_in").submit();
+
+    });
+    
+});
+function showlogdiv(){
+
+document.getElementById('loginform').style.visibility = 'visible';
+document.getElementById('loginform').style.zindex = '10001';
+document.getElementById('signup').style.visibility = 'hidden';
+
+}
+
+function showsigndiv(){
+
+document.getElementById('signup').style.visibility = 'visible';
+document.getElementById('loginform').style.visibility = 'hidden';
+}
+
+			            function checksignup()
+						
+            {
+			  if ((!formlsignupdetails.surname.value)||(!formlsignupdetails.fullnames.value)||(!formlsignupdetails.employeeid.value))
+                {
+                    alert ("No blanks,please fill in all infrmation !");
+					return false;
+                }
+	else if((!formlsignupdetails.password.value)||(!formlsignupdetails.cpassword.value)||(!formlsignupdetails.email.value))
+	      {
+                    alert ("No blanks,please fill in all infrmation !");
+					return false;
+                }
+				else if(!formlsignupdetails.notarobot.value)
+					      {
+                    alert ("No blanks,please fill in all infrmation !");
+					return false;
+                }
+				else
+				{
+                return (true);
+				}
+            }
+
+			// validate login textbox for empty spaces
+			            function checklogin()
+						
+            {
+			  if ((!formlogdetails.username.value)||(!formlogdetails.password.value))
+                {
+                    alert ("No blanks,please fill in all infrmation !");
+					return false;
+                }
+	
+				else
+				{
+                return (true);
+				}
+            }
+</script>
+<title>Optim </title>
+
+<div id="container">
+    <div class="content_area">
+    <div class="banner">
+	
+		<div id="" >
+		<img src="img/Optime2.gif" alt="Smiley face" class="opt_icon" style="width:50%;height:100%;">
+				<form action="LoginServlet" method="POST" id="log_in" >
+				<div class="title_login" ><Span id="login_title">Login</span></div>
+				
+				<div class="user_pass">
+				
+				<input style="height:30px;width:475px;" id="usernameField" type="text" name="username" placeholder="Username or Email Address" value="" ><br>
+				
+				<input style="height:30px;width:475px"; type="password" id="passwordField" name="password" placeholder="**************" value="" ><br>
+				<p style="color:red" font-size=5px>Error! Please provide correct login details</p>
+				<a href="#">Forgot password?</a><br><br>
+				<div class="btns">
+				<div class="login_btn"><span>Login</span></div>
+				<div class="cancel_btn" id="brnw" ><span>Cancel</span></div>
+				</div>
+				</div>
+				
+				</form>
+				
+				</div>
+				
+	
+
+	
+			</div>
+			
+				
+			<div class="wrap_plan_box">
+			
+			
+				<div class="suc_box" >
+				
+					<img id="pic" src="img\succession.jpg" alt="Succession plan">
+					<p class="headings">Succession Plan</p>
+					<p class="plandescription">
+					Succession planning is a process for identifying and developing
+					 internal people with the potential to fill key business leadership positions in the company.
+					 Succession planning increases the availability of experienced and capable employees that
+					are prepared to assume these roles as they become available.</p>
+				</div>
+				
+				<div  class="cap_box">
+					<img id="pic" src="img\capacity.jpg" alt="Capacity plan">
+					<p class="headings">Capacity Planning</p>
+					<p class="plandescription">Capacity planning is the process of determining the production capacity needed by an organization
+					 to meet changing demands for its products. In the context of capacity planning, design
+					 capacity is the maximum amount of work that an organization is capable of completing in a given period.</p>
+				</div>
+				
+				<div class="train_box">
+					<img id="pic" src="img\training.jpg" alt="Training Plan">
+					<p class="headings">Training Plan</p>
+					<p class="plandescription">The training plan will outline who will deliver the training, and when and where your apprentice or 
+					trainee needs to go to receive the structured component of the training.
+					Trainer outline of the training process he or she will use in a training program.
+					Treat the training plan as a working document. It should be flexible to meet all your needs.</p>
+				</div>
+				
+				<div class="hire_box">
+					<img id="pic" src="img\hiring.jpg" alt="Hiring Plan">
+					<p class="headings">Hiring Plan</p>
+					<p class="plandescription">The single most important thing you can do to ensure the success of your organization is to hire
+					 the best people you can find to do its work.
+					 The best people don't always have the most impressive credentials or education.
+					 They're not necessarily the ones you like the most, or have the most in common.</p>
+				</div>
+				</div>
+				<br><br><h1 class="header">Partners</h1>
+					<img class="pic1"  src="img\standardbank.png" alt="Smiley face"> 
+					<img class="pic1" src="img\futuretalent.jpg" alt="Smiley face">
+					<img class="pic1" src="img\absa.jpg" alt="Smiley face">
+					<img class="pic1" src="img\rmb.jpg" alt="Smiley face">
+					
+				
+				
+				
+     </div>
+</div>
+
+</body>
+</html>

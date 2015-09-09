@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * 
  * @author Training 8
  */
 @Entity
@@ -36,10 +36,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Teams.findRolesByProjIdAndRole", query = "SELECT  t.employeeid FROM Teams t WHERE t.projectid.projectid = :proj AND t.roleid.roleId = :roleId"),
     @NamedQuery(name = "Teams.findByProjID2", query = "SELECT t FROM Teams t WHERE t.projectid.projectid = :projId"),
     @NamedQuery(name = "Teams.findDistinctFunctions", query = "SELECT DISTINCT t.phases FROM Teams t WHERE t.levels =:level AND t.projectid.projectid = :proj"),
-     @NamedQuery(name = "Teams.findProjectTeamByLevelsAndPhases", query = "SELECT t FROM Teams t WHERE t.levels= :levels AND t.phases =:phases"),
+    @NamedQuery(name = "Teams.findProjectTeamByLevelsAndPhases", query = "SELECT t FROM Teams t WHERE t.levels= :levels AND t.phases =:phases"),
     @NamedQuery(name = "Teams.findByTeamsid", query = "SELECT t FROM Teams t WHERE t.teamsid = :teamsid"),
+    @NamedQuery(name = "Teams.findSuccessorsByProject", query = "SELECT t.employeeid.employeeId FROM Teams t WHERE t.employeeid.employeeId IN :empId AND t.projectid.projectid = (SELECT t.projectid.projectid FROM Teams t WHERE t.employeeid.employeeId = :predessesorId)"),
     @NamedQuery(name = "Teams.findByTeamrecordid", query = "SELECT t FROM Teams t WHERE t.teamrecordid = :teamrecordid"),
     @NamedQuery(name = "Teams.findProjByEmployeeId", query = "SELECT t.projectid.projectName FROM Teams t WHERE t.employeeid.employeeId = :empId"),
+    @NamedQuery(name = "Teams.findAMemberByEmployeeId", query = "SELECT t FROM Teams t WHERE t.employeeid.employeeId = :empId"),
     @NamedQuery(name = "Teams.findByDepartmentid", query = "SELECT t FROM Teams t WHERE t.departmentid = :departmentid"),
     @NamedQuery(name = "Teams.findByLevels", query = "SELECT t FROM Teams t WHERE t.levels = :levels"),
     @NamedQuery(name = "Teams.findByPhases", query = "SELECT t FROM Teams t WHERE t.phases = :phases")})

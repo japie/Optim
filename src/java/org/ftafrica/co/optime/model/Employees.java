@@ -39,6 +39,23 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employees.findByPhysicalAddress", query = "SELECT e FROM Employees e WHERE e.physicalAddress = :physicalAddress"),
     @NamedQuery(name = "Employees.findByPostalAddress", query = "SELECT e FROM Employees e WHERE e.postalAddress = :postalAddress")})
 public class Employees implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeid")
+    private Collection<Task1A> task1ACollection;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "Marital_status")
+    private String maritalstatus;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "Area_Code")
+    private String areaCode;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "Email_Address")
+    private String emailAddress;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "commentBy")
     private Collection<SuccessionComments> successionCommentsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeid")
@@ -319,6 +336,39 @@ public class Employees implements Serializable {
 
     public void setTasksCollection(Collection<Tasks> tasksCollection) {
         this.tasksCollection = tasksCollection;
+    }
+
+    public String getMaritalstatus() {
+        return maritalstatus;
+    }
+
+    public void setMaritalstatus(String maritalstatus) {
+        this.maritalstatus = maritalstatus;
+    }
+
+    public String getAreaCode() {
+        return areaCode;
+    }
+
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    @XmlTransient
+    public Collection<Task1A> getTask1ACollection() {
+        return task1ACollection;
+    }
+
+    public void setTask1ACollection(Collection<Task1A> task1ACollection) {
+        this.task1ACollection = task1ACollection;
     }
 
     

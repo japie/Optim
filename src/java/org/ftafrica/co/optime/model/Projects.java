@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.ftafrica.co.optime.model;
 
 import java.io.Serializable;
@@ -38,37 +37,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Projects.findByProjectName", query = "SELECT p FROM Projects p WHERE p.projectName = :projectName"),
     @NamedQuery(name = "Projects.findByCapacity", query = "SELECT p FROM Projects p WHERE p.capacity = :capacity"),
     @NamedQuery(name = "Projects.findByProjectbudget", query = "SELECT p FROM Projects p WHERE p.projectbudget = :projectbudget"),
-    @NamedQuery(name = "Projects.findByProjectExpectedExpense", query = "SELECT p FROM Projects p WHERE p.projectExpectedExpense = :projectExpectedExpense"),
+    @NamedQuery(name = "Projects.findByProjectActualExpense", query = "SELECT p FROM Projects p WHERE p.projectActualExpense = :projectActualExpense"),
     @NamedQuery(name = "Projects.findByStartdate", query = "SELECT p FROM Projects p WHERE p.startdate = :startdate"),
     @NamedQuery(name = "Projects.findByEnddate", query = "SELECT p FROM Projects p WHERE p.enddate = :enddate"),
     @NamedQuery(name = "Projects.findByProjectTeam", query = "SELECT p FROM Projects p WHERE p.projectTeam = :projectTeam"),
     @NamedQuery(name = "Projects.findByProjectphases", query = "SELECT p FROM Projects p WHERE p.projectphases = :projectphases"),
     @NamedQuery(name = "Projects.findByStatus", query = "SELECT p FROM Projects p WHERE p.status = :status"),
     @NamedQuery(name = "Projects.findByContractperiod", query = "SELECT p FROM Projects p WHERE p.contractperiod = :contractperiod"),
-    @NamedQuery(name = "Projects.findByProjectmanager", query = "SELECT p FROM Projects p WHERE p.projectmanager = :projectmanager")})
+    @NamedQuery(name = "Projects.findByProjectmanager", query = "SELECT p FROM Projects p WHERE p.projectmanager = :projectmanager"),
+    @NamedQuery(name = "Projects.findDistinctByProjectmanager", query = "SELECT p.projectid FROM Projects p WHERE p.projectmanager = :projectmanager"),
+    @NamedQuery(name = "Projects.findByDuration", query = "SELECT p FROM Projects p WHERE p.duration = :duration"),
+    @NamedQuery(name = "Projects.findByDepartment", query = "SELECT p FROM Projects p WHERE p.department = :department")})
 public class Projects implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = "Duration")
-    private String duration;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "Department")
-    private String department;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectid")
-    private Collection<Succession> successionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projid")
-    private Collection<Tasks> tasksCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectId")
-    private Collection<Hiring> hiringCollection;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "Status")
-    private String status;
-    
+    private Collection<Task1A> task1ACollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -89,8 +71,8 @@ public class Projects implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Project_budget")
     private Double projectbudget;
-    @Column(name = "Project_Expected_Expense")
-    private Double projectExpectedExpense;
+    @Column(name = "Project_Actual_Expense")
+    private Double projectActualExpense;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Start_date")
@@ -112,6 +94,11 @@ public class Projects implements Serializable {
     private long projectphases;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "Status")
+    private String status;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "Contract_period")
     private long contractperiod;
     @Basic(optional = false)
@@ -119,8 +106,16 @@ public class Projects implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "Project_manager")
     private String projectmanager;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projectid")
-    private Collection<Teams> teamsCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 4)
+    @Column(name = "Duration")
+    private String duration;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "Department")
+    private String department;
 
     public Projects() {
     }
@@ -129,7 +124,7 @@ public class Projects implements Serializable {
         this.projectid = projectid;
     }
 
-    public Projects(String projectid, String projectName, String capacity, Date startdate, Date enddate, String projectTeam, long projectphases, String status, long contractperiod, String projectmanager) {
+    public Projects(String projectid, String projectName, String capacity, Date startdate, Date enddate, String projectTeam, long projectphases, String status, long contractperiod, String projectmanager, String duration, String department) {
         this.projectid = projectid;
         this.projectName = projectName;
         this.capacity = capacity;
@@ -140,6 +135,8 @@ public class Projects implements Serializable {
         this.status = status;
         this.contractperiod = contractperiod;
         this.projectmanager = projectmanager;
+        this.duration = duration;
+        this.department = department;
     }
 
     public String getProjectid() {
@@ -174,12 +171,12 @@ public class Projects implements Serializable {
         this.projectbudget = projectbudget;
     }
 
-    public Double getProjectExpectedExpense() {
-        return projectExpectedExpense;
+    public Double getProjectActualExpense() {
+        return projectActualExpense;
     }
 
-    public void setProjectExpectedExpense(Double projectExpectedExpense) {
-        this.projectExpectedExpense = projectExpectedExpense;
+    public void setProjectActualExpense(Double projectActualExpense) {
+        this.projectActualExpense = projectActualExpense;
     }
 
     public Date getStartdate() {
@@ -214,6 +211,13 @@ public class Projects implements Serializable {
         this.projectphases = projectphases;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public long getContractperiod() {
         return contractperiod;
@@ -231,13 +235,20 @@ public class Projects implements Serializable {
         this.projectmanager = projectmanager;
     }
 
-    @XmlTransient
-    public Collection<Teams> getTeamsCollection() {
-        return teamsCollection;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setTeamsCollection(Collection<Teams> teamsCollection) {
-        this.teamsCollection = teamsCollection;
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     @Override
@@ -265,57 +276,13 @@ public class Projects implements Serializable {
         return "org.ftafrica.co.optime.model.Projects[ projectid=" + projectid + " ]";
     }
 
-   
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @XmlTransient
-    public Collection<Hiring> getHiringCollection() {
-        return hiringCollection;
+    public Collection<Task1A> getTask1ACollection() {
+        return task1ACollection;
     }
 
-    public void setHiringCollection(Collection<Hiring> hiringCollection) {
-        this.hiringCollection = hiringCollection;
-    }
-
-    @XmlTransient
-    public Collection<Succession> getSuccessionCollection() {
-        return successionCollection;
-    }
-
-    public void setSuccessionCollection(Collection<Succession> successionCollection) {
-        this.successionCollection = successionCollection;
-    }
-
-    @XmlTransient
-    public Collection<Tasks> getTasksCollection() {
-        return tasksCollection;
-    }
-
-    public void setTasksCollection(Collection<Tasks> tasksCollection) {
-        this.tasksCollection = tasksCollection;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setTask1ACollection(Collection<Task1A> task1ACollection) {
+        this.task1ACollection = task1ACollection;
     }
     
 }

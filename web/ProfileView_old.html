@@ -1,0 +1,438 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/externaljs.js"></script>
+<script src="Json/EmployeeProfile.json"></script>
+<script>
+
+function enableFields(){
+    
+	$('input').prop( "disabled", false );
+	$('input').css('background','#0066FF');
+        $('#sta_act').css('background','none');
+	$('input').css('color','#fff');
+       
+	$('input').css('border','1px solid #333');
+	 $('#sta_act').prop("disabled", true);
+        $('#sta_act').css('border','none');
+}
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+
+
+
+</head>
+
+<body onLoad="populatedataonprofile()">
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span>Jack Daniel</Span>		    
+					  </div>					    
+					  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>
+		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>
+		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" align="center"  id="opt_container">
+      
+	     <div class="content_area" >
+		   <div id="wrap_p_banner"> 
+		    
+						 <div class="profileV"><div>
+						   <div  id="menu">
+                             <div id="opt">
+							 
+							 	 
+                               
+								<!-----edit delete popup---->
+								  
+								  <div id="del-box" tabindex="0" class="onclick-del">
+	     
+		 
+		 <img src="img/show_men.png" class="del_edit"/>
+		   <div class="popover_del">
+		    <nav class="del">
+			
+			<ul class="onclick-del-content">
+			<div class="men_list">
+			
+			 					    
+					  </div>
+		   
+				
+				<li class="current-item" id="up_profile" onClick="enableFields()"><span>Update Profile</span></li>
+				<li class="current-item" id="del_profile"><span>Delete Profile</span></li>
+				
+			</ul>
+			</nav>
+	</div>
+	 </div>
+								   
+                             </div>
+                           </div> 
+							<img src="img/index.jpg" style="width:80px;height:80px;" >
+						 </div>
+					 <div id="name_sname">
+					    <div id="f_lname" style="margin-right: -300px;">
+                                                <input type="text" id="names" name="names" value="Name" disabled="disabled">
+                                                <input type="text" id="lnames" name="lastnames" value="LastName" disabled="disabled" >
+						</div>
+						<input type="text" id="r_name" name="role_name" value="Senior Consultant" disabled="disabled">
+						<input type="text" id="sta_act" name="role_name" value="Status: Active" disabled="disabled">
+					 </div>
+					
+					   
+					 
+			 </div> <!---close w_p_b-->
+			 
+			 <div class="all_person_details" >
+			 <div class="per_def">
+			 <label>Personal Details</label><br>
+			 </div>
+			  <label>ID Number</label>
+			  <input id="id_num" type="text" disabled="disabled" name="id_num" value=""><br>
+			  <label>Citizenship</label>
+			  <input id="citizen" type="text" disabled="disabled" name="citizen" value=""><br>
+			  <label>Marital Status</label>
+			  <input type="text" disabled="disabled" id="ms" name="id_num" value=""> 
+		      
+			  
+			 </div>
+			 
+			 <div class="all_person_details" id="cont_d">
+			 <div class="per_def">
+			 <label>Contact Details</label><br>
+			 </div>
+			 <div id="em">
+			  <label>Email Address</label>
+			  <input id="email" type="text" disabled="disabled" name="email" value="">
+			  </div>
+			  <div id="pn">
+			  <label>Phone Number</label>
+			  <input id="phonenumber" type="text" disabled="disabled" name="id_num" value="South Africa">
+			  </div>
+			  <div id="pa">
+			  <label>Postal Address</label>
+			  <input id="postaladdress" type="text" disabled="disabled" name="id_num" value=""> 
+			  </div>
+			  <div id="ph">
+		      <label>Physical Address</label>
+			  <input id="physicaladdress" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="ac">
+			  <label>Area Code</label>
+			  <input id="areacode" type="text" disabled="disabled" name="id_num" value="">
+			 
+			  
+		
+			  </div>
+			  <div class="per_def" id="wek">
+			 <label>Work Details</label><br>
+			 </div>
+			  			  <div id="prjy">
+			  <label>Project Name</label><input id="projectname" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  			  <div id="rel">
+		      <label>Relevant Exp.</label>
+			  <input id="relevantexperience" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="gen">
+			  <label>General Exp.</label>
+			  <input id="generalexperience" type="text" disabled="disabled" name="id_num" value="">
+			  </div><br>
+			  <div id="lev">
+			   <label>Level</label>
+			  <input id="level" type="text" disabled="disabled" name="id_num" value="">
+			  </div><br>
+			  			  <div id="gen">
+			   
+			  <label>Salary Range</label><input id="salaryrange" type="text" disabled="disabled"   name="id_num" value="">
+			  </div>
+			  <div id="sd">
+			   <label>Start Date </label>
+			  <input id="startdate" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="ed">
+			    <label>End Date </label>
+			  <input id="enddate" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			 </div> <!--end of contact details-->
+			 
+			 
+			 <div class="all_person_details" id="edu">
+			 <div class="per_def">
+			 <label>Education Details</label><br>
+			 </div>
+			 <div id="ql">
+			  <label>Qualification</label>
+			  <input id="qualifications" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="inst">
+			  <label>Institution</label>
+			  <input id="institution" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <label>Year obtained</label>
+			  <input id="yearobtained" type="text" disabled="disabled" name="id_num" value=""> 
+		     
+			  
+			 </div>
+			 
+			 
+			 <div class="all_person_details" id="com">
+			 <div class="per_def">
+			 <label>Current Position</label><br>
+			 </div>
+			 <div id="comp">
+			  <label>Company</label>
+			  <input id="companyname" type="text" disabled="disabled" name="id_num" value="00000999999999999999">
+			  </div>
+			  <div id="dep">
+			  <label>Department</label>
+			  <input id="department" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="contr">
+			  <label>Contract</label>
+			  <input id="contracttype" type="text" disabled="disabled" name="id_num" value=""> 
+			  </div>
+			  <div id="rel">
+		      <label>Relevant Exp.</label>
+			  <input id="relevantexperience" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="gen">
+			  <label>General Exp.</label>
+			  <input id="generalexperience" type="text" disabled="disabled" name="id_num" value="">
+			  </div><br>
+			  <div id="lev">
+			   <label>Level</label>
+			  <input id="level" type="text" disabled="disabled" name="id_num" value="">
+			  </div><br>
+			  <div id="sr">
+			   <label>Salary Range</label>
+			  <input id="salaryrange" type="text" disabled="disabled"   name="id_num" value="">
+			  </div>
+			  <div id="sd">
+			   <label>Start Date_</label>
+			  <input id="startdate" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="ed">
+			    <label>End Date </label>
+			  <input id="enddate" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			 </div>
+			 
+			 
+			 <div class="all_person_details" id="proj_fields">
+			 <div class="per_def" >
+			 <label>Project Details</label><br>
+			 </div>
+			 <div>
+			  <label>Project Name</label>
+			  <input id="projectname" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="rol">
+			  <label> Role</label>
+			  <input id="projectrole" type="text"  disabled="disabled"    name="id_num" value="">
+			  </div>
+			  <div  id="t_name">
+			  <label>Team Name</label>
+			  <input id="teamname" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			  <div id="super">
+		      <label>Supervisor</label>
+			  <input id="supervisorname" type="text" disabled="disabled" name="id_num" value="">
+			  </div>
+			 </div>
+			 
+			 <div id="save_update">
+			 
+			  <div id="upd_btn">Update</div>
+			 </div>
+			</div> 
+		 </div>	
+	
+	</div>
+	<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 
+	
+         <li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap3.html" >Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html" style="font-weight:bold">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1 color="blue"> 
+		 
+		<li ><a class="item" href="organogram.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html" style="font-weight: bold">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue"> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	  
+	</div>
+	<div class="Footer">
+	    g
+	</div>
+
+</div>
+
+</body>
+</html>

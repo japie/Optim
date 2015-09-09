@@ -25,8 +25,20 @@
         <servlet-class>org.ftafrica.co.optime.controller.loginS</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>New_project</servlet-name>
+        <servlet-class>org.ftafrica.co.optime.controller.New_project</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MainControllerServlet</servlet-name>
         <servlet-class>org.ftafrica.co.optime.controller.MainControllerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Reg_servlet</servlet-name>
+        <servlet-class>org.ftafrica.co.optime.controller.Reg_servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>New_project_servlet</servlet-name>
+        <servlet-class>org.ftafrica.co.optime.controller.New_project_servlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -49,12 +61,24 @@
         <url-pattern>/HeatmapServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Reg_servlet</servlet-name>
+        <url-pattern>/Reg_servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>New_project</servlet-name>
+        <url-pattern>/New_project</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>loginS</servlet-name>
         <url-pattern>/loginS</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MainControllerServlet</servlet-name>
         <url-pattern>/MainControllerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>New_project_servlet</servlet-name>
+        <url-pattern>/New_project_servlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

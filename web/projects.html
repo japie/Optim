@@ -5,9 +5,15 @@
 <meta name="description" content="Optim">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link type="text/css" rel="stylesheet" href="css/style.css">
-
+<link type="text/css" rel="stylesheet" href="css/projectstyle.css">
+<script src="js/externaljs.js"></script>
 <script src="js/jquery-1.11.3.min.js"></script>
+<script src="Json/ProjectOver.json"></script>
+
+
+<script>
+
+</script>
 <script>
 
 function hide(){
@@ -16,6 +22,8 @@ document.getElementById("content_area").style.visibility = "hidden";
 
 $(function() {
     
+	
+	  
     var  myDivWidth = $( ".side_bar" ).width();
 	 var  myDivWidth2 = $( ".content" ).width();
 	 var  ruler = $( ".line" ).width();
@@ -67,7 +75,11 @@ $(function() {
 
 </head>
 
-<body >
+<body onLoad="projects()">
+
+
+
+
 
 <div id="wrapper">
     <div class="banner">
@@ -75,7 +87,7 @@ $(function() {
 	 <div class="menu-box">
 	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
 	
-		 </div>
+	  </div>
 	 
 	  <div class="logo-box" > 
 <img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
@@ -92,8 +104,7 @@ $(function() {
 			<div class="user_placeholder">
 			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
 			 <div class="username">
-			 	<Span>Jack Daniel</Span>		    
-			  </div>					    
+			 	<Span id="nameAndSurname"> </Span>			  </div>					    
 			  </div>
 		   
 				
@@ -107,9 +118,8 @@ $(function() {
 	     
 	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
 	  
-	   <div class="warning_count" >
-		    <span>0</span>
-			</div>
+	   <div class="warning_count">
+		    <span>0</span>		</div>
 
 	      <img src="img/12233.png" id="flag" class="noti_icon" />
 		  
@@ -119,19 +129,13 @@ $(function() {
 		   <li class="noti-header"><span>Notifications(0)</span></li>
 		   <li class="noti-content">
 		       <span> No Notifications...</span>		   </li>
-		  
 		</ul>
-		
 	</nav>
 	   </div>
- 
-        
-
 	 </div>
 	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
 	   <div class="msg_count">
-		    <span>0</span>
-		 </div>
+		    <span>0</span>	    </div>
 	      <img src="img/mail.png" id="notification" class="msg_icon"  >
      
 
@@ -142,11 +146,9 @@ $(function() {
 		   <li class="inbox-header"><span>Messages(0)</span></li>
 		   <li class="inbox-content">
 		       <span> No Messages...</span>		   </li>
-		  
 		</ul>
 	 </nav>
 	 </div>
-
 	 </div>
 	 
   </div>
@@ -170,49 +172,39 @@ $(function() {
 	   	
 	
 	
-	   <div class="projectbar"><div class="project_count"><span class="profile_num">All Projects(2)</span> </div>
-	   <div class="add_emp"><a href="newproject.html">add new project</a></div>
+	   <div class="projectbar" style="font-family: Segoe UI"><div class="project_count"><span class="profile_num"><a>All Projects  :&nbsp;&nbsp;</a><a class="numberofprojects"></a></span> </div>
+	   <div class="add_emp" style="font-family: Segoe UI"><a href="NewProjects.html">add new project</a></div>
 	     
 	   </div>
 			
-	   <div class="project_box"> <!---prfile---->
+	   <div class="project_box" style="font-family: Segoe UI"> <!---prfile---->
 	       <div class="proj_icon">
 		      <img src="img/plan-512.png" style="width:35px;height:35px; margin-left:10px;">
 		   </div>
-		    <div class="proj_descript"> 
-			<a>Work Optimization tool  </a>
-			<div class="note_alerts"><div><a class="noxify" >warnings<a class="notify">0</a></a></a><a class="noxify" >alert<a class="notify">0</a></a> </a><a class="noxify">reminder<a class="notify">0</a></a></div>
+		   
+		    <div class="proj_descript" style="font-family: Segoe UI"> 
+			
+		
+		
+				
+			<a style="color:#666699;font-size:20px"></a><a class="projectname">Work Optimization tool  </a>
+                        <div class="note_alerts" style="font-family: Segoe UI"><div><a class="noxify" >Capacity</a><a class="cnotify" class="capacity"></a><a class="noxify" class="projectphase">Project Phase</a><a class="snotify"></a></a> </a><a class="noxify" >Status</a><a class="notify" class="status"></a></div>
 			</div>
-						<a class="project_descript"><br/>Completion:54%, Duration:24days of 16months </a>
+						<a class="project_descript"><br/>Estimated End Date :&nbsp;</a><a class="enddate"></a>
             
 		   </div>
-		    <div class="view_proj" onClick="location.href='viewproject.html';">
-			<div class="manage_button"><a>Manage</a></div>
-		   </div>
+		  <div class="view_proj">
+		  <form action="ProjectVew.html" method="GET"> 
+		    <input class="sub"  value="Manage" type="submit">
+			 <input type="text" id="clickme" name="#?" hidden >
+		  
+		   </form>
 		   
+		   </div>
 		   
 		   
 	   </div>   <!---end of prfile---->
-	   
-	   
-	   <div class="project_box"> <!---prfile---->
-	       <div class="proj_icon">
-		      <img src="img/plan-512.png" style="width:35px;height:35px; margin-left:10px;">
-		   </div>
-		    <div class="proj_descript"> 
-			<a>Calypso v2.4 </a>
-			<div class="note_alerts"><div><a class="noxify" >warnings<a class="notify">0</a></a></a><a class="noxify" >alert<a class="notify">0</a></a> </a><a class="noxify">reminder<a class="notify">5</a></a></div>
-			</div>
-						<a class="project_descript"><br/>Completion:94%, Duration:24days of 16months </a>
-            
-		   </div>
-		    <div class="view_proj">
-			<div class="manage_button" onClick="location.href='viewproject.html';"><a>Manage</a></div>
-		   </div>
-		   
-		   
-		   
-	   </div>   <!---end of prfile---->
+
 	   
 	   		
 	   
@@ -227,13 +219,10 @@ $(function() {
 				 
 	
 	</div>
-	<div class="side_bar" style="float: left;">
+<div class="side_bar" style="float: left;">
 	  <ul class = 'side_bar_list'>
- 		<li ><a class="item" href="#">Home </a> <img src="img/09_home-512.png" id="img_home" class="icon"  style="width:30px;height:30px;">
-		     
-
-		</li>
-		 <hr align="right" class="line" width="150px"  size=1>
+ 		
+		
 		  
 		<li ><a class="item" href="Dashboard.html">Dashboard</a>
 		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
@@ -241,31 +230,38 @@ $(function() {
 		 <hr align="right" class="line" width="150px"  size=1> 
 		    </li>
 			
-		<li ><a class="item" href="HeatMap2.html">Heat Map</a>
+		<li ><a class="item" href="HeatMap3.html">Heat Map</a>
 		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
 		</li>
 		
 		 <hr align="right" class="line" width="150px"  size=1>
 		  
-		<li ><a class="item" href="profiles.html">Profiles</a>
+		<li ><a class="item" href="profil.html">Profiles</a>
 		
 		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
 		</li>
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		 
-		<li ><a class="item" href="organo.html">Organogram</a>
+		<li ><a class="item" href="organogram.html">Organogram</a>
 		
 		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
 		</li>
 		
 		 <hr align="right" class="line" width="150px"  size=1> 
 		 
-		<li ><a class="item" href="projects.html">Book of work</a>
+		<li><a class="item" href="projects.html" style="font-weight:bold" >Book of work</a>
 		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
 		</li>
 		
-		 <hr align="right" class="line" width="150px"  size=1> 			
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue;" > 	
+		 
+		 	<li><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
 	  </ul>
 	   <a id ="day"> <a id ="month"><a id="year"></a></a></a>
 	  
@@ -273,6 +269,20 @@ $(function() {
 	
 
 </div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
 
+    });
+    
+});
+</script>
 </body>
 </html>

@@ -43,6 +43,8 @@
                     return em.createNamedQuery("Teams.findByProjID",Teams.class).setParameter("proj", Project).getResultList();
                  }
                 public List GetPhasesForProjects(String level,String Project) {
+                    
+                    
 
                     return em.createNamedQuery("Teams.findDistinctFunctions",Teams.class).setParameter("level", level).setParameter("proj", Project).getResultList();
                  }
@@ -65,6 +67,8 @@
                    MainHeatMap mainHeatMap = new MainHeatMap();
 
                            for(String f: FunctionsDB){
+                               
+                               
                                List<HeatMapPersonHelper> heatMapPersonList = new ArrayList();
                                FunctionHelper functionHelper = new FunctionHelper();
                                List<Teams> ProjectTeam = em.createNamedQuery("Teams.findProjectTeamByLevelsAndPhases", Teams.class).setParameter("levels", l).setParameter("phases", f).getResultList();

@@ -1,23 +1,69 @@
 
-#container{
-    background-color:white;
-    width: 1100px;
-    height:auto;
-    margin-left:150px;
-    margin-right:auto;
-}
+ .header{min-width:1100px;background-color:olive;height:100px;
+         margin-top: auto;
+         top:0;
+         
+         margin-left: 0px;
+         margin-right: 0px;
+         
+ }
+
+ .footer {
+        background-color: #333;
+        bottom: 0;
+        float: right;
+        height: 40px;
+        left: 0;
+        margin-top: auto;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        display: inline;
+    }
+    #copyR{
+        margin-top: 10px;
+        text-align:center;
+        
+    } 
+   
+    .footer span{
+        color:#ffffff; 
+       font-family:"Segoe UI";
+      font-size:.9em;
+    }
+    #container{
+       
+        top: 0;
+        float: right;
+       
+        left: 0;
+        margin-top: auto;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        
+    }
 .banner{
 background-color:#0000CC;
+background-image: url(../img/globe.png);
+background-repeat:no-repeat;
+background-position: left;
+background-size:400px 400px;
 height:300px;
-width:auto;
- position:absolute;
- z-index:99;
- margin-left:auto;
- margin-right:auto;
+width:100%;
+ position: static;
+ margin-left:0;
+ margin-right:0;
  top:0;
  left:0;
  right:0;
- display:inline;
+}
+#banner::after {
+    opacity: 0.0;
+}
+#liner{
+    background-color: #0066ff;
+    height:3px;
 }
 .login{
 display:inline-block;
@@ -63,16 +109,10 @@ p.plandescription{
 	font-weight: normal;
 	font-family:"Segoe UI";
 	font-size:15px;
+        
 
 }
-.header{
-color:#666666;
-text-align:center;
-font-weight: bold;
-font-weight: normal;
-	font-family:"Segoe UI";
-text-shadow: 0 -1px 0 #000;
-}
+
 
 .pic1{
 width:110px;
@@ -85,17 +125,18 @@ margin-top:5px;
 
 #loginform{
 	background:#333;
+
 	width: 550px;
 	height:200px;
 	margin-left:auto;
 	margin-right:auto;
 	position: absolute;
 	top: 275px;
-	
+	border-radius:3px;
 	left: 400px;
 	padding-left:0px;
 	padding-top:0px;
-	border-radius:0;
+	
 	visibility:hidden;
 	z-index:10001;
     box-shadow: 1px 1px 3px  2px #888888;
@@ -288,3 +329,153 @@ vertical-align:top;
   margin-left:5px;
  
 width:250px;}
+
+.info_space{
+    display:inline; 
+}
+.plan_items{
+    display:inline-block;
+    vertical-align:top;
+    width:48%;
+    margin-top:10px;
+    margin-bottom:15px;
+    margin-left: 15px;
+}
+.plan_items span{
+    font-family:"Segoe UI";
+    font-weight:bold;
+    color: #0066cc;
+    font-size: large; 
+    
+      text-shadow: 0 1px 0 #fff;
+}
+#succession{
+     background-color:#ddd;
+    background-image: url(../img/settings.png);
+   background-size: 45px 45px;
+   background-position: 10px 50px;
+   background-repeat: no-repeat; 
+   margin-bottom:10px;
+   border-radius:4px;
+    
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.3);
+        border-bottom:1px solid #ccc;
+  
+}
+#succession span{
+    margin-left:60px;
+     background-image: url(../img/guid.png);
+   background-size: 25px 20px;
+   background-position:  0px 5px;
+  background-repeat: no-repeat;
+  padding-left:25px;
+}
+#succession div{
+    margin-left:60px;
+    text-align:left; 
+     color: #666;
+    font-family:"Segoe UI";
+   
+    border-left:1px solid #ccc; 
+    padding-left: 10px; 
+    padding-bottom:23px; 
+    -webkit-padding-bottom:23px; 
+    font-size:.9em;
+     font-weight: normal;
+}
+#Capacity{
+     background-color:#ddd;
+    background-image: url(../img/graph-icon-sm.png);
+   background-size: 45px 45px;
+  background-position: 10px 50px;
+   background-repeat: no-repeat; 
+      border-bottom:1px solid #ccc;
+      border-radius:4px;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.3);
+  
+}
+#Capacity div{
+    padding-bottom:23px;
+      margin-left:60px;
+    text-align:left;
+     color: #666;
+     padding-left:10px;
+    font-family:"Segoe UI";
+    font-size:.9em;
+     font-weight: normal;
+     border-left:1px solid #ccc; 
+}
+#Capacity span{
+    margin-left:60px;
+     background-image: url(../img/guid.png);
+   background-size: 25px 20px;
+   background-position:  0px 5px;
+  background-repeat: no-repeat;
+  padding-left:25px;
+}
+#training{
+     background-color:#ddd;
+    background-image: url(../img/complete-knowledge-icon.png);
+   background-size: 45px 45px;
+   background-position: 10px 50px;
+   background-repeat: no-repeat; 
+     border-bottom:1px solid #ccc; 
+     margin-bottom:10px;
+     border-radius:4px;
+   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.3);
+  
+}
+#training div{
+    
+   
+     padding-left:10px;
+    border-left:1px solid #ccc;
+      margin-left:60px;
+    text-align:left;
+      color: #666;
+     height:90px; 
+    font-family:"Segoe UI";
+    font-size:.9em;
+     font-weight: normal;
+    padding-bottom: 14px;
+    
+}
+#training span{
+    margin-left:60px;
+  
+     background-image: url(../img/guid.png);
+   background-size: 25px 20px;
+   background-position:  0px 5px;
+  background-repeat: no-repeat;
+  padding-left:25px;
+}
+#hiring{
+    background-color:#ddd;
+      border-bottom:1px solid #ccc; 
+    background-image: url(../img/shakeit.png);
+   background-size: 45px 25px;
+  background-position: 10px 50px;
+   background-repeat: no-repeat; 
+    border-radius:4px;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.3);
+  
+}
+#hiring div{
+    padding-left:10px;
+    border-left:1px solid #ccc;
+      margin-left:60px;
+    text-align:left; 
+     color: #666;
+    font-family:"Segoe UI";
+   font-size:.9em;
+     font-weight: normal;
+      padding-bottom:23px;
+}
+#hiring span{
+    margin-left:60px;
+     background-image: url(../img/guid.png);
+   background-size: 25px 20px;
+   background-position:  0px 5px;
+  background-repeat: no-repeat;
+  padding-left:25px;
+}
