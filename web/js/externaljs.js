@@ -1370,21 +1370,21 @@ $('#allpro').text("("+prodata.length+")");
                
 		$('.'+i).find('.employee_descript').text(prodata[i].Qualification);
 		$('.'+i).css('display','block');
-                  $("#Noresult").css('display','none');  
+                  //$("#Noresult").css('display','none');  
 		}//end if empty
 					else
 					{
                                              
-						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)===true)
+						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)==true)
 						{
 							$('.'+i).css('display','block');
-                                                        $("#Noresult").css('display','none');
+                                                        //$("#Noresult").css('display','none');
                                                       
 							}
 							  else
 							    {
-                                                                $("#Noresult").css('display','block');  
-                                                              $("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
+                                                               // $("#Noresult").css('display','block');  
+                                                              //$("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
 									$('.'+i).css('display','none');
 									}
 						}
