@@ -233,13 +233,46 @@ $(function() {
 		
 		<input type="text" name="Cmp" placeholder="Company"  value="Standard Bank"/>
 		<input type="text" name="dpt" placeholder="Department" required="true" />
-		<input type="text" name="pos" placeholder="Position" required="true" />
+		<label>
+
+                     
+					 
+					 <select name="sort" id="role_list" >
+                                             <option value="rl" id="selPH" class="sr" disabled="disabled">Select a Role</option>
+					
+                     </select>
+
+                   </label>
 		<input type="text" name="contract" placeholder="Contract Type" required="true" />
                 <input type="number" name="relE" pattern="[0-9]{2}" placeholder="Relevant Experince" required="true" title="please insert digits eg 4" min="0" max="20"/>
 		<input type="number" name="genE" pattern="[0-9]{2}" placeholder="General Experience" required="true" title="please insert digits eg 4"/>
 		<input type="text" name="levl" placeholder="Level i.e Executive Management" required="true"/>
-		<input type="text" pattern="\d+" name="salary" placeholder="Salary Range" required="true" id="slider"/>
-		<input type="text" name="startD" placeholder="Start Date"  id="datepicker"/>
+		 <label>
+
+					 
+					 <select name="sort" id="Salary" >
+                                             <option value="rl"  disabled="disabled" id="sl">Salary Range</option>
+		     
+                     <option value="rl"  >R100 000 - R150 000</option>
+                     <option value="rl" id="selPH" >R150 000 - R250 000</option>
+                     <option value="rl" id="selPH">R250 000 - R500 000</option>
+		     <option value="rl" id="selPH" >R500 000 - R750 000</option>
+                     <option value="rl" id="selPH">R750 000 - R1 000 000</option>
+                     <option value="rl" id="selPH" >R1 000 000 - R1 500 000</option>
+                     <option value="rl" id="selPH">R1 500 000 - R2 500 000</option>
+
+
+                     
+
+	
+			
+			
+			
+					
+                     </select>
+
+                   </label>
+                <input type="text" name="startD" placeholder="Start Date"  id="datepicker"/>
 		<input type="text" name="endD" placeholder="End Date" id="datepicker2"/>
 		<input type="button" name="previous" class="previous action-button" value="Previous" />
 		<input type="button" name="next" class="next action-button" value="Next" />
@@ -247,22 +280,22 @@ $(function() {
                    
 	<fieldset>
 		<h2 class="fs-title">Project Details</h2>
-		<h3 class="fs-subtitle"> Allocate Project & Task.</h3>
+		<h3 class="fs-subtitle"> Allocate Project & Team.</h3>
+                <label>
+                    <select name="sort" id="pro_list" >
+
+                        <option value="sp" disabled="disabled" id="spj">Select a Project</option>
+                     </select>   
+                </label>
                 
-                                    <label>
+                 <label>
+                    <select name="sort" id="teams" >
 
-                     <select name="sort" id="pro_list" >
-
-                     <option value="sp" disabled="disabled">Select a Project</option>
-                     </select>
-					 
-					 <select name="sort" id="role_list" >
-                     <option value="rl" id="selPH" disabled="disabled">Select a Role</option>
-					
-                     </select>
-
-                   </label>
-		   <input type="text" name="hidden_id" id="hdi" hidden></input>
+                        <option value="sp" disabled="disabled" id="tm">Select a Team</option>
+                     </select>   
+                </label><br>
+                
+		   <input type="text" name="hidden_id" id="hdi" hidden />
 		
 		<input type="button" name="previous" class="previous action-button" value="Previous" />
 		  <input type="submit" name="submit" class="next action-button" value="Save" />

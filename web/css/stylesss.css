@@ -3504,6 +3504,28 @@ font-family:"Segoe UI";
 font-weight:bold;
 color:#777;
 }
+
+
+ #teams{
+ 
+  width: 340px;
+   height: 35px;
+   overflow: hidden;
+   background: url(../img/down_arrow_select.jpg) no-repeat right #ddd;
+   border: 1px solid #ccc;
+   margin-left:0px;
+  }
+  #tm{
+      font-weight: bold;
+  }
+  #spj{
+      font-weight: bold;
+  }
+label#teams{
+font-family:"Segoe UI";
+font-weight:bold;
+color:#777;
+}
 #Priority{
  
   width: 500px;
@@ -3516,6 +3538,26 @@ color:#777;
   }
 
 label.lblPriority{
+font-family:"Segoe UI";
+font-weight:bold;
+color:#777;
+}
+
+
+
+#Salary{
+ 
+  width: 500px;
+   height: 45px;
+   overflow: hidden;
+   background: url(../img/down_arrow_select.jpg) no-repeat right #ddd;
+   border: 1px solid #ccc;
+   margin-bottom:5px;
+  }
+  #sl{
+      font-weight: bold; 
+  }
+label#Salary{
 font-family:"Segoe UI";
 font-weight:bold;
 color:#777;
@@ -4884,10 +4926,13 @@ background-color:#006633;}
    border: 1px solid #ccc;
   }
   #role_list{
-   width: 340px;
-   height: 36px;
+   width: 500px;
+   height: 45px;
    overflow: hidden;
    background: url(../img/down_arrow_select.jpg) no-repeat right #ddd;
    border: 1px solid #ccc;
+   margin-bottom: 5px;
   }
-
+  .sr{
+      font-weight:bold;
+  }

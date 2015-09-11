@@ -276,9 +276,12 @@ function projects()
               
              $('#loader_handle').css("display","none");
 			 	var pplan=JSON.parse(responseJson);
+				var projectnum=0;
 	$('.numberofprojects').text("("+pplan.length+")");
 	for(i=0;i<pplan.length;i++)
 	{
+		if(document.getElementById("search").value=='')
+		{
 	
 	$('.project_box').clone().insertBefore('div.project_box').attr('class',i).css({'margin-top':'2px','height':'65px','display':'block','border':'1px solid #ccc','background-color':'white'});
 	$('.'+i).find(".projectname").text(pplan[i].ProjectName).css({'color':'#333','font-size':'20px'});
@@ -288,6 +291,27 @@ function projects()
 	$('.'+i).find(".enddate").text(pplan[i].EndDate);
 	//$('#'+i).find(".view_proj").attr("value",pplan[i].ProjectID);
 	$('.'+i).find("#clickme").attr('value',pplan[i].ProjectID);
+	$('.'+i).css('display','block');
+		}
+	else
+	{
+		if(pplan[i].ProjectName.toLowerCase().startsWith(document.getElementById("search").value)==true||pplan[i].ProjectName.toUpperCase().startsWith(document.getElementById("search").value)==true)
+						{
+							projectnum++;
+							$('.'+i).css('display','block');
+							$('.numberofprojects').text("("+projectnum+")");
+                                                        //$("#Noresult").css('display','none');
+                                                      
+							}
+							  else
+							    {
+                                                                //$("#Noresult").css('display','block');  
+                                                              //$("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
+									$('.'+i).css('display','none');
+									
+									}//end inner if statement
+		
+		}
 	
 	}
 	$('.project_box').remove();
@@ -1339,6 +1363,7 @@ prodata.reverse();
 //end sort list//
        $("#Noresult").html('');        
 $('#allpro').text("("+prodata.length+")");
+var availablenames=0;
 	 $('#loader_handle').css("display","none");
 	for(i=0;i<prodata.length;i++)
 	{
@@ -1349,26 +1374,29 @@ $('#allpro').text("("+prodata.length+")");
 		$('.'+i).find('#foo').attr('value',prodata[i].EmployeeID);
 		$('.'+i).find('#name').text(prodata[i].Name+'   '+prodata[i].Surname+" -");
 		$('.'+i).find('#roletype').text(prodata[i].Role);
-               
-		$('.'+i).find('.employee_descript').text(prodata[i].Qualification);
+        $('.'+i).find('.employee_descript').text(prodata[i].Qualification);
 		$('.'+i).css('display','block');
-                  $("#Noresult").css('display','none');  
+                  $("#Noresults").css('display','none');  
 		}//end if empty
 					else
 					{
+						$("#Noresults").css('display','none');
                                              
-						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)===true)
+						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)==true||prodata[i].Name.toUpperCase().startsWith(document.getElementById("search").value)==true)
 						{
+							availablenames++;
 							$('.'+i).css('display','block');
-                                                        $("#Noresult").css('display','none');
+							$('#allpro').text("("+availablenames+")");
+						
+                                                        //$("#Noresult").css('display','none');
                                                       
 							}
 							  else
 							    {
-                                                                $("#Noresult").css('display','block');  
-                                                              $("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
+                                                                //$("#Noresult").css('display','block');  
+                                                             // $("#Noresults").text("No results for "+'"'+document.getElementById("search").value).css('display','block');
 									$('.'+i).css('display','none');
-									}
+									}//end inner if statement
 						}
 				
 		}
@@ -1376,6 +1404,7 @@ $('#allpro').text("("+prodata.length+")");
 			$('.'+i).remove();
 			}
 		$('.profile_box').remove();
+		
    
        
             }
@@ -1392,11 +1421,29 @@ $('#allpro').text("("+prodata.length+")");
 
 
 function list_proj(){
-var pdata = JSON.parse(projectss);
+    var pdata = JSON.parse(projectss);
 var hdata = JSON.parse(NewHeatMap);
+    
+  $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "Login"
+            },
+            success : function(responsejson) {
+               
+    $('#nameAndSurname').text(responsejson);
+   
+     $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "ProjectChooser"
+            },
+            success : function(responseJson) {
+               pdata = JSON.parse(responseJson);   
+
 //alert(pdata.length);
 for(var r =0; r<pdata.length;r++){
-    $("#pro_list").append('<option value="Date" onClick="onClic(this.id)" id='+pdata[r].ProjectID+'>'+pdata[r].ProjectName+'</option>');
+    $("#pro_list").append('<option value="Date" onClick="FilterTeamsByProj(this.id)" id='+pdata[r].ProjectID+'>'+pdata[r].ProjectName+'</option>');
     
 }
 
@@ -1441,11 +1488,19 @@ for(a=0;a<hdata.length;a++)
 		
 		checknodublicate++;
 		}
-
+          
+            }
+        });
+        
+            }
+        });
+            
+            
 }
-
-function onClic(id){
+    //filter teams base on the clicked project
+function FilterTeamsByProj(id){
    $("#hdi").attr("value",id);
+  
 	}
 	
 	
