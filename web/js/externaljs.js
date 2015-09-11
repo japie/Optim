@@ -1357,7 +1357,7 @@ $('#allpro').text("("+prodata.length+")");
 					else
 					{
                                              
-						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)===true||prodata[i].Role.toLowerCase().startsWith(document.getElementById("search").value)===true||prodata[i].Qualification.toLowerCase().startsWith(document.getElementById("search").value)===true||prodata[i].Surname.toLowerCase().startsWith(document.getElementById("search").value)===true)
+						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)===true)
 						{
 							$('.'+i).css('display','block');
                                                         $("#Noresult").css('display','none');
