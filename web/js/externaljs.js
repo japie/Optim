@@ -279,6 +279,8 @@ function projects()
 	$('.numberofprojects').text("("+pplan.length+")");
 	for(i=0;i<pplan.length;i++)
 	{
+		if(document.getElementById("search").value=='')
+		{
 	
 	$('.project_box').clone().insertBefore('div.project_box').attr('class',i).css({'margin-top':'2px','height':'65px','display':'block','border':'1px solid #ccc','background-color':'white'});
 	$('.'+i).find(".projectname").text(pplan[i].ProjectName).css({'color':'#333','font-size':'20px'});
@@ -288,6 +290,22 @@ function projects()
 	$('.'+i).find(".enddate").text(pplan[i].EndDate);
 	//$('#'+i).find(".view_proj").attr("value",pplan[i].ProjectID);
 	$('.'+i).find("#clickme").attr('value',pplan[i].ProjectID);
+		}//end if
+		
+		else {
+							if(pplan[i].ProjectName.toLowerCase().startsWith(document.getElementById("search").value)===true)
+						{
+							$('.'+i).css('display','block');
+                                                        $("#Noresult").css('display','none');
+                                                      
+							}
+							  else
+							    {
+                                                              //  $("#Noresult").css('display','block');  
+                                                              //$("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
+									$('.'+i).css('display','none');
+									}
+						}
 	
 	}
 	$('.project_box').remove();
