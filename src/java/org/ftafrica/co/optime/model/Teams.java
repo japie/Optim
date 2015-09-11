@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Teams.findRolesByProjID", query = "SELECT DISTINCT t.roleid.roleId FROM Teams t WHERE t.projectid.projectid = :proj"),
     @NamedQuery(name = "Teams.findRolesByProjIdAndRole", query = "SELECT  t.employeeid FROM Teams t WHERE t.projectid.projectid = :proj AND t.roleid.roleId = :roleId"),
     @NamedQuery(name = "Teams.findByProjID2", query = "SELECT t FROM Teams t WHERE t.projectid.projectid = :projId"),
+    @NamedQuery(name = "Teams.findByProjID3", query = "SELECT Distinct t.teamrecordid FROM Teams t WHERE t.projectid.projectid = :projId"),
     @NamedQuery(name = "Teams.findDistinctFunctions", query = "SELECT DISTINCT t.phases FROM Teams t WHERE t.levels =:level AND t.projectid.projectid = :proj"),
     @NamedQuery(name = "Teams.findProjectTeamByLevelsAndPhases", query = "SELECT t FROM Teams t WHERE t.levels= :levels AND t.phases =:phases"),
     @NamedQuery(name = "Teams.findByTeamsid", query = "SELECT t FROM Teams t WHERE t.teamsid = :teamsid"),

@@ -1392,11 +1392,29 @@ $('#allpro').text("("+prodata.length+")");
 
 
 function list_proj(){
-var pdata = JSON.parse(projectss);
+   // var pdata = JSON.parse(projectss);
 var hdata = JSON.parse(NewHeatMap);
+    
+  $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "Login"
+            },
+            success : function(responsejson) {
+               
+    $('#nameAndSurname').text(responsejson);
+   
+     $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "ProjectChooser"
+            },
+            success : function(responseJson) {
+               pdata = JSON.parse(responseJson);   
+
 //alert(pdata.length);
 for(var r =0; r<pdata.length;r++){
-    $("#pro_list").append('<option value="Date" onClick="onClic(this.id)" id='+pdata[r].ProjectID+'>'+pdata[r].ProjectName+'</option>');
+    $("#pro_list").append('<option value="Date" onClick="FilterTeamsByProj(this.id)" id='+pdata[r].ProjectID+'>'+pdata[r].ProjectName+'</option>');
     
 }
 
@@ -1441,11 +1459,40 @@ for(a=0;a<hdata.length;a++)
 		
 		checknodublicate++;
 		}
-
+          
+            }
+        });
+        
+            }
+        });
+            
+            
 }
+    //filter teams base on the clicked project
+function FilterTeamsByProj(id){
+  var f = $("#hdi").attr("value",id);
+   
+   
+     $("#teams").text("Loading Teams.");
+     $.ajax({
+            url : 'TeamServlet',
+            data : { 
+                par : id
+                
+            },
+            success : function(responseJson) {
+            var   teamlist = JSON.parse(responseJson);
+             var  i = teamlist.length-1;
+           
+             for(var x =0 ; x < teamlist.length-1;x++){
+              $("#teams").append("<option value='sp'>"+teamlist[x]+"</option>");
+          
+             }
 
-function onClic(id){
-   $("#hdi").attr("value",id);
+            }
+        });
+            
+       
 	}
 	
 	
