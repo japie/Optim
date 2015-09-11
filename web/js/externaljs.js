@@ -291,6 +291,7 @@ function projects()
 	$('.'+i).find(".enddate").text(pplan[i].EndDate);
 	//$('#'+i).find(".view_proj").attr("value",pplan[i].ProjectID);
 	$('.'+i).find("#clickme").attr('value',pplan[i].ProjectID);
+<<<<<<< HEAD
 	$('.'+i).css('display','block');
 		}
 	else
@@ -301,10 +302,20 @@ function projects()
 							$('.'+i).css('display','block');
 							$('.numberofprojects').text("("+projectnum+")");
                                                         //$("#Noresult").css('display','none');
+=======
+		}//end if
+		
+		else {
+							if(pplan[i].ProjectName.toLowerCase().startsWith(document.getElementById("search").value)===true)
+						{
+							$('.'+i).css('display','block');
+                                                        $("#Noresult").css('display','none');
+>>>>>>> origin/master
                                                       
 							}
 							  else
 							    {
+<<<<<<< HEAD
                                                                 //$("#Noresult").css('display','block');  
                                                               //$("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
 									$('.'+i).css('display','none');
@@ -312,6 +323,13 @@ function projects()
 									}//end inner if statement
 		
 		}
+=======
+                                                              //  $("#Noresult").css('display','block');  
+                                                              //$("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
+									$('.'+i).css('display','none');
+									}
+						}
+>>>>>>> origin/master
 	
 	}
 	$('.project_box').remove();
@@ -1376,25 +1394,41 @@ var availablenames=0;
 		$('.'+i).find('#roletype').text(prodata[i].Role);
         $('.'+i).find('.employee_descript').text(prodata[i].Qualification);
 		$('.'+i).css('display','block');
+<<<<<<< HEAD
                   $("#Noresults").css('display','none');  
+=======
+                  //$("#Noresult").css('display','none');  
+>>>>>>> origin/master
 		}//end if empty
 					else
 					{
 						$("#Noresults").css('display','none');
                                              
+<<<<<<< HEAD
 						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)==true||prodata[i].Name.toUpperCase().startsWith(document.getElementById("search").value)==true)
+=======
+						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)==true)
+>>>>>>> origin/master
 						{
 							availablenames++;
 							$('.'+i).css('display','block');
+<<<<<<< HEAD
 							$('#allpro').text("("+availablenames+")");
 						
+=======
+>>>>>>> origin/master
                                                         //$("#Noresult").css('display','none');
                                                       
 							}
 							  else
 							    {
+<<<<<<< HEAD
                                                                 //$("#Noresult").css('display','block');  
                                                              // $("#Noresults").text("No results for "+'"'+document.getElementById("search").value).css('display','block');
+=======
+                                                               // $("#Noresult").css('display','block');  
+                                                              //$("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
+>>>>>>> origin/master
 									$('.'+i).css('display','none');
 									}//end inner if statement
 						}
