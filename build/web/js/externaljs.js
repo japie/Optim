@@ -1020,7 +1020,7 @@ function displaysuccessors()
     var parameters = location.search.substring(1).split("&");
     var temp = parameters[0].split("=");
     l = unescape(temp[1]);
-	
+	alert("ffff");
 	$('.current_role').text(sdata.JobTitle);
 	$('.experience').text(sdata.ExpirienceAndQualification);
 	$('#prede_name').text(sdata.PredeccessorNameAndSurname);
