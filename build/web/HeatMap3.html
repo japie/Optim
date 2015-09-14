@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+
+ <script src="js/canvasjs.min.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/Chart.js"></script>
+<script src="Json/HeatMapall.json"></script>
+<script src="Json/SideView.json"></script>
+
+<script src="js/morris-0.4.1.min.js"></script>
+<script src="js/raphael-min.js"></script>
+<script src="js/externaljs.js"></script>
+<script src="js///ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/tableExport.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script src="js/html2canvas.js"></script>
+<script src="js/jspdf/libs/sprintf.js"></script>
+<script src="js/jspdf/jspdf.js"></script>
+<script src="js/jspdf/libs/base64.js"></script>
+<script src="js/jquery.velocity.min.js"></script>
+
+
+
+
+
+<script>
+
+ 
+function hide(){
+document.getElementById("content_area").style.visibility = "hidden";
+}
+
+
+
+ 
+function show(id){
+    
+ 
+ $.ajax({
+            url : 'MainControllerServlet',
+            data : { 
+                check : "SideView",
+                accessId:id
+            },
+            success : function(responseJson) {
+              
+             
+var pers=JSON.parse(responseJson);
+injectJSon(pers);
+  $('#perName').text('');
+	 $('#perSurname').text('');
+	 $('.usage').text('');
+	 $('#comments').text('');
+          $('#Role').text('');
+          $('#t_success').text('');
+          $('#t_success').text("No Successor");
+         
+  if ($( ".heatwrap_cap" ).width() <= 700) {
+			
+		}else{
+ 
+   var myWidth = $(".heatwrap_cap").width();
+     
+   for( var x =0; x< pers.length;x++){
+      
+ if(pers[x].EmployeeId === id){
+	    $('#perName').append(pers[x].Name);
+		$('#perSurname').append(pers[x].Surname);
+		$('#comments').append(pers[x].CommentNotice);
+                 $('#emp_id').attr("value",pers[x].EmployeeId);
+                $('#Role').append(pers[x].Role);
+		   var count = 0; var util = 0;
+		 for( var i =0 ; i< pers[x].EmployeesProjects.length;i++){
+		     count = count + 1; 
+			  util +=pers[x].EmployeesProjects[i].utilization;
+		 }
+		  var percentage  =  (util/count);
+		   $('.usage').append(percentage+"%");
+		     
+			  var count = 0;
+		   for( var  t=0 ; t< pers[x].EmployeeSuccessors.length;t++){
+                       
+		 if(pers[x].EmployeeSuccessors.length === 0){
+                     
+                       
+                 }else{
+                      $('#t_success').html('');
+                     $('#t_success').append("Successor( "+pers[x].EmployeeSuccessors.length+" )");
+                 }
+	 $('.succ_list').append('<div class="jstDiv"><div class="person"><img src="img/green_proflie.png" style="width:30px;height:30px;"><div id='+pers[x].EmployeeSuccessors[t].EmployeeId+' class="suc_names"   onClick="show(this.id)"><span id="name">'+pers[x].EmployeeSuccessors[t].Name+'</span><span id="surname">'+pers[x].EmployeeSuccessors[t].Surname+'</span></div><div class="rate"><div class="inner_rate_div"><Span>Match</span><Span>'+pers[x].EmployeeSuccessors[t].SkillMatch+"%"+'</span></div></div></div></div>');	
+	   
+	    if(pers[x].EmployeeSuccessors[t].SkillMatch < 100){
+		   $(".inner_rate_div").css("background-color","#FF7B28");
+		} else {
+		   $(".inner_rate_div").css("background-color","#009900");
+		} 
+		    
+		   }  
+		   
+		      /* $('.tfa').css('visibility','hidden');*/
+		  $( ".heatwrap_cap" ).animate({width:600}, 200);
+		
+		     $('.tfa').css('vertical-align','top');
+			 $('.tfa').css('display','inline-block');
+			 $('.tfa').css('visibility','visible');
+			 $('.tfa').css('width','23%');
+			 // $('.heatmap_table tr').css('font-size','0.4em');
+			 // $('#ht .lev a').css('font-size','0.7em');
+                          
+			   //$('.heatmap_table tr td').css('font-size','0.4em');
+		  $('#ht *').css('font-size','0.7em');
+		   $('.tfa').css('background-color','#FFFFFF');
+		   
+		}else{
+		   // person does not exist.
+		     /* $('.tfa').css('visibility','hidden');*/
+		  $( ".heatwrap_cap" ).animate({width:600}, 200);
+		
+		     $('.tfa').css('vertical-align','top');
+			 $('.tfa').css('display','inline-block');
+			 $('.tfa').css('visibility','visible');
+			 $('.tfa').css('width','23%');
+			//  $('.heatmap_table tr').css('font-size','0.9em');
+			 // $('#ht tr').css('font-size','0.9em');
+			 //  $('.heatmap_table tr td').css('font-size','0.9em');
+			 // $('#ht *').css('font-size','0.9em');
+		   $('.tfa').css('background-color','#FFFFFF');
+		}
+   
+   }	 
+		
+		}
+		
+      
+   
+   
+       
+            }
+    });
+   
+}
+
+
+$(function(){
+ 
+    $('.close').click(function(){
+	     $('.succ_list').text('');
+		  $('.heatwrap_cap').css('width','100%'); 
+			// $('.heatmap_table .tooltip').css('font-size','1.4em');
+			 $('.tfa').css('visibility','hidden');
+ 			// $('#ht td').css('font-size','1.3em');
+                        // $('#ht td a').css('font-size','0.8em');
+			 $('#ht *').css('font-size','.9em');
+			// $('.heatwrap_cap tr').css('font-size','1em');
+		   $('.tfa').css('background-color','#000000');
+	
+	});
+
+});
+
+
+
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+  
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+
+</script>
+
+
+<title>Optim </title>
+
+<style>
+/*-----------------------profile menu ------------------ */
+
+.onclick-menu {
+    position: relative;
+    display: inline-block;
+	
+
+}
+
+.onclick-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-menu:focus .menu:after{
+ border-bottom:10px solid  #2393E4;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:14em;
+}
+
+.onclick-menu:focus .onclick-menu-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-menu-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+
+
+/*----------------------end of profile menu ----*/
+
+.onclick-msg-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.onclick-msg-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-msg-menu:focus .noti-menu:after{
+ border-bottom:10px solid  #333;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:15em;
+}
+
+.onclick-msg-menu:focus .onclick-noti-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-noti-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+
+/* --------end of notification menu ------ */
+
+.onclick-inbox-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.onclick-inbox-menu:focus {
+    /* clicking on img should toggle the menu */
+    pointer-events: none;
+}
+
+.onclick-inbox-menu:focus .inbox-menu:after{
+ border-bottom:10px solid  #333;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    width:0;
+    height:0;
+    content:"";
+    position:relative;
+	top:-10px;
+	bottom:80;
+	
+    left:16em;
+}
+
+.onclick-inbox-menu:focus .onclick-inbox-content {
+    /*  opacity is 1 in opened state (see below) */
+    opacity: 1;
+    visibility: visible;
+    
+    /* don't let pointer-events affect descendant elements */
+    pointer-events: auto;
+}
+.onclick-inbox-content {
+    position: absolute;
+    z-index: 1;
+
+    /* use opacity to fake immediate toggle */
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.5s;
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span id="nameAndSurname"> </Span>		    
+			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" id="opt_container">
+      
+	     <div  id="heatID" class="content_area"  >
+		
+	
+		  <div class="capacityPlan_bar">
+		 
+		  <Span class="cap_header">Heat Map</Span>
+		  
+				  
+				
+				 
+		  </div>
+		<div class="heatwrap_cap"><!--content starts here...-->
+		
+		  <div class="heat_board">
+		   
+		      <section class ="notes">
+ 
+ <div class="mxm">
+   <div class="red"></div><a>Urgent</a>
+	<div class="amber"></div><a>Needs Attention</a>
+	<div class="green"></div><a>On Track</a>
+
+	
+	<div class="h_dwnload" >
+						 
+						  <label class="downOpt">
+  <select name="sort" class="dwnload" >
+   <option value="download"  style="cursor:default; color:#999999; border-bottom:1px solid #666666;" disabled="disabled">Download </option>
+ 
+  <option value="Excel" onClick ="$('#ht').tableExport({tableName:'heatmap_table',type:'excel',escape:'false'});">Excel</option>
+  <option value="txt" onClick ="$('#ht').tableExport({tableName:'heatmap_table',type:'txt',escape:'false'});">Text</option>
+ 
+ </select>
+</label>
+						 </div>
+
+	<div  onClick="printDiv('heatID')" class="print"><span>Print</span></div>
+    
+	</div>
+	
+ </section>
+  <div id="loader_handle"></div>
+<section class ="hmap-table">
+  <div class="tabbing" id="tabs">
+        <ul class="tabs_1">
+    <li onClick=" allLevl()">
+        <input type="radio" checked name="tabs" id="tab">
+        
+        <label for="tab" id="alltap">All</label>
+        <div id="tab-content_1" class="tab_content">
+		
+	       <table  align="center" width="100%" id="ht" class="heatmap_table">		  
+		   <tr id="roless" class="roles"><td></td></tr>
+			</table>
+        </div>
+    </li>
+	
+	
+	
+</ul>
+ </div>  
+</section>
+
+
+   			
+  
+ 
+				
+				
+		  </div>
+		     <div class="tfa">
+			 
+	   <div class="close_banner">
+			 <div class="close_btn"><Span class="close">X</span></div>
+			 </div>
+			 
+		<div class="wraper">
+			<div class="top">
+			 <div class="uImg">
+			 <img src="img/no-profile-male-img.gif" style="width:40px;height:40px;">
+			 </div>
+			 <div class="uNames"><Span id="perName">Movic</Span> <Span id="perSurname">Abrahim</Span></div>
+		    </div>
+			  <div class="mng_btn"></div>
+		</div>
+
+
+			 <div class="doughnut"  align="center">
+			 <Span class="wf">Workforce</span>
+			
+			<div id="util">
+ <Span class="usage">Overall Usage:0%</span>
+ <span class="usage1">Utilization</span>
+</div>
+		       <div id="donut"></div>
+  
+  <script id="jsbin-javascript">
+  
+/*
+ * Play with this code and it'll update in the panel opposite.
+ *
+ * Why not try some of the options above?
+ */
+
+function injectJSon(mypersondata){
+ var i; var data ='';var data1 ='';var fullp = '';
+  for(i=0; i<mypersondata[0].EmployeesProjects.length;i++){
+      var proj_util = 0;
+      if(mypersondata[0].EmployeesProjects.length === 1){
+            data = {label:mypersondata[0].EmployeesProjects[i].name, value: mypersondata[0].EmployeesProjects[i].utilization };
+          if( mypersondata[0].EmployeesProjects[i].utilization<100){
+            proj_util = 100 - mypersondata[0].EmployeesProjects[i].utilization;
+           data1 = {label:"Not Utilized", value: proj_util};
+	   
+          }
+	 
+	  // fullp = data+","+ data1;
+            }
+          
+      }
+  
+Morris.Donut({
+  element: 'donut',
+  colors:['#FC011B','#00FF00'],
+  data:[data1,data]
+
+});
+}
+</script>
+
+
+
+	         </div>
+			 
+			  <div class="notice">
+			    <fieldset class="leg_notice" style="text-align:right;">
+			<legend><b>Notice:</b></legend>
+			<p id="comments">I Quit... :-) !!!</p>
+			
+ 		 </fieldset>
+                              <a >Role: </a><a id="Role"></a>
+		
+		  
+		  
+			 </div>
+		
+		<div class="pop_successors">
+		<div class="sucpop_banner">
+                    <img src="img/images.png" alt="*" style="width:15px;height:15px; margin-left:10px;">
+                <a id="t_success">Successors</a>
+		  </div>
+		 <div class="succ_list">
+		 
+		   
+		   
+		   
+		   
+	   
+		 </div>
+		 
+		
+                </div> 
+                  <form action="ProfileView.html" method="GET">      
+                <div  class="view_prof">
+                     <input type="text" id="emp_id" name="#?"  hidden/>
+                    <input type="submit" name="View full profile" value="View full profile">
+                </div> 
+                        </form>
+                     </div>
+                   
+	 </div>  
+	 
+	   
+ 
+ 
+		
+				 </div>   <!--this div wraps the positions list dont touch-->
+		 
+		 
+		 
+		    
+				</div>  <!---end of content area--->
+				 
+				 
+				 
+	
+	</div>
+	<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		
+		 
+		  
+		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap3.html" style="font-weight:bold">Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue">
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organogram.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+	
+</div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
+
+</body>
+</html>

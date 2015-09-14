@@ -1,0 +1,394 @@
+<!DOCTYPE>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="json/Hiring.json"></script>
+<script src="js/externaljs.js"></script>
+<script src="js/Hiring.json"></script>
+
+<script src="js///ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/tableExport.js"></script>
+<script src="js/jquery.base64.js"></script>
+<script src="js/html2canvas.js"></script>
+<script src="js/jspdf/libs/sprintf.js"></script>
+<script src="js/jspdf/jspdf.js"></script>
+<script src="js/jspdf/libs/base64.js"></script>
+<script src="js/jquery.velocity.min.js"></script>
+<script>
+
+$(document).ready(function(){
+    $("img.tooltip").click(function(){
+        $("div.guide_glass").slideToggle(100);
+    });
+});
+
+</script>
+<script>
+
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim</title>
+
+
+
+
+</head>
+
+<body onLoad="hiringp()">
+
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+	  </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span id="nameAndSurname"> </Span>			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>		</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>		   </li>
+		</ul>
+	</nav>
+	   </div>
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>	    </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>		   </li>
+		</ul>
+	 </nav>
+	 </div>
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" align="center"  id="opt_container">
+      
+	     <div id="hiringWrapper"  class="content_area" >
+		 
+		     
+			 <div class="hire_head">
+			   <img src="img/shakeit.png" style="width:35px;height:20px; margin-left:10px;">
+			 <Span>Hiring Plan</span></div>
+					 
+			  <div  class="hire_tabular">
+                              <div id="loader_handle" style="margin-bottom:10px;"></div> 
+			 <div class="hire_ruler" id="hrular">
+
+		 
+	<div>	   
+  <label class="downOpt">
+  <select name="sort" class="dwnload" >
+   <option value="download"  style="cursor:default; color:#999999; border-bottom:1px solid #666666;" disabled="disabled">Download </option>
+ 
+  <option value="Excel" onClick ="$('#tableID').tableExport({tableName:'hire_table',type:'excel',escape:'false'});">Excel</option>
+  <option value="text" onClick ="$('#tableID').tableExport({tableName:'hire_table',type:'txt',escape:'false'});">Text</option>
+ 
+ </select>
+</label>
+</label>
+</div>
+	        		      <div onClick="printDiv('hiringWrapper')" class="print" ><span>Print</span></div>
+						  
+					 </div> 
+					 
+					 
+	
+				 
+		<div id="tab">
+			   <table   id="tableID" align="center" width="100%" class="hire_table">
+		   <tr>
+			<th >Roles</th>
+			<th>Levels</th>
+			<th >Project</th>
+			<th >Experience</th>
+			<th>Emp.Type</th>		
+			<th>Hiring</th>
+			<th >Hired</th>
+			<th >Rejected</th>
+		  </th>
+		  </tr>
+			</table>
+				
+		</div>	  
+			  </div>
+			 
+			  
+			 <div id="executed">
+			  <div id="headexe"> 
+			  <img src="img/puzzle-512.png" width="25"  height="25"/>
+			 
+			   <span>Executed Plans</span>
+			    </div>
+			   <div id="segmants" class="rula">
+			  <div id="date_exe"> 
+			    <span>Date</span>
+				</div>
+			  <div id="progress">
+			    <span>Progress</span>
+				</div>
+			<div id="status">
+			    <span>Status</span>
+				</div>
+				
+			 <!-- <progress value="10" max="100"></progress>-->
+			   </div>
+			 <div class="Plan" id="plan1">
+			   <div class="date">
+			      <a>03/Aug/2015</a>
+			   </div>
+			   <div class="completion">
+			     <progress value="60" max="100" id="plan0_progress"></progress>  
+				
+			   </div>
+			   <div class="stats">
+			      <a>Status report about the plan</a>
+			   </div>
+			   </div><!---end all plans--->
+			   
+			   <div class="Plan" id="plan1">
+			   <div class="date">
+			      <a>19/May/2015</a>
+			   </div>
+			   <div class="completion">
+                               <progress value="20" max="100" id="plan1_progress"  style="color: greenyellow;"></progress>
+                             
+				 
+			   </div>
+			   <div class="stats">
+			      <a>Successful</a>
+			   </div>
+			   </div><!---end all plans--->
+			   
+			   <div class="Plan" id="plan1">
+			   <div class="date">
+			      <a>23/Jun/2015</a>
+			   </div>
+			   <div class="completion">
+			     <progress value="89" max="100" id="plan2_progress"></progress> 
+				 
+			   </div>
+			   <div class="stats">
+			      <a>Waiting for contract sign off.</a>
+			   </div>
+			   </div><!---end all plans--->
+			   
+			   <div class="Plan" id="plan1">
+			   <div class="date">
+			      <a>04/Aug/2015</a>
+			   </div>
+			   <div class="completion">
+			     <progress value="40" id="plan3_progress" max="100"></progress> 
+				 
+			   </div>
+			   <div class="stats">
+			      <a>Pending...</a>
+			   </div>
+			   </div><!---end all plans--->
+			   
+			 </div>
+			<div class="guidline">
+			
+			   <div id="guide"> <a class="tooltip" href="#"> 
+			   <img src="img/guid.png" width="25"  class="tooltip" style="cursor:pointer" height="20"/>
+			 
+ 				 <span class="classic">Slide in/out to see or hide</span></a>
+			   <Span>Guidelines</Span>			   </div>
+			  <div id="wrap_guides">
+			   <div class="guide_glass">
+			   
+			   <Span>Managing Your Employees</span>  <br/>
+			   <a>What is Your Role? Larger companies often have a dedicated human resources function, but you may act as your small business's only hiring or human resources manager. Learn about the...</a>
+			   </div>
+			    <div class="guide_glass">
+				
+				<Span>Building a Flexible Hiring Strategy</span>  <br/><a>
+				Learn how to build a hiring strategy that incorporates flexible specialized staffing solutions...
+				</a></div>
+				 <div class="guide_glass">
+				  
+				 <Span>Benefits of a Temp-to-Hire Strategy</span>
+				 
+				 <br/>
+				 <a>When you incorporate interim employees into your staffing solutions, it's important to make them feel like part of the team. Learn strategies for doing so...</a>
+				 </div>
+				  <div class="guide_glass">
+				   
+				  <Span>The Costs of a Bad Hire</span>
+				   
+				  <br/>
+				  <a>It's easy for your hiring plans to fall off course when you
+				  make a bad choice in an employee. Discover what is at stake when you bring on an employee who isn't a good fit for the position or the company...</a>
+				  </div>
+			  </div>
+			</div>
+		 </div>
+	</div>
+	
+	
+	
+	
+	
+<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+              
+              
+ 		<li ><a class="item" href="Dashboard.html"style="font-weight:bold">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue"> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap3.html" >Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organogram.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+
+</div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
+</body>
+</html>

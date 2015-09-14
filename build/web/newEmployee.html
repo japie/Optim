@@ -1,0 +1,371 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/stylesss.css">
+<link type="text/css" rel="stylesheet" href="css/jqUI.css">
+<link type="text/css" rel="stylesheet" href="css/form.css">
+<link type="text/css" rel="stylesheet" href="css/reset.css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="Json/ProjectOverViewDntDel.json"></script>
+<script src="Json/NewHeatMap.json"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+ 
+<script src="js/JqUI.js"></script>
+
+<script src="js/externaljs.js"></script>
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+    $("#datepicker2").datepicker();
+    $("#datepicker3").datepicker();
+    $( "#slider" ).slider();
+    
+    
+    $("#datepicker2").change(function () {
+    var startDate = document.getElementById("datepicker").value;
+    var endDate = document.getElementById("datepicker2").value;
+ 
+    if ((Date.parse(startDate) >= Date.parse(endDate))) {
+        alert("End date should be greater than Start date");
+        document.getElementById("datepicker2").value = "";
+    }
+});
+  });
+  </script>
+
+<script>
+ 
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+
+
+
+</head>
+
+<body  onload="list_proj()">
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span>Jack Daniel</Span>		    
+			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" align="center"  id="opt_container">
+      
+	     <div class="content_area" >
+		    
+				  <!-- multistep form -->
+                                  <form id="msform" method="GET" action="Reg_servlet">
+	<!-- progressbar -->
+	<ul id="progressbar">
+		<li class="active">Personal Details</li>
+		<li>Contact Details</li>
+		<li>Education details</li>
+		<li>Current Position</li>
+		<li>Project Details</li>
+	</ul>
+	<!-- fieldsets -->
+	<fieldset>
+		<h2 class="fs-title">Add new employee Profile</h2>
+		<h3 class="fs-subtitle">Personal Details</h3>
+		<input type="text" name="fname" placeholder="First Names" required="true" />
+		<input type="text" name="lname" placeholder="Last Name" required="true"/>
+		
+		<input type="text" name="id" pattern="\d+" placeholder="Id Number"  required="true"/>
+		<input type="text" name="citizen" placeholder="Citizenship" required="true"/>
+		<input type="text" name="mstatus" placeholder="Marital Status" required="true" />
+		<input type="button" name="next" class="next action-button" value="Next" />
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Contact Details</h2>
+		<h3 class="fs-subtitle">Employee's communication spectrum</h3>
+		<input type="email" name="email" placeholder="Email" required="true"/>
+		<input type="text" name="cellNum" pattern="\d+" placeholder="CellPhone Number" required="true"/>
+		<textarea name="paddress" placeholder="Postal Address" required="true"></textarea>
+		<textarea name="phaddress" placeholder="Physical Address" required="true"></textarea>
+                <input type="areacode" name="areacode" placeholder="Area Code" required="true"/>
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		<input type="button" name="next" class="next action-button" value="Next" />
+	</fieldset>
+      
+	<fieldset>
+		<h2 class="fs-title">Education Details</h2>
+		<h3 class="fs-subtitle">Education background.</h3>
+		<input type="text" name="qual" placeholder="Qualification" required="true" />
+		<input type="text" name="varsity" placeholder="Institution" required="true" />
+        <input type="text"  name="completedY" placeholder="Year Completed, Format i.e 2015-08-23" required="true" id="datepicker3"/>
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		
+                <input type="submit" name="submit" class="next action-button" value="Next" />
+	</fieldset>
+          
+	<fieldset>
+		<h2 class="fs-title">Current Position</h2>
+		<h3 class="fs-subtitle">what the employee is going to be deployed for</h3>
+		
+		<input type="text" name="Cmp" placeholder="Company"  value="Standard Bank"/>
+		<input type="text" name="dpt" placeholder="Department" required="true" />
+		<label>
+
+                     
+					 
+					 <select name="sort" id="role_list" >
+                                             <option value="rl" id="selPH" class="sr" disabled="disabled">Select a Role</option>
+					
+                     </select>
+
+                   </label>
+		<input type="text" name="contract" placeholder="Contract Type" required="true" />
+                <input type="number" name="relE" pattern="[0-9]{2}" placeholder="Relevant Experince" required="true" title="please insert digits eg 4" min="0" max="20"/>
+		<input type="number" name="genE" pattern="[0-9]{2}" placeholder="General Experience" required="true" title="please insert digits eg 4"/>
+		<input type="text" name="levl" placeholder="Level i.e Executive Management" required="true"/>
+		 <label>
+
+					 
+					 <select name="sort" id="Salary" >
+                                             <option value="rl"  disabled="disabled" id="sl">Salary Range</option>
+		     
+                     <option value="rl"  >R100 000 - R150 000</option>
+                     <option value="rl" id="selPH" >R150 000 - R250 000</option>
+                     <option value="rl" id="selPH">R250 000 - R500 000</option>
+		     <option value="rl" id="selPH" >R500 000 - R750 000</option>
+                     <option value="rl" id="selPH">R750 000 - R1 000 000</option>
+                     <option value="rl" id="selPH" >R1 000 000 - R1 500 000</option>
+                     <option value="rl" id="selPH">R1 500 000 - R2 500 000</option>
+
+
+                     
+
+	
+			
+			
+			
+					
+                     </select>
+
+                   </label>
+                <input type="text" name="startD" placeholder="Start Date"  id="datepicker"/>
+		<input type="text" name="endD" placeholder="End Date" id="datepicker2"/>
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		<input type="button" name="next" class="next action-button" value="Next" />
+	</fieldset>
+                   
+	<fieldset>
+		<h2 class="fs-title">Project Details</h2>
+		<h3 class="fs-subtitle"> Allocate Project & Team.</h3>
+                <label>
+                    <select name="sort" id="pro_list" >
+
+                        <option value="sp" disabled="disabled" id="spj">Select a Project</option>
+                     </select>   
+                </label>
+                
+                 <label>
+                    <select name="sort" id="teams" >
+
+                        <option value="sp" disabled="disabled" id="tm">Select a Team</option>
+                     </select>   
+                </label><br>
+<<<<<<< HEAD
+              
+=======
+                
+>>>>>>> origin/master
+		   <input type="text" name="hidden_id" id="hdi" hidden />
+		
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		  <input type="submit" name="submit" class="next action-button" value="Save" />
+	</fieldset>
+  </form>
+		
+		 </div>	
+	   
+	<script src="js/index.js"></script>
+<script src="js/jquery.easing.min.js"></script>	
+			
+	
+	</div>
+<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		
+		
+		  
+		<li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap3.html" >Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html" style="font-weight:bold">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue"> 
+		 
+		<li ><a class="item" href="organogram.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+	
+	<div class="Footer">
+	    g
+	</div>
+
+</div>
+
+</body>
+</html>

@@ -6,23 +6,22 @@
 
 package org.ftafrica.co.optime.controller;
 
-<<<<<<< HEAD
+
 import com.google.gson.Gson;
 import java.io.IOException;
-=======
+
 import java.io.IOException;
 import java.io.PrintWriter;
->>>>>>> origin/master
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
+
 import org.ftafrica.co.optime.bussinesslogic.feeders.TeamBean;
-=======
->>>>>>> origin/master
+
 
 /**
  *
@@ -31,14 +30,12 @@ import org.ftafrica.co.optime.bussinesslogic.feeders.TeamBean;
 @WebServlet(name = "TeamServlet", urlPatterns = {"/TeamServlet"})
 public class TeamServlet extends HttpServlet {
      @EJB
-<<<<<<< HEAD
+
      TeamBean tb;
      
      
      Gson gson = new Gson();
-=======
-     
->>>>>>> origin/master
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -51,9 +48,9 @@ public class TeamServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-<<<<<<< HEAD
+
    response.getWriter().print(gson.toJson(tb.GetTeams(request.getParameter("par"))));
-=======
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -66,7 +63,7 @@ public class TeamServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
->>>>>>> origin/master
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,0 +1,330 @@
+<!DOCTYPE>
+
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+<link type="text/css" rel="stylesheet" href="css/duraStyle.css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/JqUI.js"> </script>
+<script src="js/pBar.js"> </script>
+<script src="js/externaljs.js"> </script>
+<script src="Json/ProjectProfile.json"> </script>
+
+
+<script>
+
+
+
+</script>
+
+<script>
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+		 
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		//  document.getElementById("day").innerHTML = day;	 
+        //  document.getElementById("month").innerHTML = month;
+		//  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+
+
+
+</head>
+
+<body  onLoad="processForm()">
+
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span id="nameAndSurname"> </Span>		    
+			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+
+	<div class="content" style="float: right;" align="center"  id="opt_container">
+      
+	     <div class="content_area" >
+		 
+			 <div class="projView">
+			  <img src="img/plan-512.png" style="width:35px;height:35px; margin-left:10px;">
+			   <a id="projectName">Calypso</a></div>
+			   
+			  <div id="maskSides">
+			 
+			   <div id="LeftView">
+		<div id="thsDiv">
+		<div id="project_head">
+		<div class="maskImg">  
+					  <img src="img/HS12.png" style="width:35px;height:35px;" >
+					  </div>
+					 <div class="Teamplayer">
+					     <span id="pjnames" ></span>
+						 
+						  <span id="PjRole">Project Manager</span>
+					  </div> 
+		</div>
+			<div id="controlDivs">
+			
+			  <div id="prio"><span>Priority</span>
+			    <span id="PrioLevel">High</span>
+			  </div>
+			 </div>
+	     </div>		
+		      
+			  <div id="lvDetails">
+			      <div id="progressBarDiv"><b>
+			<br>
+			<br>
+			<div id="progress_bar" class="ui-progress-bar">
+				<div class="ui-labelTitle" id="progressTitle">
+					
+				</div><!-- .ui-labelStop -->
+				<div class="ui-progressColor"></div><!-- .ui-progressColor -->
+				<div class="ui-progress"></div><!-- .ui-progress -->
+				<div class="ui-label" id="progressDay">
+				</div><!-- .ui-label -->
+				<div class="ui-labelStart" id="progressStartDate">
+				</div><!-- .ui-labelStart -->
+				<div class="ui-labelStop" id="progressStopDate">
+				</div><!-- .ui-labelStop -->
+
+			</div><!-- #progress_bar -->
+			<br>
+			<br></b>
+
+       </div>
+			  </div>   
+			  <div id="wrapLabel">
+						  <div id="Budget_date">
+						    <div id="blurColor"></div>
+						     <span>Budget & Date</span>
+						  </div> 
+						<div id="spaceholder">
+						  <div><span id="proj_status">Project Status: In-Progress</span></div>
+						</div>
+						</div>  
+						<br>
+				<div id="budgetDetails">
+				    
+					<div>
+					<div class="bugdet"><span id="plannedAmount">R0.00</span></div><article>Planned Cost</article>
+					</div>
+					<div>
+					<div class="bugdet"><span id="actualAmount">R0.00</span></div><article>Actual Cost</article>
+					</div>
+					
+					
+					<div>
+					<div class="bugdet"><span id="capacity">0</span></div><article>Allocated Candidates</article>
+					</div>
+					
+					 
+				
+				</div>
+			   </div> <!----end of LV--->
+			   <div id="RightView"><div id="RHead"><span>Team</span></div>
+			   <div id="mask_scroll">
+			      <div id="TeamList"> 
+
+					 <div class="personX" style="border-bottom:1px solid #FFFFFF">
+					  <div class="maskImg">  
+					  <img src="img/emp_pic.png" style="width:30px;height:30px; margin-left: auto;margin-right: auto;" >
+					  </div><br>
+					  <div class="Teamplayer">
+					     <a class="name"></a>
+						  <a id="PlayerRole"></a>
+					  </div>
+				</div>
+					 </div> <!---end of personX Details------>
+					 
+							<div id="addPlayer">
+							 <a href="#"> <img src="img/plus.png" style="width:15px;height:15px;"><span>add a new member</span></a>
+							</div>
+				  </div>
+			      
+			   </div>
+			   
+			   
+			  </div>
+			 
+		 </div>	
+	
+	</div>
+<div class="side_bar" style="float: left;">
+	  <ul class = 'side_bar_list'>
+ 		
+		 <li ><a class="item" href="Dashboard.html">Dashboard</a>
+		<img src="img/pie_chart.png" class="icon" id="dash_icon" style="width:30px;height:30px;">
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		    </li>
+			
+		<li ><a class="item" href="HeatMap3.html" >Heat Map</a>
+		<img src="img/icon_NLG_reporting.png"class="icon"  id="heat_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		  
+		<li ><a class="item" href="profiles.html">Profiles</a>
+		
+		<img src="img/user_group-512.png" class="icon"  id="profile_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="organogram.html">Organogram</a>
+		
+		<img src="img/modeshape-hierarchy.png" class="icon"   id="organo_icon" style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1> 
+		 
+		<li ><a class="item" href="projects.html" style="font-weight:bold">Book of work</a>
+		<img src="img/bow.png" class="icon"  id="book_icon"  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1 style="color: blue"> 	
+		 
+		 	<li ><a class="item" href="Report.html">Reports</a>
+		<img src="img/page_icon.png" class="icon"  id=""  style="width:30px;height:30px;">
+		</li>
+		
+		 <hr align="right" class="line" width="150px"  size=1>
+		 		
+	  </ul>
+	    <a id ="day"> <a id ="month"><a id="year"></a></a></a>
+	  
+	</div>
+
+</div>
+<script>
+    
+    $(document).ready(function(){
+    $("#logout").click(function(){
+        
+		var check= "logout";
+                   
+                 $.get('loginS',{check:check},function(responseText) { 
+                        window.location = responseText;        
+                    });
+
+    });
+    
+});
+</script>
+</body>
+</html>

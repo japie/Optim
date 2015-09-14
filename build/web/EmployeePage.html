@@ -1,0 +1,734 @@
+<!DOCTYPE >
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/emp.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link type="text/css" rel="stylesheet" href="css/JQueryUI.css">
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/externaljs.js"></script>
+<script src="Json/EmployeeProfile.json"></script>
+
+<script src="js/JqUI.js"></script>	
+
+
+
+
+<script>
+  //hide this two functions
+ 
+   $(function() {
+   $("#noti-box").css("display","none");
+    $("#msg-box").css("display","none");
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    } 
+    var today = yyyy+'-'+mm+'-'+dd;
+   
+   
+   
+   $("#datepicker3").datepicker({ dateFormat: 'yy-mm-dd' });
+   
+   //validate when to leave date
+    var whenDate = document.getElementById("datepicker3").value;
+ 	//var d = Date().datepicker({ dateFormat: 'yy-mm-dd' });
+   $(".action-button").click(function () {
+      if(Date.parse(today)>Date.parse(whenDate)){
+	    
+	    alert("Ops the date you've picked is in the past.");
+		whenDate ='';
+		document.getElementById("datepicker3").value = '';
+	  }else{
+	   whenDate = document.getElementById("datepicker3").value;
+	   
+	  }
+   });
+   
+    
+	$("#datepicker2").datepicker({ dateFormat: 'yy-mm-dd' });
+   $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }); //start...
+        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).bind("change",function(){
+            var minValue = $(this).val();
+            minValue = $.datepicker.parseDate("yy-mm-dd", minValue);
+            minValue.setDate(minValue.getDate()+1);
+            $("#datepicker2").datepicker( "option", "minDate", minValue );
+        });
+    
+  
+    $("#datepicker2").change(function () {
+    var startDate = document.getElementById("datepicker").value;
+    var endDate = document.getElementById("datepicker2").value;
+ 
+    if ((Date.parse(startDate) >= Date.parse(endDate))) {
+        alert("To date should be greater than From date");
+        document.getElementById("datepicker2").value = "";
+    }
+});
+  });
+
+
+function getTypeId(id){
+
+	  if(id =="other"){
+		 document.getElementById('specify').style.visibility = 'visible';
+		 $('#specify').css("display","inline");
+		 }else if(id =="rs" || id =="sck"){
+		 $("#datepicker").css('display','none');
+		  $('#specify').css("display","none");
+		 $("#datepicker2").css('display','none');
+		 $("#datepicker3").css('display','inline-block');
+		 }else{
+		  document.getElementById('specify').style.visibility = 'hidden';
+		 $('#specify').css("display","none");
+		 $("#datepicker").css('display','inline-block');
+		 $("#datepicker2").css('display','inline-block');
+		  $("#datepicker3").css('display','none');
+		 
+		 }
+		
+}
+
+
+$(function() {
+
+  //--------switch div from sent to pending function
+         $( "#pending" ).click(function(){
+		$("#pending_items").css('display','block');
+		 $("#notice_items").css('display','none');  
+		  $("#pending").css('color','#0066FF');
+		  $("#sent").css('color','#999');
+		 });
+   
+   //--------switch div from pending to sent function
+         $( "#sent" ).click(function(){
+		$("#pending_items").css('display','none');
+		 $("#notice_items").css('display','block');  
+		  $("#sent").css('color','#0066FF');
+		  $("#pending").css('color','#999');
+		 });
+   
+   
+
+  //--------switch div function
+     // new notice page creation
+         $( "#new_notice" ).click(function(){
+		  //this are for page/display switch
+		$(".content_area").css('display','none');
+		  $("#notice_historyPage").css('display','none');
+		 $("#newNotice").css('display','block');
+		  $("#alerts").css('display','none');
+		 // this are for current submenu clicked
+		 $("#alert").css('border-left','3px solid #999'); 
+		   $("#new_notice").css('border-left','3px solid #006699');
+		   $("#inbox").css('border-left','3px solid #999');
+		   $("#notice_history").css('border-left','3px solid #999');
+		 });
+		 
+		 //notice history display
+ 		 $( "#notice_history" ).click(function(){
+		  //this are for page/display switch
+		   $(".content_area").css('display','none');
+		   $("#notice_historyPage").css('display','block');
+		    $("#newNotice").css('display','none');
+			 $("#alerts").css('display','none');
+			// this are for current submenu clicked
+			$("#alert").css('border-left','3px solid #999');
+			$("#notice_history").css('border-left','3px solid #006699');
+		   $("#inbox").css('border-left','3px solid #999');
+		   $("#new_notice").css('border-left','3px solid #999');
+			
+		 });
+		 
+		 
+		 //alerts display
+		  $( "#alert" ).click(function(){
+		     //this are for page/display switch
+		     $(".content_area").css('display','none');
+		     $("#notice_historyPage").css('display','none');
+		     $("#newNotice").css('display','none');
+			 $("#alerts").css('display','block');
+			
+			// this are for current submenu clicked
+			$("#alert").css('border-left','3px solid #006699');
+		    $("#notice_history").css('border-left','3px solid #999');
+		    $("#inbox").css('border-left','3px solid #999');
+		    $("#new_notice").css('border-left','3px solid #999');
+			
+		 });
+		 
+		 
+		 
+		 // inbox page display
+		 $( "#inbox" ).click(function(){
+		   //this are for page/display switch
+		 $(".content_area").css('display','block');
+		  $("#notice_historyPage").css('display','none');
+		 $("#newNotice").css('display','none');
+		 
+		 
+		// this are for current submenu clicked 
+		  $("#alert").css('border-left','3px solid #999');
+		  $("#inbox").css('border-left','3px solid #006699');
+		   $("#notice_history").css('border-left','3px solid #999');
+		   $("#new_notice").css('border-left','3px solid #999');
+		
+		 });
+		 
+		
+});
+  
+function sideFunc(id){
+    if(id ==="msg"){
+	   $("#msg").css("border-left","3px solid #999999");
+	   $("#notifications").css("border-left","3px solid #333");
+	   $("#organo:hover").css("border-left","1px solid #999");
+	   $("#organo").css("border-left","1px solid #333");
+	   $("#notifications:hover").css("border-left","1px solid #999");
+	   $("#msg_submenu").css("display","none");
+	   $("#notis_submenu").css("display","block");
+	   
+	   	}else if(id ==="notifications"){
+	    $("#notifications").css("border-left","3px solid #999999");
+	   $("#msg").css("border-left","3px solid #333");
+	   $("#organo").css("border-left","1px solid #333");
+	   $("#msg:hover").css("border-left","1px solid #999");
+	   $("#msg_submenu").css("display","block");
+	     $("#notis_submenu").css("display","none");
+	   
+	}else{
+	 $("#organo").css("border-left","3px solid #999999");
+	   $("#msg").css("border-left","3px solid #333");
+	   $("#notifications").css("border-left","1px solid #333");
+	   $("#msg:hover").css("border-left","3px solid #333");
+	}
+	
+	  
+
+
+}
+
+
+
+function enableFields(){
+    
+	$('input').prop( "disabled", false );
+	$('input').css('background','#0066FF');
+	$('input').css('color','#fff');
+        
+	$('input').css('border','1px solid #333');
+	$('#sta_act').prop("disabled",true);
+        $('#sta_act').css('border','none');
+        $('#sta_act').css('background','none');
+}
+
+$(function() {
+    
+    var  myDivWidth = $( ".side_bar" ).width();
+	 var  myDivWidth2 = $( ".content" ).width();
+	 var  ruler = $( ".line" ).width();
+	 var d = new Date();
+      var n = d.getFullYear(); 
+	  var day = d.getDate(); 
+	 
+	var objDate = new Date(),
+    locale = "en-us",
+    month = objDate.toLocaleString(locale, { month: "short" });
+
+
+
+  
+    $( "#nav_btn" ).click(function() {
+        if ($( ".side_bar" ).width() <= 70) {
+            $( ".side_bar" ).animate({width: myDivWidth}, 200); 
+			$( ".content" ).animate({width: myDivWidth2}, 200);
+			 $(".item").animate({fontSize:'1.2em'}, 25);
+			  $(".line").animate({width:ruler}, 25);
+			   $(".line").animate({margin:30}, 25);
+			   
+		  document.getElementById("month").innerHTML = "";
+		  document.getElementById("year").innerHTML = "";
+		  document.getElementById("day").innerHTML = "";
+				    
+        } else {            
+            $( ".side_bar" ).animate({width:60}, 200);
+			$( ".content" ).animate({width: 1307}, 200); 
+			 $(".item").animate({fontSize:0}, 25);
+			 $(".line").animate({width:50}, 25);
+			 $(".line").animate({margin:5}, 25);
+		   
+		  document.getElementById("day").innerHTML = day;	 
+          document.getElementById("month").innerHTML = month;
+		  document.getElementById("year").innerHTML = n;
+		  
+			
+          
+        }     
+    });     
+
+});
+
+</script>
+<title>Optim </title>
+
+
+
+
+</head>
+
+<body onLoad="populatedataonprofile()">
+  
+<div id="wrapper">
+    <div class="banner">
+	 
+	 <div class="menu-box">
+	    <img src="img/show_men.png" id="nav_btn" class="menu_img"/>	
+	
+		 </div>
+	 
+	  <div class="logo-box" > 
+<img src="img/Optime22.gif" id="optim_icon"   class="optim_icon"/> 
+
+	 </div>
+	  <div id="profile-box" tabindex="0" class="onclick-menu">
+	     <img src="img/no-profile-male-img.gif"   id="profile" class="user_icon"/>
+		 
+		 
+		   <div class="popover">
+		    <nav class="menu">
+			
+			<ul class="onclick-menu-content">
+			<div class="user_placeholder">
+			 <img src="img/no-profile-male-img.gif"  id="pop_img_profile"  style="width:60px;height:60px;">	
+			 <div class="username">
+			 	<Span>Jack Daniel</Span>		    
+			  </div>					    
+			  </div>
+		   
+				
+				<li class="current-item" id="account"><span>Account Settings</span></li>
+				<li class="current-item" id="help"><span>Help</span></li>
+				<li class="current-item" id="logout"><span>Logout</span></li>
+			</ul>
+			</nav>
+	</div>
+	 </div>
+	     
+	  <div id="noti-box"  tabindex="0" class="onclick-msg-menu">
+	  
+	   <div class="warning_count" >
+		    <span>0</span>
+			</div>
+
+	      <img src="img/12233.png" id="flag" class="noti_icon" />
+		  
+		<div class="noti-popover">
+	 <nav class="noti-menu">		
+		<ul class="onclick-noti-content">
+		   <li class="noti-header"><span>Notifications(0)</span></li>
+		   <li class="noti-content">
+		       <span> No Notifications...</span>
+		   </li>
+		  
+		</ul>
+		
+	</nav>
+	   </div>
+ 
+        
+
+	 </div>
+	  <div id="msg-box" tabindex="0" class="onclick-inbox-menu">
+	   <div class="msg_count">
+		    <span>0</span>
+		 </div>
+	      <img src="img/mail.png" id="notification" class="msg_icon"  >
+     
+
+        <div class="inbox-popover">
+	 <nav class="inbox-menu">    
+	  			
+			<ul class="onclick-inbox-content">
+		   <li class="inbox-header"><span>Messages(0)</span></li>
+		   <li class="inbox-content">
+		       <span> No Messages...</span>
+		   </li>
+		  
+		</ul>
+	 </nav>
+	 </div>
+
+	 </div>
+	 
+  </div>
+  
+     
+	<div class="content" style="float: right;"  id="opt_container">
+          
+	  <!---------------new notice page------------------------->	 
+		 <div id="newNotice" >
+		      
+			  <div id="noticePanel">
+			      <section>
+				     <div id="headr">
+					   <header>  Create a new Notice</header>
+					   <span>Place a notice</span>
+					 <div>
+				  </section>
+				  
+				  <section>
+				  <div id="tip">
+				 <p> Your notice will be sent to your manager/supervisor for approval.</p>
+				  </div>
+				  </section>
+				  
+				  <section>
+				  <div id="t_area">
+				     <label class="n_type">
+ 						Notice Type
+                     <select name="n_type" id="note_type" >
+
+                     
+					 
+					
+                     <option value="" id="sck" onClick="getTypeId(this.id)" >Sick</option>
+					 <option value="" id="ber" onClick="getTypeId(this.id)">Bereavement</option>
+					 <option value="" id="pl" onClick="getTypeId(this.id)">Personal Leave</option>
+					 <option value="" id="rs" onClick="getTypeId(this.id)">Resignation</option>
+					 <option value="" id="mp"  onClick="getTypeId(this.id)">Maternity/Paternity</option>
+					 <option value="" id="other" onClick="getTypeId(this.id)">Other</option>
+                     </select>
+                    <input type="text" name="other" placeholder="Specify"  id="specify"/>
+                   </label>
+				   
+				  <textarea name="comment" placeholder="place your comment/reason here..."></textarea><br>
+				  
+				  <input type="text" name="fromDate" placeholder="From ?"  id="datepicker"/>
+				  <input type="text" name="toDate" placeholder="To ?" id="datepicker2"/>
+				   <input type="text" name="whenDate" placeholder="when are you leaving?" id="datepicker3"/>
+				  <div id="sub_btn">
+				  <input type="submit" name="submit" class="action-button" value="Done">
+				      </div>
+				  </div>
+				   </section>
+			  </div>
+		      
+		 </div>
+		 
+	 <!---------------alerts page starts here page------------------>	 
+	 
+	    <div id="alerts">
+		  <div id="alert_head"> 
+		     <header>Alerts(1)</header>
+			</div> 
+			 <section>
+			   <div id="tip">
+			    <p> Below are alerts partaining your training plan, hiring plan or succession plan.</p>
+			   </div>
+			 </section>
+			 
+			 <section>
+			    <div id="alert_contentbox">
+				   <!--alert box starts-->
+				     <div class="alert_box">
+						  <div class="alert_tophead">
+							 <header>Training Plan alert</header>
+							  <span>Sent:2015-07-05 @13:42pm</span>
+						  </div>
+						  <div class="situation">
+						     <p>You must complete Java EE training, you've 20days left.</p>
+						  </div>
+						  
+						  <div class="a_btns">
+						     <input type="submit" name="submit" class="action-button" value="Delete"> 
+						  </div>
+					</div>	  <!--alert box ends--> 
+					
+					
+					
+					
+					<div class="alert_box">
+						  <div class="alert_tophead">
+							 <header>Hiring Plan alert</header>
+							  <span>Sent:2015-07-05 @13:42pm</span>
+						  </div>
+						  <div class="situation">
+						     <p>You're being shortlisted for Executive management.</p>
+						  </div>
+						  
+						  <div class="a_btns">
+						     <input type="submit" name="submit" class="action-button" value="Delete"> 
+						  </div>
+					</div>	  <!--alert box ends--> 
+					
+					
+					
+					
+					<div class="alert_box">
+						  <div class="alert_tophead">
+							 <header>Succession Plan alert</header>
+							  <span>Sent:2015-07-05 @13:42pm</span>
+						  </div>
+						  <div class="situation">
+						     <p>Hey you're being recommended to take over on Sugendran's position.</p>
+						  </div>
+						  
+						  <div class="a_btns">
+						     <input type="submit" name="submit" class="action-button" value="Delete"> 
+						  </div>
+					</div>	  <!--alert box ends--> 
+								
+					
+				</div>
+			 </section>
+			 
+			 
+		</div>
+		 <!---------------alerts page ends here page------------------> 
+	  <!---------------notice history page------------------>
+	     <div id="notice_historyPage">
+		 <div id="notis_head"> 
+		     <header>Notice History</header>
+			</div> 
+		 <section>
+		 <div id="statuses">
+		    <span id="sent">Approved(0)</span>
+			<span id="pending">Pending(0)</span>
+			</div>
+		
+		 </section>
+		 <section>
+		 <div id="notice_line">
+		  </div>
+		 </section>
+		 
+		  <section>
+		 <div id="notice_items"> <!-----notice area start here--------->
+		     <div class="notice-item">
+			        <div id="sentto">
+					    <header>Sent to Kamel</header>
+						<span>Sent: 2015-09-01 @15:04pm</span>
+					  </div>
+					 <div id="notic_info">
+					    <span>Resignation: Err I Got bodadasdred...</span>
+					 </div> 
+					 
+					 <div id="btn_del">
+					   <input type="submit" name="submit" value="Delete">
+					 </div>   
+					  
+			  </div> <!--item box ends here--->
+		  
+			 
+		  </div>  <!--master div--->
+		  
+		  
+		  
+		  
+		  
+		  
+		  <div id="pending_items"> <!-----pending items area start here--------->
+		     
+			 <div class="notice-item">
+			        <div id="sentto">
+					    <header>Sent to Kamel</header>
+						<span>Sent: 2015-09-01 @15:04pm</span>
+					  </div>
+					 <div id="notic_info">
+					    <span>Resignation: Err I Got bored...</span>
+					 </div> 
+					 
+					 <div id="btn_del">
+					   <input type="submit" name="submit" value="Delete">
+					 </div>   
+					  
+			  </div> <!--item box ends here--->	
+			  
+			  
+			  <div class="notice-item">
+			        <div id="sentto">
+					    <header>Sent to Kamel</header>
+						<span>Sent: 2015-09-01 @15:04pm</span>
+					  </div>
+					 <div id="notic_info">
+					    <span>Resignation: Err I Got bored...</span>
+					 </div> 
+					 
+					 <div id="btn_del">
+					   <input type="submit" name="submit" value="Delete">
+					 </div>   
+					  
+			  </div> <!--item box ends here--->	
+			  
+			  
+			  <div class="notice-item">
+			        <div id="sentto">
+					    <header>Sent to Kamel</header>
+						<span>Sent: 2015-09-01 @15:04pm</span>
+					  </div>
+					 <div id="notic_info">
+					    <span>Resignation: Err I Got bored...</span>
+					 </div> 
+					 
+					 <div id="btn_del">
+					   <input type="submit" name="submit" value="Delete">
+					 </div>   
+					  
+			  </div> <!--item box ends here--->	
+			  
+			  
+			  
+			  <div class="notice-item">
+			        <div id="sentto">
+					    <header>Sent to Kamel</header>
+						<span>Sent: 2015-09-01 @15:04pm</span>
+					  </div>
+					 <div id="notic_info">
+					    <span>Resignation: Err I Got bored...</span>
+					 </div> 
+					 
+					 <div id="btn_del">
+					   <input type="submit" name="submit" value="Delete">
+					 </div>   
+					  
+			  </div> <!--item box ends here--->	
+			  
+			  
+			  
+			  <div class="notice-item">
+			        <div id="sentto">
+					    <header>Sent to Kamel</header>
+						<span>Sent: 2015-09-01 @15:04pm</span>
+					  </div>
+					 <div id="notic_info">
+					    <span>Resignation: Err I Got bored...</span>
+					 </div> 
+					 
+					 <div id="btn_del">
+					   <input type="submit" name="submit" value="Delete">
+					 </div>   
+					  
+			  </div> <!--item box ends here--->	
+			  
+			  
+			  
+			  <div class="notice-item">
+			        <div id="sentto">
+					    <header>Sent to Kamel</header>
+						<span>Sent: 2015-09-01 @15:04pm</span>
+					  </div>
+					 <div id="notic_info">
+					    <span>Resignation: Err I Got bored...</span>
+					 </div> 
+					 
+					 <div id="btn_del">
+					   <input type="submit" name="submit" value="Delete">
+					 </div>   
+					  
+			  </div> <!--item box ends here--->	 
+		  </div>  <!--master div--->
+		  	  
+		 </section>
+		 </div>
+	  
+	  
+	  <!---------------inbox page------------------------->
+	     <div class="content_area" >
+		   
+		  <div id="inbox_pane"><span> Inbox (0)</span></div>
+		  <div id="wrap_msgs">
+	        
+			
+			<div class="msgs">
+               <div class="sender"><span>Sender Name: Dept</span><span class="date_sent">Sent: 2015-05-16 @ 15:30pm</span></div>
+			   <div class="msg_context"><span>Hi there, You are fired...</span></div>
+			   <div class="buttons">
+			   <form method="get" action="#"> 
+			     <input type="submit" name="" class="del_msg" value="">
+				 
+				 </form>
+			   </div>
+			</div>
+			
+			
+			<div class="msgs">
+               <div class="sender"><span>Kamel: Calypso</span><span class="date_sent">Sent: 2015-09-01 @ 11:30am</span></div>
+			   <div class="msg_context"><span>Hi there, Your notice has approved</span></div>
+			   <div class="buttons">
+			   <form method="get" action="#"> 
+			     <input type="submit" name="" class="del_msg" value="">
+				 
+				 </form>
+			   </div>
+			</div>
+			
+		</div>	<!--end of msg wrap---->
+		 </div>	
+	
+	</div>
+	<div class="side_bar" style="float: left;">
+	      <div id="wrap_1">  
+					
+					<div id="notifications" onClick="sideFunc(this.id)">
+						
+					</div>
+					<div id="msg" onClick="sideFunc(this.id)">
+						
+					</div>
+					<div id="organo" onClick="sideFunc(this.id)">
+						
+					</div>
+		</div>	
+		
+		
+	        <div id="wrap_2">
+			
+			<div id="msg_submenu">
+			   <div id="notis">
+						<Span>Messages Panel</Span>
+						
+					</div>
+					<div class="notis_items" id="new_notice">
+					<span>Create New Notice</span>
+					</div>
+					
+					<div class="notis_items" id="inbox">
+					<span>Inbox (0)</span>
+					</div>
+			</div>	<!--msg_submenu ends-->	
+					
+			  <div id="notis_submenu">
+			    <div id="notice_head">
+			      <span>Notifications</span>
+				  </div>
+				  
+				  <div class="notis_items" id="notice_history" >
+					<span>Notice history (0)</span>
+					</div>
+					
+					 
+				  <div class="notis_items" id="alert" >
+					<span>Alerts (0)</span>
+				</div>
+				  
+				</div>	
+			</div><!--wrap2 cap-->
+	</div>
+	<div class="Footer">
+	    g
+	</div>
+
+</div>
+
+</body>
+</html>

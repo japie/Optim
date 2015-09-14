@@ -288,12 +288,13 @@ function projects()
 	$('.'+i).find(".snotify").text(pplan[i].ProjectPhases);
 	$('.'+i).find(".notify").text(pplan[i].Status);
 	$('.'+i).find(".enddate").text(pplan[i].EndDate);
-	//$('#'+i).find(".view_proj").attr("value",pplan[i].ProjectID);
+	$('.'+i).css('display','block');
 	$('.'+i).find("#clickme").attr('value',pplan[i].ProjectID);
+	
 		}//end if
 		
 		else {
-							if(pplan[i].ProjectName.toLowerCase().startsWith(document.getElementById("search").value)===true)
+							if(pplan[i].ProjectName.toLowerCase().startsWith(document.getElementById("search").value.toLowerCase())===true)
 						{
 							$('.'+i).css('display','block');
                                                         $("#Noresult").css('display','none');
@@ -1375,7 +1376,7 @@ $('#allpro').text("("+prodata.length+")");
 					else
 					{
                                              
-						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)==true)
+						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)===true||prodata[i].Name.toUpperCase().startsWith(document.getElementById("search").value)===true)
 						{
 							$('.'+i).css('display','block');
                                                         //$("#Noresult").css('display','none');

@@ -10,10 +10,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-<<<<<<< HEAD
 import org.ftafrica.co.optime.Helper.projects.TeamsList;
-=======
->>>>>>> origin/master
+
 import org.ftafrica.co.optime.model.Teams;
 
 /**
@@ -27,7 +25,7 @@ public class TeamBean {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
-<<<<<<< HEAD
+
     public List<Teams> GetTeams(String ProjId){
            List<Teams> tmlist = em.createNamedQuery("Teams.findByProjID3",Teams.class).setParameter("projId", ProjId).getResultList();
               TeamsList tl = new TeamsList();
@@ -38,7 +36,5 @@ public class TeamBean {
              
            return tmlist;
     } 
-=======
-    
->>>>>>> origin/master
+
 }
