@@ -11,7 +11,7 @@ import org.ftafrica.co.optime.model.Roles;
 import org.ftafrica.co.optime.model.SuccessionComments;
 import org.ftafrica.co.optime.model.SuccessionDetails;
 
-@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2015-09-14T11:11:18")
+@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2015-09-14T11:18:04")
 @StaticMetamodel(Succession.class)
 public class Succession_ { 
 
