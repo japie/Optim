@@ -7,7 +7,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import org.ftafrica.co.optime.model.Task1A;
 
-@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2015-09-14T10:06:11")
+@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2015-09-14T10:54:29")
 @StaticMetamodel(Projects.class)
 public class Projects_ { 
 

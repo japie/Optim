@@ -993,7 +993,7 @@ function printDiv(divName) {
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXX successor display XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX//
 function displaysuccessors()
 {
-	
+	alert("fffff");
 	
 	    $.ajax({
             url : 'MainControllerServlet',
@@ -1004,10 +1004,9 @@ function displaysuccessors()
                
     $('#nameAndSurname').text(responsejson);
     
-    var parameters = location.search.substring(1).split("&");//
+    var parameters = location.search.substring(1).split("&");
     var temp = parameters[0].split("=");
     l = unescape(temp[1]);
-    
      $.ajax({
             url : 'MainControllerServlet',
             data : { 
@@ -1021,7 +1020,6 @@ function displaysuccessors()
     var parameters = location.search.substring(1).split("&");
     var temp = parameters[0].split("=");
     l = unescape(temp[1]);
-    
 	$('.current_role').text(sdata.JobTitle);
 	$('.experience').text(sdata.ExpirienceAndQualification);
 	$('#prede_name').text(sdata.PredeccessorNameAndSurname);
@@ -1376,7 +1374,7 @@ $('#allpro').text("("+prodata.length+")");
 					else
 					{
                                              
-						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value)===true||prodata[i].Name.toUpperCase().startsWith(document.getElementById("search").value)===true)
+						if(prodata[i].Name.toLowerCase().startsWith(document.getElementById("search").value.toLowerCase())===true)
 						{
 							$('.'+i).css('display','block');
                                                         //$("#Noresult").css('display','none');

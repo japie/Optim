@@ -16,7 +16,7 @@ import org.ftafrica.co.optime.model.Teams;
 import org.ftafrica.co.optime.model.TrainingPlan;
 import org.ftafrica.co.optime.model.Work;
 
-@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2015-09-14T10:06:11")
+@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2015-09-14T10:54:29")
 @StaticMetamodel(Employees.class)
 public class Employees_ { 
 
