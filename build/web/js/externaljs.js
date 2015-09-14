@@ -993,7 +993,7 @@ function printDiv(divName) {
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXX successor display XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX//
 function displaysuccessors()
 {
-	alert("fffff");
+
 	
 	    $.ajax({
             url : 'MainControllerServlet',

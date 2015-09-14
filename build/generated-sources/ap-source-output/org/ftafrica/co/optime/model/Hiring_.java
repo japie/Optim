@@ -7,7 +7,7 @@ import org.ftafrica.co.optime.model.Employees;
 import org.ftafrica.co.optime.model.Projects;
 import org.ftafrica.co.optime.model.Roles;
 
-@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2015-09-14T10:54:29")
+@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2015-09-14T11:11:18")
 @StaticMetamodel(Hiring.class)
 public class Hiring_ { 
 
