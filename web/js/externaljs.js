@@ -1234,6 +1234,7 @@ var pplan=JSON.parse(responseJson);
     l = unescape(temp[1]);
 
 	$('.numberofprojects').text(pplan.length);
+	xxx
 	for(i=0;i<pplan.length;i++)
 	{
 	
