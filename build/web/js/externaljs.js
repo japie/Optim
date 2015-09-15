@@ -1,4 +1,5 @@
 // JavaScript Document
+
 function GetCellValues() {
         var table = document.getElementById('ht');
         for (var r = 0, n = table.rows.length; r < n; r++) {
@@ -11,10 +12,11 @@ function GetCellValues() {
             }
         }
     }
+	
+successtypevar;
 function ff()
 {
-	
-	
+alert(window.successtypevar);	
 	    $.ajax({
             url : 'MainControllerServlet',
             data : { 
@@ -78,6 +80,9 @@ mydata.reverse();
 	var totalleaving=0,totalroles=0;
 	for(var i=0;i<mydata.length;i++)
 	{
+		if(document.getElementById("search").value=='')
+		{
+		
 		if(mydata[i].NoticeType=='Notice')
 		{
 	$('.outline_roles').clone().insertBefore('div.outline_roles').attr('class',i).css({'margin-top':'30px','background-color':'white'});
@@ -88,6 +93,7 @@ mydata.reverse();
 	$('.'+i).find(".posted_date").text(mydata[i].PostDate);
 	$('.'+i).find(".role_status").css('background-color','#FFC200');
 	$('.'+i).find("#view_personss").attr('value',mydata[i].ID);
+	$('.'+i).css('display','block');
 	totalleaving++;
 	if(i==mydata.length-1)
 	{$('.outline_roles').remove();}
@@ -102,10 +108,30 @@ $('.outline_roles').clone().insertBefore('div.outline_roles').attr('class',i).cs
 	$('.'+i).find(".posted_date").text(mydata[i].PostDate);
 	$('.'+i).find(".role_status").css('background-color','red');
 	$('.'+i).find("#view_personss").attr('value',mydata[i].ID);
+	$('.'+i).css('display','block');
 	totalroles++;
 	if(i==mydata.length-1)
 	{$('.outline_roles').remove();}
 	}
+	
+		}
+		else
+		{
+			
+							if(mydata[i].Heading.toLowerCase().startsWith(document.getElementById("search").value.toLowerCase())===true)
+						{
+							$('.'+i).css('display','block');
+                                                        //$("#Noresult").css('display','none');
+                                                      
+							}
+							  else
+							    {
+                                                              //  $("#Noresult").css('display','block');  
+                                                              //$("#Noresult").text("No results for "+'"'+document.getElementById("search").value+'"');
+									$('.'+i).css('display','none');
+									}
+			
+			}
 	
 	
 	}// end main for loop
@@ -1014,9 +1040,9 @@ function displaysuccessors()
 				accessId : l
             },
             success : function(responseJson) {
-              // data = responseJson;
+               
              
-			 var sdata=JSON.parse(responseJson);
+	var sdata=JSON.parse(responseJson);
     var parameters = location.search.substring(1).split("&");
     var temp = parameters[0].split("=");
     l = unescape(temp[1]);
@@ -1203,7 +1229,11 @@ var capdata = JSON.parse(responseJson);
              
 var pplan=JSON.parse(responseJson);
 	
-        
+           var parameters = location.search.substring(1).split("&");//
+    var temp = parameters[0].split("=");
+    l = unescape(temp[1]);
+	alert(l);
+	window.successtypevar='helo';
 	$('.numberofprojects').text(pplan.length);
 	for(i=0;i<pplan.length;i++)
 	{
@@ -1361,7 +1391,6 @@ $('#allpro').text("("+prodata.length+")");
 	{
 		if(document.getElementById("search").value=='')
 		{
-	    //alert("ggg");
 		$('.profile_box').clone().insertBefore('div.profile_box').attr('class',i).css({'background-color':'white','-moz-animation':'fadein 2s','margin-bottom':'3px','height':'98%'});
 		$('.'+i).find('#foo').attr('value',prodata[i].EmployeeID);
 		$('.'+i).find('#name').text(prodata[i].Name+'   '+prodata[i].Surname+" -");

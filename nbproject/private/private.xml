@@ -4,9 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/solomonm/Documents/GitHub/optim/web/js/externaljs.js</file>
+            <file>file:/C:/Users/solomonm/Documents/GitHub/optim/src/java/org/ftafrica/co/optime/bussinesslogic/feeders/SuccessionBean.java</file>
             <file>file:/C:/Users/solomonm/Documents/GitHub/optim/web/index.html</file>
             <file>file:/C:/Users/solomonm/Documents/GitHub/optim/src/java/org/ftafrica/co/optime/controller/TeamServlet.java</file>
             <file>file:/C:/Users/solomonm/Documents/GitHub/optim/src/java/org/ftafrica/co/optime/bussinesslogic/feeders/TeamBean.java</file>
+            <file>file:/C:/Users/solomonm/Documents/GitHub/optim/src/java/org/ftafrica/co/optime/controller/MainControllerServlet.java</file>
         </group>
     </open-files>
 </project-private>
