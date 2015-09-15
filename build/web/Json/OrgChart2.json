@@ -1,0 +1,58 @@
+﻿{"id":2,
+"title":"Organogram",
+"root":
+
+{"id":"1","title":"Head of GMT","EmpName":"Sugendran ","EmpSurname":"Naidoo","children":[
+{"id":"10","EmpName":"Kemal","EmpSurname":"Moosa","title":"Head of Development","children":[
+{"id":"18","EmpName":"Micheal","EmpSurname":"Cass","title":"Developer Head(ROA)","children":[
+{"id":"Empl120","EmpName":"Luya","EmpSurname":"Le Van","title":"Developer"},
+{"id":"CHS33","EmpName":"Vhutshilo","EmpSurname":"Mufhadi","title":"Developer"},
+{"id":"Empl111","EmpName":"Luyanda","EmpSurname":"Seatlholo","title":"Developer"},
+{"id":"Empl123","EmpName":"Bane","EmpSurname":"Nogeman","title":"Developer"}]},
+{"id":"19","EmpName":"Yuveshan","EmpSurname":"Pilay","title":"System Arhitect"},
+{"id":"2","EmpName":"Rudi","EmpSurname":"Kruger","title":"Developer Head(SA)","children":[
+{"id":"21","EmpName":"Samandah","EmpSurname":"Naiker","title":"Developer"},
+{"id":"22","EmpName":"Palabadi","EmpSurname":"Ramaphoko","title":"Developer"},
+{"id":"Empl125","EmpName":"Taparia","EmpSurname":"Avinash","title":"Developer"},
+{"id":"Empl130","EmpName":"Maphuti","EmpSurname":"Mathekga","title":"Developer"}]},
+{"id":"42","EmpName":"Martin","EmpSurname":"Rakabopa","title":"Business Analyst"},
+{"id":"43","EmpName":"Dominic","EmpSurname":"Mnisi","title":"Business Analyst"},
+{"id":"44","EmpName":"Marc","EmpSurname":"Moses","title":"Business Analyst"},
+{"id":"45","EmpName":"Mathew ","EmpSurname":"Jardine","title":"Business Analyst"},
+{"id":"46","EmpName":"Maria ","EmpSurname":"Makgato","title":"Business Analyst"},
+{"id":"47","EmpName":"L","EmpSurname":"Malatjie","title":"Business Analyst"},
+{"id":"48","EmpName":"Lu","EmpSurname":"Naran","title":"Business Analyst"},
+{"id":"7","EmpName":"Luy","EmpSurname":"Pumlomo","title":"Business Analyst"},
+{"id":"8","EmpName":"Luyan","EmpSurname":"Rampitseng","title":"Business Analyst"},
+{"id":"9","EmpName":"Christopher","EmpSurname":"Barret","title":"Business Analyst"}]},
+{"id":"11","EmpName":"Magdallena","EmpSurname":"Van Bilijon","title":"Administrator"},
+{"id":"12","EmpName":"Elize","EmpSurname":"Van der Schyff","title":"Manager : Delivery"},
+{"id":"13","EmpName":"Lizl","EmpSurname":"Steck","title":"Manager : Support","children":[
+{"id":"20","EmpName":"Gideon","EmpSurname":"Rossouw","title":"Manager : Support","children":[
+{"id":"3","EmpName":"Mmati","EmpSurname":"Mokitimi","title":"Manager : Support","children":[
+{"id":"23","EmpName":"Njabulo","EmpSurname":"Ngwenya","title":"Support Analyst"},
+{"id":"24","EmpName":"Jeevan","EmpSurname":"Tolimali","title":"Support Analyst"},
+{"id":"25","EmpName":"Zanele","EmpSurname":"Mpanza","title":"Support Analyst"},
+{"id":"26","EmpName":"Sashalee","EmpSurname":"Kuni","title":"Support Analyst"},
+{"id":"27","EmpName":"Ntokozo ","EmpSurname":"Mathunjwa","title":"Support Analyst"},
+{"id":"28","EmpName":"Sukesh","EmpSurname":"Alugoori","title":"Support Analyst"},
+{"id":"29","EmpName":"Jonathan","EmpSurname":"Korobela","title":"Support Analyst"},
+{"id":"30","EmpName":"Faith ","EmpSurname":"Tahwa","title":"Support Analyst"}]},
+{"id":"4","EmpName":"Nicholas","EmpSurname":"Mentor","title":"Manager : Support","children":[
+{"id":"31","EmpName":"Ian","EmpSurname":"Macindoe","title":"Support Analyst Level 2"},
+{"id":"32","EmpName":"Karen","EmpSurname":"Potter","title":"Support Analyst Level 2"},
+{"id":"33","EmpName":"Po-Ting","EmpSurname":"Hsu","title":"Support Analyst Level 2"},
+{"id":"34","EmpName":"Sapna","EmpSurname":"Vallabh","title":"Support Analyst Level 2"},
+{"id":"35","EmpName":"Karen","EmpSurname":"Portter","title":"Support Analyst Level 2"}]}]}]},
+{"id":"14","EmpName":"Pierre","EmpSurname":"Oosthuizen","title":"Manager : ROA Delivery"},
+{"id":"15","EmpName":"Vishay","EmpSurname":"Sogreem","title":"Manager : Testing","children":[
+{"id":"5","EmpName":"Zarina Bibi","EmpSurname":"Ismail","title":"Manager : Testing","children":[
+{"id":"38","EmpName":"Sandrasen","EmpSurname":"Govender","title":"Senior Test Analyst(SA)"},
+{"id":"36","EmpName":"Luphoko","EmpSurname":"Olwethu","title":"Test Analyst"},
+{"id":"37","EmpName":"Deepak","EmpSurname":"Thomas","title":"Test Analyst"}]},
+{"id":"6","EmpName":"Harrsha ","EmpSurname":"Jivan","title":"Test Analyst","children":[
+{"id":"39","EmpName":"Suveer","EmpSurname":"Sewpal","title":"Test Analyst"},
+{"id":"40","EmpName":"Siyabonga","EmpSurname":"Mthiyane","title":"Test Analyst"},
+{"id":"41","EmpName":"Goodlet","EmpSurname":"Marodi","title":"Test Analyst"}]}]},
+{"id":"16","EmpName":"Bakim","EmpSurname":"Bhatt","title":"Finance"},
+{"id":"17","EmpName":"Perreira","EmpSurname":"Marcia","title":"Manager : Delivery"}]}}

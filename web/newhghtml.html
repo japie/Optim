@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<meta charset="utf-8">
+<meta name="description" content="Optim">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link type="text/css" rel="stylesheet" href="css/stylesss.css">
+<link type="text/css" rel="stylesheet" href="css/jqUI.css">
+<link type="text/css" rel="stylesheet" href="css/form.css">
+<link type="text/css" rel="stylesheet" href="css/reset.css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="Json/ProjectOverViewDntDel.json"></script>
+<script src="Json/NewHeatMap.json"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+ 
+<script src="js/JqUI.js"></script>
+
+<script src="js/externaljs.js"></script>
+
+<>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+       
+		    
+				  <!-- multistep form -->
+                                  <form id="msform" method="GET" action="Reg_servlet">
+	<!-- progressbar -->
+	<ul id="progressbar">
+		<li class="active">Personal Details</li>
+		<li>Contact Details</li>
+		<li>Education details</li>
+		<li>Current Position</li>
+		<li>Project Details</li>
+	</ul>
+	<!-- fieldsets -->
+	<fieldset id="Emppersonal">
+		<h2 class="fs-title">Add new employee Profile</h2>
+		<h3 class="fs-subtitle">Personal Details</h3>
+		<input type="text" name="fname" placeholder="First Names" required="true" />
+		<input type="text" name="lname" placeholder="Last Name" required="true"/>
+		
+		<input type="text" name="id" pattern="\d+" placeholder="Id Number"  required="true"/>
+		<input type="text" name="citizen" placeholder="Citizenship" required="true"/>
+		<input type="text" name="mstatus" placeholder="Marital Status" required="true" />
+		<input type="button" name="next" class="next action-button" value="Next" />
+	</fieldset>
+	<fieldset id="Empcontacts">
+		<h2 class="fs-title">Contact Details</h2>
+		<h3 class="fs-subtitle">Employee's communication spectrum</h3>
+		<input type="email" name="email" placeholder="Email" required="true"/>
+		<input type="text" name="cellNum" pattern="\d+" placeholder="CellPhone Number" required="true"/>
+		<textarea name="paddress" placeholder="Postal Address" required="true"></textarea>
+		<textarea name="phaddress" placeholder="Physical Address" required="true"></textarea>
+                <input type="areacode" name="areacode" placeholder="Area Code" required="true"/>
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		<input type="button" name="next" class="next action-button" value="Next" />
+	</fieldset>
+      
+	<fieldset id="EmpEduaction">
+		<h2 class="fs-title">Education Details</h2>
+		<h3 class="fs-subtitle">Education background.</h3>
+		<input type="text" name="qual" placeholder="Qualification" required="true" />
+		<input type="text" name="varsity" placeholder="Institution" required="true" />
+        <input type="text"  name="completedY" placeholder="Year Completed, Format i.e 2015-08-23" required="true" id="datepicker3"/>
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		
+                <input type="submit" name="submit" class="next action-button" value="Next" />
+	</fieldset>
+          
+	<fieldset id="Empposition">
+		<h2 class="fs-title">Current Position</h2>
+		<h3 class="fs-subtitle">what the employee is going to be deployed for</h3>
+		
+		<input type="text" name="Cmp" placeholder="Company"  value="Standard Bank"/>
+		<input type="text" name="dpt" placeholder="Department" required="true" />
+		<label>
+
+                     
+					 
+					 <select name="sort" id="role_list" >
+                                             <option value="rl" id="selPH" class="sr" disabled="disabled">Select a Role</option>
+					
+                     </select>
+
+                   </label>
+		<input type="text" name="contract" placeholder="Contract Type" required="true" />
+                <input type="number" name="relE" pattern="[0-9]{2}" placeholder="Relevant Experince" required="true" title="please insert digits eg 4" min="0" max="20"/>
+		<input type="number" name="genE" pattern="[0-9]{2}" placeholder="General Experience" required="true" title="please insert digits eg 4"/>
+		<input type="text" name="levl" placeholder="Level i.e Executive Management" required="true"/>
+		 <label>
+
+					 
+					 <select name="sort" id="Salary" >
+                                             <option value="rl"  disabled="disabled" id="sl">Salary Range</option>
+		     
+                     <option value="rl"  >R100 000 - R150 000</option>
+                     <option value="rl" id="selPH" >R150 000 - R250 000</option>
+                     <option value="rl" id="selPH">R250 000 - R500 000</option>
+		     <option value="rl" id="selPH" >R500 000 - R750 000</option>
+                     <option value="rl" id="selPH">R750 000 - R1 000 000</option>
+                     <option value="rl" id="selPH" >R1 000 000 - R1 500 000</option>
+                     <option value="rl" id="selPH">R1 500 000 - R2 500 000</option>
+
+
+                     
+
+	
+			
+			
+			
+					
+                     </select>
+
+                   </label>
+                <input type="text" name="startD" placeholder="Start Date"  id="datepicker"/>
+		<input type="text" name="endD" placeholder="End Date" id="datepicker2"/>
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		<input type="button" name="next" class="next action-button" value="Next" />
+	</fieldset>
+                   
+	<fieldset id="Empproject">
+		<h2 class="fs-title">Project Details</h2>
+		<h3 class="fs-subtitle"> Allocate Project & Team.</h3>
+                <label>
+                    <select name="sort" id="pro_list" >
+
+                        <option value="sp" disabled="disabled" id="spj">Select a Project</option>
+                     </select>   
+                </label>
+                
+                 <label>
+                    <select name="sort" id="teams" >
+
+                        <option value="sp" disabled="disabled" id="tm">Select a Team</option>
+                     </select>   
+                </label><br>
+
+		   <input type="text" name="hidden_id" id="hdi" hidden />
+		
+		<input type="button" name="previous" class="previous action-button" value="Previous" />
+		  <input type="submit" name="submit" class="next action-button" value="Save" />
+	</fieldset>
+  </form>
+		
+		 </div>	
+	   
+<script src="js/index.js"></script>
+<script src="js/jquery.easing.min.js"></script>	
+			
+	
+	
+    </body>
+</html>
