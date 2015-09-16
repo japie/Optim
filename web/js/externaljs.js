@@ -16,7 +16,7 @@ function GetCellValues() {
 successtypevar;
 function ff()
 {
-alert(window.successtypevar);	
+	
 	    $.ajax({
             url : 'MainControllerServlet',
             data : { 
