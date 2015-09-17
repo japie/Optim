@@ -384,7 +384,7 @@ width:80%;
 
 }
 #org_containter{
- background-color:#E0E0E0;
+ background-color:white;
 
 width:85%;
 height:100%;
@@ -409,7 +409,7 @@ display: flex;
 }
 #org_containter #org_title{
 width:auto;
-
+margin-top: -10px;
 height:80px;
 color:#666;
  overflow: hidden;
